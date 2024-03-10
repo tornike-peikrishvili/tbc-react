@@ -6,4 +6,7 @@
   .nav-link {
     @apply font-medium text-gray-100 transition-colors hover:text-gray-300 duration-200;
   }
+  .btn {
+    @apply text-white font-medium px-4 py-1 rounded-lg border-2 hover:text-gray-300 hover:border-gray-300 duration-200;
+  }
 }

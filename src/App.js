@@ -22,9 +22,7 @@ function App() {
             <a href="# " className="nav-link">
               Contact
             </a>
-            <button className="text-white font-medium px-4 py-1 rounded-lg border-2 hover:text-gray-300 hover:border-gray-300 duration-200">
-              Sign in
-            </button>
+            <button className="btn">Sign in</button>
           </nav>
         </div>
       </header>
@@ -40,10 +38,10 @@ function App() {
               </p>
             </div>
             <div className="space-x-4">
-              <button className="h-9 items-center bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 rounded-lg border-black border-2 hover:bg-transparent hover:text-black duration-200">
+              <button className="btn border-black text-white bg-black hover:text-black hover:border-black hover:bg-white">
                 Get Started
               </button>
-              <button className="h-9 items-center bg-white px-4 py-2 text-sm font-medium text-black rounded-lg border-gray-900 border-2 shadow hover:bg-black hover:text-white duration-200">
+              <button className="btn border-black text-black hover:text-white hover:border-black hover:bg-black">
                 Learn More
               </button>
             </div>
@@ -108,13 +106,11 @@ function App() {
             </a>
             <div className="flex space-x-2 pt-2">
               <input
-                className="font-medium px-4 py-1 rounded-lg"
+                className="font-medium px-4 py-1 rounded-lg text-black"
                 placeholder="Enter your email"
                 type="email"
               />
-              <button className="text-white font-medium px-4 py-1 rounded-lg border-2 hover:text-gray-300 hover:border-gray-300 duration-200">
-                Subscribe
-              </button>
+              <button className="btn">Subscribe</button>
             </div>
           </div>
         </div>
