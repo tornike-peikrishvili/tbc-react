@@ -8,8 +8,10 @@ function App() {
   return (
     <div className="h-screen flex flex-col">
       <Header />
-      <Landing />
-      <Blog />
+      <div className="overflow-auto max-h-full">
+        <Landing />
+        <Blog />
+      </div>
       <Footer />
     </div>
   );

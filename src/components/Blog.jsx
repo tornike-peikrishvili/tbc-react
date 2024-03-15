@@ -53,7 +53,7 @@ const blogData = [
 
 function Blog() {
   return (
-    <div className="w-5/6 py-28 mx-auto border-t">
+    <div className="w-5/6 py-10 mx-auto border-t">
       <h2 className="text-3xl text-center pb-10 font-bold tracking-tighter md:text-4xl/tight ">
         Blog
       </h2>

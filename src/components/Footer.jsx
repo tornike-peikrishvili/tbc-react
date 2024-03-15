@@ -2,9 +2,9 @@ import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 function Footer() {
   return (
-    <footer className="h-15 py-6 bg-gray-900 md:px-6">
-      <div className="w-4/5 pb-6 m-auto flex justify-between">
-        <div className="text-gray-300 flex flex-col gap-2">
+    <footer className="py-3 bg-gray-900 md:px-6 mt-auto">
+      <div className="w-4/5 pb-4 m-auto flex justify-between">
+        <div className="text-gray-300 flex flex-col gap-1">
           <p className="text-white text-xl font-medium">Contact</p>
           <a href="# ">Mobile: (+995) 123-456-789</a>
           <a href="# ">Email: XXXXXXX@Gmail.com</a>
@@ -50,7 +50,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <p className="text-xs pt-5 text-center text-gray-50 border-t">
+      <p className="text-xs pt-3 text-center text-gray-50 border-t">
         © 2024 Tornike. All rights reserved.
       </p>
     </footer>
