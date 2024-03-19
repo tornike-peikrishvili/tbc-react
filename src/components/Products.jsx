@@ -61,7 +61,7 @@ const products = [
 
 const ProductsPage = () => {
   return (
-    <div className="w-full pb-8 pt-20 border-t">
+    <div className="w-full pb-8 pt-8 border-t">
       <h1 className="text-3xl font-bold mb-4 text-center">Our Products</h1>
       <div className="w-4/5 m-auto flex flex-wrap justify-between">
         <div className="w-full lg:w-1/5 px-2 mb-4">
