@@ -1,26 +1,28 @@
+import { Link } from "react-router-dom";
+
 function Header() {
   return (
     <header className="w-full bg-gray-900 shadow">
       <div className="w-4/5 m-auto flex items-center justify-between h-14 px-4 text-lg">
-        <a href="/" className="font-medium text-gray-100">
+        <Link to="/landing" className="font-medium text-gray-100">
           Logo
-        </a>
+        </Link>
         <nav className="flex items-center space-x-10">
-          <a href="/" className="nav-link">
+          <Link to="/landing" className="nav-link">
             Home
-          </a>
-          <a href="/" className="nav-link">
-            Service
-          </a>
-          <a href="/" className="nav-link">
+          </Link>
+          <Link to="/" className="nav-link">
+            Services
+          </Link>
+          <Link to="/products" className="nav-link">
             Products
-          </a>
-          <a href="/" className="nav-link">
+          </Link>
+          <Link to="/" className="nav-link">
             About
-          </a>
-          <a href="/" className="nav-link">
+          </Link>
+          <Link to="/contact" className="nav-link">
             Contact
-          </a>
+          </Link>
           <button className="btn">Sign in</button>
         </nav>
       </div>
