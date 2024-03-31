@@ -20,8 +20,14 @@ function Header() {
           <Link to="/" className="nav-link">
             About
           </Link>
+          <Link to="/blog" className="nav-link">
+            Blog
+          </Link>
           <Link to="/contact" className="nav-link">
             Contact
+          </Link>
+          <Link to="/profile" className="nav-link">
+            Profile
           </Link>
           <button className="btn">Sign in</button>
         </nav>
