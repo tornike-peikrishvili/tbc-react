@@ -1,11 +1,38 @@
-import React from "react";
+import { useState } from "react";
+import ProfileInfo from "./ProfileInfo";
 
-const Profile = () => {
+function Profile() {
+  const [formData, setFormData] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+  const [profileInfo, setProfileInfo] = useState({
+    name: "",
+    surname: "",
+    email: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setProfileInfo(formData);
+  };
+
   return (
-    <div className="w-full bg-gray-100 flex justify-center items-center">
-      <div className="bg-white  px-8 py-6 rounded-lg shadow-md max-w-md w-full">
-        <h2 className="text-2xl font-semibold mb-4">Profile Information</h2>
-        <form>
+    <div className="w-full gap-4 bg-gray-100 flex justify-center items-center py-6">
+      <div className="bg-white  px-8 h-full rounded-lg shadow-md max-w-md w-full">
+        <h2 className="text-2xl font-semibold my-4">Set Profile Information</h2>
+        <form onSubmit={handleSubmit}>
           <div className="mb-2">
             <label htmlFor="name" className="block mb-1 font-semibold">
               Name
@@ -14,8 +41,8 @@ const Profile = () => {
               type="text"
               id="name"
               name="name"
-              value="John"
-              readOnly
+              value={formData.name}
+              onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
@@ -27,8 +54,8 @@ const Profile = () => {
               type="text"
               id="surname"
               name="surname"
-              value="Doe"
-              readOnly
+              value={formData.surname}
+              onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
@@ -40,8 +67,8 @@ const Profile = () => {
               type="email"
               id="email"
               name="email"
-              value="johndoe@example.com"
-              readOnly
+              value={formData.email}
+              onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
@@ -53,6 +80,8 @@ const Profile = () => {
               type="password"
               id="newPassword"
               name="newPassword"
+              value={formData.newPassword}
+              onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
@@ -67,6 +96,8 @@ const Profile = () => {
               type="password"
               id="confirmNewPassword"
               name="confirmNewPassword"
+              value={formData.confirmNewPassword}
+              onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
@@ -78,8 +109,9 @@ const Profile = () => {
           </button>
         </form>
       </div>
+      <ProfileInfo profileInfo={profileInfo} />
     </div>
   );
-};
+}
 
 export default Profile;
