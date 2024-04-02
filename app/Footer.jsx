@@ -1,6 +1,6 @@
 import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -57,19 +57,19 @@ function Footer() {
           © 2024 Tornike. All rights reserved.
         </p>
         <nav className="flex items-center gap-x-4">
-          <Link to="/landing" className="nav-link">
+          <Link href="/" className="nav-link">
             Home
           </Link>
-          <Link to="/" className="nav-link">
-            Services
-          </Link>
-          <Link to="/products" className="nav-link">
+          <Link href="/products" className="nav-link">
             Products
           </Link>
-          <Link to="/" className="nav-link">
+          <Link href="/" className="nav-link">
             About
           </Link>
-          <Link to="/contact" className="nav-link">
+          <Link href="/blog" className="nav-link">
+            Blog
+          </Link>
+          <Link href="/contact" className="nav-link">
             Contact
           </Link>
         </nav>

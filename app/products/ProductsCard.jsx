@@ -1,7 +1,15 @@
+import Image from "next/image";
+
 function ProductCard({ name, description, price, image }) {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-lg">
-      <img src={image} alt="Product" className="w-full rounded-md" />
+    <div className="w-fill bg-white p-4 rounded-lg shadow-lg">
+      <Image
+        src={image}
+        alt="Product"
+        className="w-full rounded-md"
+        width={100}
+        height={100}
+      />
       <h3 className="text-lg font-semibold py-1">{name}</h3>
       <p className="text-gray-700">{description}</p>
       <div className="mt-4 flex justify-between items-center">

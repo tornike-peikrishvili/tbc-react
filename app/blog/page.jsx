@@ -1,3 +1,5 @@
+"use client";
+
 import blogPosts from "../data";
 import BlogCard from "./BlogCard";
 

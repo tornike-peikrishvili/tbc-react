@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function BlogCard({
   key,
   title,
@@ -7,7 +9,13 @@ export default function BlogCard({
 }) {
   return (
     <div key={key} className="bg-white rounded-lg overflow-hidden shadow-md">
-      <img src={photo} alt={title} className="w-full h-48 object-cover" />
+      <Image
+        src={photo}
+        alt={title}
+        className="w-full h-48 object-cover"
+        width={100}
+        height={100}
+      />
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <p className="text-gray-700 mb-2">{description}</p>

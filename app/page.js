@@ -1,4 +1,4 @@
-function Landing() {
+export default function Home() {
   return (
     <main className="mb-auto w-full">
       <section className="py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48">
@@ -40,5 +40,3 @@ function Landing() {
     </main>
   );
 }
-
-export default Landing;
