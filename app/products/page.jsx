@@ -1,83 +1,35 @@
 "use client";
 
-import { useState } from "react";
-import ProductCard from "@/app/products/ProductsCard";
-
-const products = [
-  {
-    id: 1,
-    name: "Product 1",
-    description: "Description of Product 1",
-    price: 20.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 2,
-    name: "Product 2",
-    description: "Description of Product 2",
-    price: 25.49,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 3,
-    name: "Product 3",
-    description: "Description of Product 3",
-    price: 15.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 4,
-    name: "Product 4",
-    description: "Description of Product 4",
-    price: 30.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 5,
-    name: "Product 5",
-    description: "Description of Product 5",
-    price: 18.49,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 6,
-    name: "Product 6",
-    description: "Description of Product 6",
-    price: 22.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 7,
-    name: "Product 7",
-    description: "Description of Product 7",
-    price: 28.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 8,
-    name: "Product 8",
-    description: "Description of Product 8",
-    price: 19.99,
-    image: "https://via.placeholder.com/150",
-  },
-];
+import { useState, useEffect } from "react";
+import ProductCard from "@/components/ProductsCard";
 
 const ProductsPage = () => {
-  const [sortCriteria, setSortCriteria] = useState("name");
+  const [sortCriteria, setSortCriteria] = useState("title");
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortedProducts, setSortedProducts] = useState(products);
+  const [sortedProducts, setSortedProducts] = useState([]);
   const [prevSortCriteria, setPrevSortCriteria] = useState();
+  const [originalProducts, setOriginalProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://dummyjson.com/products")
+      .then((res) => res.json())
+      .then((res) => {
+        setSortedProducts(res.products);
+        setOriginalProducts(res.products);
+      });
+  }, []);
 
   const handleSort = () => {
     if (prevSortCriteria === sortCriteria) {
-      setSortCriteria("name");
-      setSortedProducts(products);
+      setSortCriteria("title");
+      setPrevSortCriteria();
+      setSortedProducts(originalProducts);
     } else {
       const sorted = [...sortedProducts];
-      if (sortCriteria === "name") {
-        sorted.sort((a, b) => a.name.localeCompare(b.name));
+      if (sortCriteria === "title") {
+        sorted.sort((a, b) => a.title.localeCompare(b.title));
       } else if (sortCriteria === "name_desc") {
-        sorted.sort((a, b) => b.name.localeCompare(a.name));
+        sorted.sort((a, b) => b.title.localeCompare(a.title));
       } else if (sortCriteria === "price") {
         sorted.sort((a, b) => a.price - b.price);
       } else if (sortCriteria === "price_desc") {
@@ -88,16 +40,12 @@ const ProductsPage = () => {
     }
   };
 
-  // const handleSearch = (event) => {
-  //   setSearchTerm(event.target.value);
-  // };
-
   const handleSortCriteriaChange = (event) => {
     setSortCriteria(event.target.value);
   };
 
   let filteredProducts = sortedProducts.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Debounce
@@ -162,10 +110,11 @@ const ProductsPage = () => {
               {filteredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
-                  name={product.name}
+                  id={product.id}
+                  name={product.title}
                   description={product.description}
                   price={product.price}
-                  image={product.image}
+                  image={product.thumbnail}
                 />
               ))}
             </div>

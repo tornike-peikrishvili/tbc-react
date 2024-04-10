@@ -1,4 +1,4 @@
-import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaLinkedin, FaTwitter, FaCartPlus } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Link from "next/link";
 
