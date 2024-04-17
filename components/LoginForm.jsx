@@ -3,24 +3,32 @@
 import { useState } from "react";
 
 function LoginForm({ handleLogin }) {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(username, password);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-          Email
+        <label
+          className="block text-gray-700 font-bold mb-2"
+          htmlFor="username"
+        >
+          Username
         </label>
         <input
-          type="email"
-          id="email"
-          name="email"
+          type="username"
+          id="username"
+          name="username"
           className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter your email"
-          value={email}
+          placeholder="Enter your username"
+          value={username}
           onChange={(e) => {
-            setEmail(e.target.value);
+            setUsername(e.target.value);
           }}
         />
       </div>
@@ -44,11 +52,10 @@ function LoginForm({ handleLogin }) {
         />
       </div>
       <button
-        onClick={() => handleLogin(email, password)}
         type="submit"
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-600 transition duration-300"
+        className="btn w-full py-2 px-4 border-black text-black hover:text-white hover:border-black hover:bg-black"
       >
-        Login
+        Log In
       </button>
     </form>
   );

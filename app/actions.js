@@ -9,14 +9,12 @@ export async function login(username, password) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      username: "kminchelle",
-      password: "0lelplR",
+      username,
+      password,
     }),
   });
 
   const user = response.json();
   const cookieStore = cookies();
-  if (username == "kminchelle" && password == "0lelplR") {
-    cookieStore.set(AUTH_COOKIE_KEY, JSON.stringify(user));
-  }
+  cookieStore.set(AUTH_COOKIE_KEY, JSON.stringify(user));
 }
