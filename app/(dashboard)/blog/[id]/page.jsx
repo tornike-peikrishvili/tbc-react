@@ -3,7 +3,6 @@ import Link from "next/link";
 export async function generateStaticParams() {
   const res = await fetch("https://dummyjson.com/posts/");
   const data = await res.json();
-  console.log(data);
   return data.posts.map((post) => ({
     id: post.id.toString(),
   }));
@@ -22,7 +21,6 @@ async function getPost(id) {
 
 async function Post({ params }) {
   const post = await getPost(params.id);
-  console.log({ post });
   return (
     <div className="max-w-4xl mx-auto h-full flex items-center px-4 py-8">
       <div className="bg-white p-8 rounded-lg shadow-lg">
@@ -45,7 +43,7 @@ async function Post({ params }) {
             Like
           </button>
         </div>
-        <Link className="w-full" href="/products">
+        <Link className="w-full" href="/blog">
           <button className="btn w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black mt-5">
             {"<"} Back to Blogs
           </button>
