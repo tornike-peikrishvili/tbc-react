@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { AUTH_COOKIE_KEY } from "@/constants";
 import { useRouter } from "next/navigation";
+import { logOut } from "@/app/actions";
 
 function Header() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    cookieStore.delete(AUTH_COOKIE_KEY);
+    logOut();
     router.refresh("/login");
   };
 

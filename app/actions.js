@@ -14,7 +14,17 @@ export async function login(username, password) {
     }),
   });
 
-  const user = response.json();
-  const cookieStore = cookies();
-  cookieStore.set(AUTH_COOKIE_KEY, JSON.stringify(user));
+  const user = await response.json();
+
+  if (response.ok) {
+    const cookieStore = cookies();
+    cookieStore.set(AUTH_COOKIE_KEY, JSON.stringify(user));
+    return user;
+  } else {
+    console.log("Invalid username or password");
+  }
+}
+
+export async function logOut() {
+  cookies().delete(AUTH_COOKIE_KEY);
 }
