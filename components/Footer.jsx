@@ -58,9 +58,6 @@ function Footer() {
         </p>
         <nav className="flex items-center gap-x-4">
           <Link href="/" className="nav-link">
-            Home
-          </Link>
-          <Link href="/products" className="nav-link">
             Products
           </Link>
           <Link href="/" className="nav-link">

@@ -44,7 +44,7 @@ async function Product({ params }) {
               <button className="btn w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black flex justify-center items-center gap-4">
                 Add to Cart <FaCartPlus className="" />
               </button>
-              <Link className="w-full" href="/products">
+              <Link className="w-full" href="/">
                 <button className="btn w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black mt-5">
                   {"<"} Back to Products
                 </button>
