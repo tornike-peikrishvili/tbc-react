@@ -8,6 +8,10 @@ function LoginForm({ handleLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!username || !password) {
+      alert("Please enter username and password.");
+      return;
+    }
     handleLogin(username, password);
   };
 
