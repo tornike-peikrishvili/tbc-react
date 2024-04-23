@@ -1,17 +1,6 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { AUTH_COOKIE_KEY } from "@/constants";
 import LoginForm from "@/components/login/LoginForm";
 
 async function LoginPage() {
-  // const cookieStore = cookies();
-
-  // const cookie = cookieStore.get(AUTH_COOKIE_KEY);
-  // console.log("cookie:", cookie);
-
-  // if (cookie?.value) {
-  //   redirect("/");
-  // }
 
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-100">
