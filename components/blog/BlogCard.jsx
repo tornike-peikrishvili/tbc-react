@@ -13,7 +13,7 @@ export default function BlogCard({ id, title, description, authorId }) {
         const user = res.users.find((user) => user.id === authorId);
         setAuthor(user);
       });
-  }, []);
+  }, [authorId]);
 
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md">

@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 
 function ThemeBtn() {
   const [theme, setTheme] = useState(() => {
-    const storedTheme = localStorage.getItem("theme");
-    return (
-      storedTheme ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light")
-    );
+    if (typeof localStorage !== "undefined") {
+      const storedTheme = localStorage.getItem("theme");
+      return (
+        storedTheme ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light")
+      );
+    } else {
+      return "light";
+    }
   });
 
   useEffect(() => {
@@ -30,6 +34,8 @@ function ThemeBtn() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
+    if (typeof localStorage !== "undefined") {
+    }
   }, [theme]);
 
   function toggleTheme() {
