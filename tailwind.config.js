@@ -9,6 +9,9 @@ module.exports = {
   darkMode: "selector",
   theme: {
     extend: {
+      boxShadow: {
+        "box-shdw" : "rgba(0, 0, 0, 0.08) 0px 4px 12px;",
+      },
       backgroundColor: {
         "dark-mode": "gray",
       },

@@ -55,13 +55,14 @@ function ProductsPage() {
           </div>
           <div className="w-full lg:w-4/5 px-2">
             <ProductSearch setSearchTerm={setSearchTerm} />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
               {filteredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
                   id={product.id}
                   name={product.title}
-                  description={product.description}
+                  rating={product.rating}
+                  category={product.category}
                   price={product.price}
                   image={product.thumbnail}
                 />
