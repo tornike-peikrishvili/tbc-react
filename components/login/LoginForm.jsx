@@ -1,18 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import handleLogin from "@/scripts/login";
+import { useRouter } from "next/navigation";
 
-function LoginForm({ handleLogin }) {
+function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !password) {
-      alert("Please enter username and password.");
-      return;
-    }
-    handleLogin(username, password);
+    handleLogin(username, password).then(() => router.push("/"));
   };
 
   return (

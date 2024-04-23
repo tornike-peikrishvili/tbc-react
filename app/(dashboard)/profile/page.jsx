@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ProfileInfo from "../../../components/ProfileInfo";
+import ProfileInfo from "@/components/profile/ProfileInfo";
 
 function Profile() {
   const [formData, setFormData] = useState({

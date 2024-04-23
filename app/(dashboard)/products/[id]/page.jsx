@@ -37,7 +37,9 @@ async function Product({ params }) {
             ))}
           </div>
           <div className="md:w-1/2 md:ml-8">
-            <h2 className="text-3xl font-bold mb-4">{product.title}</h2>
+            <h2 className="dark:text-red-800 text-3xl font-bold mb-4">
+              {product.title}
+            </h2>
             <p className="text-gray-700 mb-4">{product.description}</p>
             <p className="text-gray-900 font-bold">Price: ${product.price}</p>
             <div className="mt-4 flex flex-col items-center">
