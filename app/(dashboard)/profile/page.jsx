@@ -76,7 +76,7 @@ function Profile() {
           </div>
           <div className="mb-2">
             <label htmlFor="newPassword" className="block mb-1 font-semibold">
-              Set New Password
+              Set New Passwordie
             </label>
             <input
               type="password"
