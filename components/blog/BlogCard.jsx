@@ -7,13 +7,13 @@ export default function BlogCard({ id, title, description, authorId }) {
   const [author, setAuthor] = useState(null);
 
   useEffect(() => {
-    fetch("https://dummyjson.com/users?limit=50")
+    fetch("https://dummyjson.com/users?limit=30")
       .then((res) => res.json())
       .then((res) => {
         const user = res.users.find((user) => user.id === authorId);
         setAuthor(user);
       });
-  }, []);
+  }, [authorId]);
 
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md">

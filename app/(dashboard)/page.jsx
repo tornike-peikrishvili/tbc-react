@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ProductCard from "@/components/ProductsCard";
-import ProductSort from "@/components/ProductSort";
-import ProductSearch from "@/components/ProductSearch";
+import ProductCard from "@/components/products/ProductsCard";
+import ProductSort from "@/components/products/ProductSort";
+import ProductSearch from "@/components/products/ProductSearch";
 
 async function fetchProducts() {
   const response = await fetch("https://dummyjson.com/products", {

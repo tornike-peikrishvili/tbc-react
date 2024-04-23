@@ -1,6 +1,5 @@
-import BlogCard from "../../../components/BlogCard";
+import BlogCard from "@/components/blog/BlogCard";
 
-// Define the fetchPosts function
 async function fetchPosts() {
   const response = await fetch("https://dummyjson.com/posts", {
     cache: "force-cache",
