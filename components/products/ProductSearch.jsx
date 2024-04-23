@@ -28,7 +28,7 @@ function ProductSearch({ setSearchTerm }) {
       <input
         type="text"
         placeholder="Search products..."
-        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-gray-500 mr-2"
+        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-gray-500 mr-2 dark:border-white dark:bg-transparent dark:text-white"
         onChange={handleDebouncedSearch}
       />
     </div>

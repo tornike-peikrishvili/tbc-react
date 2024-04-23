@@ -60,6 +60,13 @@ function LoginForm() {
       >
         Log In
       </button>
+      <div>
+        <p className="text-center">
+          user:kminchelle 
+          <br />
+          pswrd:0lelplR
+        </p>
+      </div>
     </form>
   );
 }
