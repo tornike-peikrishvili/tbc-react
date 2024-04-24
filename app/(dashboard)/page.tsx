@@ -28,10 +28,12 @@ function ProductsPage() {
   const [sortCriteria, setSortCriteria] = useState<string>("name");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
-  const [prevSortCriteria, setPrevSortCriteria] = useState<string | undefined>();
+  const [prevSortCriteria, setPrevSortCriteria] = useState<
+    string | undefined
+  >();
   const [originalProducts, setOriginalProducts] = useState<Product[]>([]);
 
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const fetchData = async () => {
     const products = await fetchProducts();
@@ -50,10 +52,14 @@ function ProductsPage() {
   return (
     <div className="w-full">
       <div className="p-8">
-        <h1 className="text-3xl font-bold mb-4 text-center dark:text-white tracking-widest">{t("ourProduct")}</h1>
+        <h1 className="text-3xl font-bold mb-4 text-center dark:text-white tracking-widest">
+          {t("ourProduct")}
+        </h1>
         <div className="w-4/5 m-auto flex flex-wrap justify-between">
           <div className="w-full lg:w-1/5 px-2 mb-4">
-            <h2 className="text-xl font-bold mb-2 dark:text-white tracking-widest">{t("filter")}</h2>
+            <h2 className="text-xl font-bold mb-2 dark:text-white tracking-widest">
+              {t("filter")}
+            </h2>
             <ProductSort
               setSortCriteria={setSortCriteria}
               searchTerm={searchTerm}
@@ -66,11 +72,10 @@ function ProductsPage() {
             />
           </div>
           <div className="w-full lg:w-4/5 px-2">
-            <ProductSearch placeholder={t("search")} setSearchTerm={setSearchTerm} />
+            <ProductSearch setSearchTerm={setSearchTerm} />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
               {filteredProducts.map((product) => (
                 <ProductCard
-                readMore={t("readMore")}
                   key={product.id}
                   id={product.id}
                   name={product.title}

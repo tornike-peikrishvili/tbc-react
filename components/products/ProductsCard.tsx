@@ -3,15 +3,22 @@ import { FaCartPlus } from "react-icons/fa";
 import Link from "next/link";
 
 interface ProductCard {
-  id: number,
-  name: string,
-  rating: number,
-  price: number,
-  image: string,
-  category: string,
+  id: number;
+  name: string;
+  rating: number;
+  price: number;
+  image: string;
+  category: string;
 }
 
-function ProductCard({ id, name, rating, price, image, category }: ProductCard) {
+function ProductCard({
+  id,
+  name,
+  rating,
+  price,
+  image,
+  category,
+}: ProductCard) {
   return (
     <div className="flex flex-col justify-between bg-white p-4 rounded-lg shadow-box-shdw dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">
       <div className="py-2 relative h-52 overflow-hidden rounded-md ">
