@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 
 import { cookies } from "next/headers";
 import { AUTH_COOKIE_KEY } from "@/constants";
@@ -13,19 +13,19 @@ export async function login(username, password) {
       password,
     }),
   });
-  // test tea
 
-  const user = await response.json();
+//   const user = await response.json();
 
-  if (response.ok) {
-    const cookieStore = cookies();
-    cookieStore.set(AUTH_COOKIE_KEY, JSON.stringify(user));
-    return user;
-  } else {
-    console.log("Invalid username or password");
-  }
-}
+//   if (response.ok) {
+//     const cookieStore = cookies();
+//     cookieStore.set(AUTH_COOKIE_KEY, JSON.stringify(user));
+//     return user;
+//   } else {
+//     console.log("Invalid username or password");
+//   }
+// }
 
-export async function logOut() {
-  cookies().delete(AUTH_COOKIE_KEY);
-}
+// export async function logOut() {
+//   cookies().delete(AUTH_COOKIE_KEY);
+//   redirect("/login");
+// }

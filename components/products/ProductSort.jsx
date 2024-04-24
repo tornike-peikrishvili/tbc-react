@@ -33,20 +33,28 @@ function ProductSort({
   };
 
   return (
-    <div className="bg-white shadow p-4 mb-4 rounded">
-      <h3 className="text-lg font-bold mb-2">Sort By</h3>
+    <div className="bg-white shadow p-4 mb-4 rounded dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">
+      <h3 className="text-lg font-bold mb-2 dark:text-white ">Sort By</h3>
       <select
-        className="w-full mb-2"
+        className="w-full mb-2 dark:border-white dark:bg-transparent"
         onChange={handleSortCriteriaChange}
         value={sortCriteria}
       >
-        <option value="name">Name: A to Z</option>
-        <option value="name_desc">Name: Z to A</option>
-        <option value="price">Price: Low to High</option>
-        <option value="price_desc">Price: High to Low</option>
+        <option className="dark:text-black" value="name">
+          Name: A to Z
+        </option>
+        <option className="dark:text-black" value="name_desc">
+          Name: Z to A
+        </option>
+        <option className="dark:text-black" value="price">
+          Price: Low to High
+        </option>
+        <option className="dark:text-black" value="price_desc">
+          Price: High to Low
+        </option>
       </select>
       <button
-        className="btn w-full mt-2 border-black text-black hover:text-white hover:border-black hover:bg-black"
+        className="btn w-full mt-2 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
         onClick={handleSort}
       >
         Sort
