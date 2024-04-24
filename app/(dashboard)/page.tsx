@@ -5,6 +5,15 @@ import ProductCard from "@/components/products/ProductsCard";
 import ProductSort from "@/components/products/ProductSort";
 import ProductSearch from "@/components/products/ProductSearch";
 
+export interface Product {
+  id: number;
+  title: string;
+  rating: number;
+  category: string;
+  price: number;
+  thumbnail: string;
+}
+
 async function fetchProducts() {
   const response = await fetch("https://dummyjson.com/products", {
     cache: "force-cache",
@@ -15,11 +24,11 @@ async function fetchProducts() {
 }
 
 function ProductsPage() {
-  const [sortCriteria, setSortCriteria] = useState("name");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortedProducts, setSortedProducts] = useState([]);
-  const [prevSortCriteria, setPrevSortCriteria] = useState();
-  const [originalProducts, setOriginalProducts] = useState([]);
+  const [sortCriteria, setSortCriteria] = useState<string>("name");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
+  const [prevSortCriteria, setPrevSortCriteria] = useState<string | undefined>();
+  const [originalProducts, setOriginalProducts] = useState<Product[]>([]);
 
   const fetchData = async () => {
     const products = await fetchProducts();
@@ -47,7 +56,7 @@ function ProductsPage() {
               searchTerm={searchTerm}
               sortedProducts={sortedProducts}
               setSortedProducts={setSortedProducts}
-              prevSortCriteria={prevSortCriteria}
+              prevSortCriteria={prevSortCriteria || ""}
               originalProducts={originalProducts}
               setPrevSortCriteria={setPrevSortCriteria}
               sortCriteria={sortCriteria}

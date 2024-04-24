@@ -1,3 +1,18 @@
+import React from 'react';
+import { Product } from "@/app/(dashboard)/page";
+import { Dispatch } from "react";
+
+interface SortProps {
+  setSortCriteria: Dispatch<string>;
+  sortCriteria: string;
+  setSortedProducts: Dispatch<Product[]>;
+  searchTerm: string;
+  sortedProducts: Product[];
+  prevSortCriteria: string;
+  originalProducts: Product[];
+  setPrevSortCriteria: Dispatch<string | undefined>;
+}
+
 function ProductSort({
   setSortCriteria,
   sortCriteria,
@@ -6,11 +21,11 @@ function ProductSort({
   prevSortCriteria,
   originalProducts,
   setPrevSortCriteria,
-}) {
+}: SortProps) {
   const handleSort = () => {
     if (prevSortCriteria === sortCriteria) {
       setSortCriteria("name");
-      setPrevSortCriteria();
+      setPrevSortCriteria("");
       setSortedProducts(originalProducts);
     } else {
       const sorted = [...sortedProducts];
@@ -28,7 +43,7 @@ function ProductSort({
     }
   };
 
-  const handleSortCriteriaChange = (event) => {
+  const handleSortCriteriaChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSortCriteria(event.target.value);
   };
 
