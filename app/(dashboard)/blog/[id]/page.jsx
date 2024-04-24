@@ -3,20 +3,16 @@ import Link from "next/link";
 export async function generateStaticParams() {
   const res = await fetch("https://dummyjson.com/posts/");
   const data = await res.json();
+
   return data.posts.map((post) => ({
-    id: post.id.toString(),
+    id: `${post.id}`,
   }));
 }
 
 async function getPost(id) {
-  try {
-    const res = await fetch(`https://dummyjson.com/posts/${id}`);
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching post:", error);
-    return null;
-  }
+  const res = await fetch(`https://dummyjson.com/posts/${id}`);
+  const data = await res.json();
+  return data;
 }
 
 async function Post({ params }) {
