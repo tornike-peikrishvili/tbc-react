@@ -55,13 +55,21 @@ function ProductSort({
         onChange={handleSortCriteriaChange}
         value={sortCriteria}
       >
-        <option className="dark:text-black" value="name">Name: A to Z</option>
-        <option className="dark:text-black" value="name_desc">Name: Z to A</option>
-        <option className="dark:text-black" value="price">Price: Low to High</option>
-        <option className="dark:text-black" value="price_desc">Price: High to Low</option>
+        <option className="dark:text-black" value="name">
+          Name: A to Z
+        </option>
+        <option className="dark:text-black" value="name_desc">
+          Name: Z to A
+        </option>
+        <option className="dark:text-black" value="price">
+          Price: Low to High
+        </option>
+        <option className="dark:text-black" value="price_desc">
+          Price: High to Low
+        </option>
       </select>
       <button
-        className="btn w-full mt-2 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
+        className="btn w-full mt-2 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
         onClick={handleSort}
       >
         Sort

@@ -2,14 +2,13 @@
 
 // import { cookies } from "next/headers";
 // import { AUTH_COOKIE_KEY } from "@/constants";
-// import { redirect } from "next/navigation";
 
 // export async function login(username, password) {
 //   "use server";
 //   const response = await fetch("https://dummyjson.com/auth/login", {
 //     method: "POST",
 //     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({ last test commit
+//     body: JSON.stringify({
 //       username,
 //       password,
 //     }),
@@ -30,5 +29,3 @@
 //   cookies().delete(AUTH_COOKIE_KEY);
 //   redirect("/login");
 // }
-
-// test test
