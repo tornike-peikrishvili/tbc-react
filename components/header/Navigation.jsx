@@ -46,7 +46,7 @@ function Navigation() {
           {t("contact")}
         </Link>
         <Link href="/profile" className="nav-link">
-          {t("home")}
+          {t("profile")}
         </Link>
         <button onClick={handleClick} className="btn">
           {t("logOut")}

@@ -17,7 +17,7 @@ export async function POST(request) {
 
   if (res.ok) {
     const cookieStore = cookies();
-    cookieStore.set(AUTH_COOKIE_KEY, JSON.stringify(data));
+    cookieStore.set(AUTH_COOKIE_KEY, JSON.stringify(data.token));
   } else {
     throw new Error(data.message);
   }
