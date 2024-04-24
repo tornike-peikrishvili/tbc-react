@@ -12,17 +12,17 @@ export interface User {
   firstName: string;
   lastName: string;
 }
-export interface Post {
+export interface PostData {
   id: number;
   title: string;
   body: string;
   userId: number;
   tags: string[];
   reactions: number;
-  params: { id: string };
+
 }
 
-export interface PaginatedResponse extends Post {
+export interface PaginatedResponse extends PostData {
   total: number;
   skip: number;
   limit: number;

@@ -56,7 +56,7 @@ function Contact() {
             />
             <textarea
               className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 dark:bg-[#232B36] dark:text-slate-50"
-              rows="4"
+              rows={4}
               placeholder="Message"
             ></textarea>
             <button
