@@ -5,7 +5,7 @@ export default function DashboardLayout({ children }) {
   return (
     <div className="h-screen flex flex-col">
       <Header />
-      <main className="flex overflow-auto flex-1 dark:bg-dark-mode">
+      <main className="flex overflow-auto flex-1 dark:bg-[#1B2430]">
         {children}
       </main>
       <Footer />

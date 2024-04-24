@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+//this is test for new branch
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
