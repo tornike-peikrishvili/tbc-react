@@ -1,24 +1,30 @@
-import React from "react";
+import { ChangeEvent, Dispatch } from "react";
 
-function ProductSearch({ setSearchTerm }) {
+interface ProductSearchProps {
+  setSearchTerm: Dispatch<string>;
+}
+
+function ProductSearch({ setSearchTerm }: ProductSearchProps) {
   // Debounce
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return function (...args) {
+  const debounce = (func: (...args: any[]) => void, delay: number) => {
+    let timeoutId: NodeJS.Timeout;
+  
+    return (...args: any[]) => {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
+  
       timeoutId = setTimeout(() => {
-        func.apply(this, args);
+        func(...args);
       }, delay);
     };
   };
 
-  const debouncedSearch = debounce((value) => {
+  const debouncedSearch = debounce((value: string) => {
     setSearchTerm(value);
   }, 400);
 
-  const handleDebouncedSearch = (event) => {
+  const handleDebouncedSearch = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     debouncedSearch(value);
   };
