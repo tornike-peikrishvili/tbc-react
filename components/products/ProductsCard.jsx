@@ -5,7 +5,7 @@ import Link from "next/link";
 function ProductCard({ id, name, rating, price, image, category }) {
   return (
     <div className="flex flex-col justify-between bg-white p-4 rounded-lg shadow-box-shdw dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">
-      <div className="py-2 relative h-52 overflow-hidden">
+      <div className="py-2 relative h-52 overflow-hidden rounded-md ">
         <Link href={`/products/${id}`}>
           <Image
             src={image}
@@ -17,13 +17,19 @@ function ProductCard({ id, name, rating, price, image, category }) {
         </Link>
       </div>
       <div className="py-1 flex flex-col justify-between">
-        <h3 className="text-lg font-semibold py-3 h-[49px] overflow-hidden "><Link href={`/products/${id}`}>{name}</Link></h3>
+        <h3 className="text-lg font-semibold py-3 h-[49px] overflow-hidden ">
+          <Link href={`/products/${id}`}>{name}</Link>
+        </h3>
         <div className="h-full">
           <p className="text-[14px] font-semibold mt-3">CATEGORY:</p>
-          <p className="text-gray-700 uppercase  dark:text-white tracking-widest">{category}</p>
+          <p className="text-gray-700 uppercase  dark:text-white tracking-widest">
+            {category}
+          </p>
         </div>
         <div className="flex justify-between">
-          <p className="pb-2 text-gray-900 font-bold dark:text-white">Price: ${price}</p>
+          <p className="pb-2 text-gray-900 font-bold dark:text-white">
+            Price: ${price}
+          </p>
           <p>{rating}/5🫃</p>
         </div>
       </div>

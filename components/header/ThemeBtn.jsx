@@ -1,50 +1,46 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function ThemeBtn() {
-  const [theme, setTheme] = useState(() => {
-    if (typeof localStorage !== "undefined") {
-      const storedTheme = localStorage.getItem("theme");
-      return (
-        storedTheme ||
-        (window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light")
-      );
-    } else {
-      return "light";
-    }
-  });
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
 
+    if (prefersDarkMode.matches) {
+      setTheme("dark");
+      document.documentElement.classList.add("dark");
+    } else {
+      setTheme("light");
+      document.documentElement.classList.remove("dark");
+    }
+
     const handleChange = () => {
       if (prefersDarkMode.matches) {
         setTheme("dark");
+        document.documentElement.classList.add("dark");
       } else {
         setTheme("light");
+        document.documentElement.classList.remove("dark");
       }
     };
-
     prefersDarkMode.addEventListener("change", handleChange);
 
     return () => prefersDarkMode.removeEventListener("change", handleChange);
   }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
-    if (typeof localStorage !== "undefined") {
-    }
-  }, [theme]);
-
   function toggleTheme() {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }
 
   return (
     <button onClick={toggleTheme} className="btn">
-      {theme === "light" ? "🌞 Light" : "🌙 Dark"}
+      {theme === "light" ? "🌞 Light Mode" : "🌙 Dark Mode"}
     </button>
   );
 }

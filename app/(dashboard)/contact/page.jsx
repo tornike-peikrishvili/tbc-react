@@ -3,7 +3,7 @@ import { MdEmail } from "react-icons/md";
 
 function Contact() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 dark:text-white">
       <h1 className="text-3xl font-bold mb-4 text-center">Contact Us</h1>
       <div className="flex flex-col md:flex-row mt-10">
         <div className="w-1/3 m-auto flex flex-col gap-5">
@@ -13,16 +13,16 @@ function Contact() {
           <p>Address: 123 Street, City, Country</p>
           <div className="text-gray-300 flex items-center gap-5">
             <a href="/">
-              <FaTwitter className="w-8 h-8 text-black" />
+              <FaTwitter className="w-8 h-8 text-black dark:text-white hover:dark:scale-125 hover:dark:text-gray" />
             </a>
             <a href="/">
-              <FaLinkedin className="w-8 h-8 text-black" />
+              <FaLinkedin className="w-8 h-8 text-black dark:text-white hover:dark:scale-125 hover:dark:text-gray" />
             </a>
             <a href="/">
-              <FaFacebook className="w-8 h-8 text-black" />
+              <FaFacebook className="w-8 h-8 text-black dark:text-white hover:dark:scale-125 hover:dark:text-gray" />
             </a>
             <a href="/">
-              <MdEmail className="w-10 h-10 text-black" />
+              <MdEmail className="w-10 h-10 text-black dark:text-white hover:dark:scale-125 hover:dark:text-gray" />
             </a>
           </div>
         </div>

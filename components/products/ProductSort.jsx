@@ -54,7 +54,7 @@ function ProductSort({
         </option>
       </select>
       <button
-        className="btn w-full mt-2 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
+        className="btn w-full mt-2 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
         onClick={handleSort}
       >
         Sort
