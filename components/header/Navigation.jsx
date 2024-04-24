@@ -4,20 +4,27 @@ import Link from "next/link";
 import handleLogout from "@/scripts/logout";
 import ThemeBtn from "@/components/header/ThemeBtn";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import i18n from "../../app/i18n";
+import { useState } from "react";
+import geoFlag from "../../public/Flag_of_Georgia.svg.png"
+import ukFlag from "../../public/uk.svg"
 
 function Navigation() {
+  const [lang, setLang] = useState("en");
+
   const router = useRouter();
   function handleClick() {
     handleLogout().then(() => router.push("/login"));
   }
 
-  const { t, i18n: translation } = useTranslation();
+  const { t } = useTranslation();
 
   const toggleLanguage = () => {
-    const currentLanguage = translation.language;
+    const currentLanguage = i18n.language;
     const nextLanguage = currentLanguage === "en" ? "ka" : "en";
+    setLang(lang === "en" ? "ka" : "en");
     i18n.changeLanguage(nextLanguage);
   };
   return (
@@ -42,11 +49,28 @@ function Navigation() {
           {t("home")}
         </Link>
         <button onClick={handleClick} className="btn">
-          Log Out
+          {t("logOut")}
         </button>
-        <button onClick={toggleLanguage} className="btn">
-          en
-        </button>
+        <div className="flex items-center">
+          <button className="mr-6" onClick={toggleLanguage}>
+            {lang === "en" ? (
+              <div className="flex items-center">
+                <Image className="w-[20px]" src={geoFlag} alt="flag" />
+                <span className="text-white text-sm hover:text-gray-200">
+                  GE
+                </span>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <Image className="w-[20px] mr-[2px]" src={ukFlag} alt="flag" />
+                <span className="text-white text-sm hover:text-gray-200">
+                  EN
+                </span>
+              </div>
+            )}
+          </button>
+        </div>
+
         <ThemeBtn />
       </nav>
     </div>

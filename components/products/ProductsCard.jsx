@@ -2,7 +2,7 @@ import Image from "next/image";
 import { FaCartPlus } from "react-icons/fa";
 import Link from "next/link";
 
-function ProductCard({ id, name, rating, price, image, category }) {
+function ProductCard({ id, name, rating, price, image, category ,readMore}) {
   return (
     <div className="flex flex-col justify-between bg-white p-4 rounded-lg shadow-box-shdw dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">
       <div className="py-2 relative h-52 overflow-hidden rounded-md ">
@@ -36,7 +36,7 @@ function ProductCard({ id, name, rating, price, image, category }) {
       <div className="flex gap-2">
         <Link className="w-full" href={`/products/${id}`}>
           <button className="btn px-2 w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black">
-            Read More {">"}
+            {readMore} {">"}
           </button>
         </Link>
         <button className="btn px-2 py-1 border-black text-black hover:text-white hover:border-black hover:bg-black  dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black">
