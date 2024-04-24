@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
     "paths": {
       "@/*": ["./*"]
     },
-    "allowJs": true,
-    "skipLibCheck": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -13,6 +15,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
+    "allowJs": true,
+    "skipLibCheck": true,
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
@@ -31,8 +35,9 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "app/(dashboard)/layout.jsx"
+    "**/*.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ],
 }
