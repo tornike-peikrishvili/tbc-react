@@ -7,7 +7,6 @@ import ProductSearch from "@/components/products/ProductSearch";
 import { useTranslation } from "react-i18next";
 
 async function fetchProducts() {
-  await new Promise(resolve => setTimeout(resolve, 2000))
   const response = await fetch("https://dummyjson.com/products", {
     cache: "force-cache",
   });
