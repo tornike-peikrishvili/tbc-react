@@ -1,6 +1,6 @@
 import React from "react";
 
-function ProductSearch({ setSearchTerm }) {
+function ProductSearch({ setSearchTerm,placeholder }) {
   // Debounce
   const debounce = (func, delay) => {
     let timeoutId;
@@ -27,7 +27,7 @@ function ProductSearch({ setSearchTerm }) {
     <div className="mb-4 flex items-center">
       <input
         type="text"
-        placeholder="Search products..."
+        placeholder={`${placeholder}...`}
         className="w-full px-4 py-2 border rounded focus:outline-none focus:border-gray-500 mr-2 dark:border-white dark:bg-transparent dark:text-white"
         onChange={handleDebouncedSearch}
       />
