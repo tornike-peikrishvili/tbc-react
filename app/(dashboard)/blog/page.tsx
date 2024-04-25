@@ -1,16 +1,8 @@
-import BlogCard from "@/components/blog/BlogCard";
-import { FetchedPost } from "@/app/types";
-async function fetchPosts() {
-  const response = await fetch("https://dummyjson.com/posts", {
-    cache: "force-cache",
-  });
-  const post: FetchedPost = await response.json();
-  return post.posts;
-}
+import BlogCards from "@/components/blog/BlogCards";
+import Loading from "./loading";
+import { Suspense } from "react";
 
-async function Posts() {
-  const data = await fetchPosts();
-
+export default function Posts() {
   return (
     <div className="w-full ">
       <div className="container mx-auto px-10 py-6">
@@ -18,19 +10,11 @@ async function Posts() {
           Latest Blog Posts
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data.map((post) => (
-            <BlogCard
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              description={post.body}
-              authorId={post.userId}
-            />
-          ))}
+          <Suspense fallback={<Loading />}>
+            <BlogCards />
+          </Suspense>
         </div>
       </div>
     </div>
   );
 }
-
-export default Posts;

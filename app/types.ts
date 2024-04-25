@@ -1,6 +1,6 @@
 // BlogCard types
 
-export interface Props {
+export interface PostProps {
   id: number;
   title: string;
   description: string;
@@ -19,7 +19,6 @@ export interface PostData {
   userId: number;
   tags: string[];
   reactions: number;
-
 }
 
 export interface PaginatedResponse extends PostData {

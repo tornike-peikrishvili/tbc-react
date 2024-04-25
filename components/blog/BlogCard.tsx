@@ -1,10 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { User, Props } from "../../app/types";
+import { User, PostProps } from "../../app/types";
 import Link from "next/link";
 
-export default function BlogCard({ id, title, description, authorId }: Props) {
+export default function BlogCard({
+  id,
+  title,
+  description,
+  authorId,
+}: PostProps) {
   const [author, setAuthor] = useState<User | null>(null);
 
   useEffect(() => {

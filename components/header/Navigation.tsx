@@ -42,7 +42,7 @@ function Navigation() {
           {t("contact")}
         </Link>
         <Link href="/profile" className="nav-link">
-          {t("home")}
+          {t("profile")}
         </Link>
 
         <div className="flex items-center">
