@@ -1,32 +1,32 @@
 "use client";
 
-import Link from "next/link";
-
-import Image from "next/image";
-import { useTranslation } from "react-i18next";
-import i18n from "../../app/i18n";
 import { useState } from "react";
-import geoFlag from "../../public/Flag_of_Georgia.svg.png";
-import ukFlag from "../../public/uk.svg";
+import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import Dropdown from "./Dropdown";
+import i18n from "@/app/i18n";
 
 function Navigation() {
-  const [lang, setLang] = useState<string>("en");
-
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
   const { t } = useTranslation();
 
-  const toggleLanguage = () => {
-    i18n.languages = ["ka", "en"];
-
-    const currentLanguage = i18n.language;
-    const nextLanguage = currentLanguage === "en" ? "ka" : "en";
-    setLang(lang === "en" ? "ka" : "en");
-    i18n.changeLanguage(nextLanguage);
+  const changeLanguage = (locale: string) => {
+    i18n.changeLanguage(locale);
+    setCurrentLanguage(locale);
   };
+
+  interface langLocale {
+    [key: string]: { title: string };
+  }
+  const locales: langLocale = {
+    en: { title: "English" },
+    ka: { title: "ქართული" },
+  };
+
   return (
     <div className="w-4/5 m-auto flex items-center justify-between h-14 px-4 text-lg">
       <Link href="/" className="text-gray-100 text-[35px]">
-        🫃
+        Logo
       </Link>
       <nav className="flex items-center space-x-10">
         <Link href="/" className="nav-link">
@@ -46,23 +46,19 @@ function Navigation() {
         </Link>
 
         <div className="flex items-center">
-          <button className="mr-6" onClick={() => toggleLanguage()}>
-            {lang === "en" ? (
-              <div className="flex items-center">
-                <Image className="w-[20px]" src={geoFlag} alt="flag" />
-                <span className="text-white text-sm hover:text-gray-200">
-                  GE
-                </span>
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <Image className="w-[20px]" src={ukFlag} alt="flag" />
-                <span className="text-white text-sm hover:text-gray-200">
-                  EN
-                </span>
-              </div>
-            )}
-          </button>
+          <ul>
+            {Object.keys(locales).map((locale) => (
+              <li key={locale}>
+                <button
+                  className={`text-white ${currentLanguage === locale ? "font-bold" : ""}`}
+                  type="button"
+                  onClick={() => changeLanguage(locale)}
+                >
+                  {locales[locale].title}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
         <Dropdown />
         {/* <ThemeBtn /> */}
@@ -70,4 +66,5 @@ function Navigation() {
     </div>
   );
 }
+
 export default Navigation;

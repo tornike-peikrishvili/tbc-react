@@ -1,4 +1,5 @@
 import { ChangeEvent, Dispatch } from "react";
+import { useTranslation } from "react-i18next";
 
 interface ProductSearchProps {
   setSearchTerm: Dispatch<string>;
@@ -8,12 +9,12 @@ function ProductSearch({ setSearchTerm }: ProductSearchProps) {
   // Debounce
   const debounce = (func: (...args: any[]) => void, delay: number) => {
     let timeoutId: NodeJS.Timeout;
-  
+
     return (...args: any[]) => {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
-  
+
       timeoutId = setTimeout(() => {
         func(...args);
       }, delay);
@@ -29,11 +30,13 @@ function ProductSearch({ setSearchTerm }: ProductSearchProps) {
     debouncedSearch(value);
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="mb-4 flex items-center">
       <input
         type="text"
-        placeholder="Search..."
+        placeholder={t("placeholder")}
         className="w-full px-4 py-2 border rounded focus:outline-none focus:border-gray-500 mr-2 dark:border-white dark:bg-transparent dark:text-white"
         onChange={handleDebouncedSearch}
       />

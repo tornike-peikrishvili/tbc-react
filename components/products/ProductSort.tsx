@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
 import { Product } from "@/app/(dashboard)/page";
 import { Dispatch } from "react";
+import { useTranslation } from "react-i18next";
 
 interface SortProps {
   setSortCriteria: Dispatch<string>;
@@ -43,9 +44,13 @@ function ProductSort({
     }
   };
 
-  const handleSortCriteriaChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSortCriteriaChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSortCriteria(event.target.value);
   };
+
+  const { t } = useTranslation();
 
   return (
     <div className="bg-white shadow p-4 mb-4 rounded dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">
@@ -56,23 +61,23 @@ function ProductSort({
         value={sortCriteria}
       >
         <option className="dark:text-black" value="name">
-          Name: A to Z
+          {t("sortName")}
         </option>
         <option className="dark:text-black" value="name_desc">
-          Name: Z to A
+          {t("sortName2")}
         </option>
         <option className="dark:text-black" value="price">
-          Price: Low to High
+          {t("sortByPrice1")}
         </option>
         <option className="dark:text-black" value="price_desc">
-          Price: High to Low
+          {t("sortByPrice2")}
         </option>
       </select>
       <button
         className="btn w-full mt-2 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
         onClick={handleSort}
       >
-        Sort
+        {t("sortBtn")}
       </button>
     </div>
   );

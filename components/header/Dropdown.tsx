@@ -3,11 +3,14 @@ import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/navigation";
 import handleLogout from "@/scripts/logout";
 import ThemeBtn from "./ThemeBtn";
+import { useTranslation } from "react-i18next";
 
 function Dropdown({}) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const [language, setLanguage] = useState<string>("english");
-  const [theme, setTheme] = useState<string>("light");
+  const [theme, setTheme] = useState<string>(() => {
+    // Retrieve the theme preference from localStorage, default to 'light'
+    return localStorage.getItem("theme") || "light";
+  });
 
   const router = useRouter();
 
@@ -25,23 +28,19 @@ function Dropdown({}) {
     };
   }, []);
 
+  useEffect(() => {
+    // Apply the theme class when the theme changes
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    // Save the theme preference to localStorage
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const toggleDropdown = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
 
-  // const toggleLanguage = () => {
-  //   setLanguage(language === "english" ? "georgian" : "english");
-  //   setIsOpen(false);
-  // };
-
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
     setIsOpen(false);
   };
 
@@ -49,6 +48,8 @@ function Dropdown({}) {
     handleLogout().then(() => router.push("/login"));
     setIsOpen(false);
   }
+
+  const { t } = useTranslation();
 
   return (
     <div className="relative inline-block text-left dropdown mt-2">
@@ -76,7 +77,7 @@ function Dropdown({}) {
               className="block px-4 py-2 text-left w-full text-sm text-white hover:bg-gray-100 hover:text-gray-900 dark:bg-white dark:text-black"
               role="menuitem"
             >
-              Logout
+              {t("logOut")}
             </button>
           </div>
         </div>

@@ -9,9 +9,12 @@ export default function DashboardLayout({
   return (
     <div className="h-screen flex flex-col">
       <Header />
-        <main className="flex overflow-auto flex-1 dark:bg-[#1B2430]">
-          {children}
-        </main>
+      <main
+        className="flex overflow-auto flex-1 dark:bg-[#1B2430]"
+        suppressHydrationWarning={true}
+      >
+        {children}
+      </main>
       <Footer />
     </div>
   );
