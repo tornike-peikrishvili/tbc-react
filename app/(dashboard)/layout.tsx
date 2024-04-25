@@ -1,7 +1,11 @@
 import Header from "@/components/header/Header";
 import Footer from "@/components/Footer";
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="h-screen flex flex-col">
       <Header />

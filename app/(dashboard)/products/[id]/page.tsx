@@ -6,25 +6,26 @@ export async function generateStaticParams() {
   const res = await fetch("https://dummyjson.com/products/");
   const data = await res.json();
 
-  return data.products.map((product) => ({
+  return data.products.map((product: { id: number; }) => ({
     id: `${product.id}`,
   }));
 }
 
-async function getProduct(id) {
+async function getProduct(id: string) {
   const res = await fetch(`https://dummyjson.com/products/${id}`);
   const data = await res.json();
   return data;
 }
 
-async function Product({ params }) {
-  const product = await getProduct(params.id);
+async function Product({ params }: { params: { id: string } }) {
+  const { id } = params
+  const product = await getProduct(id);
   return (
     <div className="container mx-auto h-full flex items-center ">
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
         <div className="flex flex-col md:flex-row items-center md:justify-between">
           <div className="flex flex-wrap ">
-            {product.images.map((image, index) => (
+            {product.images.map((image: string, index: number) => (
               <div key={index} className="m-2">
                 <Image
                   src={image}

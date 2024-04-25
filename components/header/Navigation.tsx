@@ -1,27 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import handleLogout from "@/scripts/logout";
-import ThemeBtn from "@/components/header/ThemeBtn";
-import { useRouter } from "next/navigation";
+
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import i18n from "../../app/i18n";
 import { useState } from "react";
-import geoFlag from "../../public/Flag_of_Georgia.svg.png"
-import ukFlag from "../../public/uk.svg"
+import geoFlag from "../../public/Flag_of_Georgia.svg.png";
+import ukFlag from "../../public/uk.svg";
+import Dropdown from "./Dropdown";
 
 function Navigation() {
-  const [lang, setLang] = useState("en");
-
-  const router = useRouter();
-  function handleClick() {
-    handleLogout().then(() => router.push("/login"));
-  }
+  const [lang, setLang] = useState<string>("en");
 
   const { t } = useTranslation();
 
   const toggleLanguage = () => {
+    i18n.languages = ["ka", "en"];
+
     const currentLanguage = i18n.language;
     const nextLanguage = currentLanguage === "en" ? "ka" : "en";
     setLang(lang === "en" ? "ka" : "en");
@@ -48,11 +44,9 @@ function Navigation() {
         <Link href="/profile" className="nav-link">
           {t("profile")}
         </Link>
-        <button onClick={handleClick} className="btn">
-          {t("logOut")}
-        </button>
+
         <div className="flex items-center">
-          <button className="mr-6" onClick={toggleLanguage}>
+          <button className="mr-6" onClick={() => toggleLanguage()}>
             {lang === "en" ? (
               <div className="flex items-center">
                 <Image className="w-[20px]" src={geoFlag} alt="flag" />
@@ -62,7 +56,7 @@ function Navigation() {
               </div>
             ) : (
               <div className="flex items-center">
-                <Image className="w-[20px] mr-[2px]" src={ukFlag} alt="flag" />
+                <Image className="w-[20px]" src={ukFlag} alt="flag" />
                 <span className="text-white text-sm hover:text-gray-200">
                   EN
                 </span>
@@ -70,8 +64,8 @@ function Navigation() {
             )}
           </button>
         </div>
-
-        <ThemeBtn />
+        <Dropdown />
+        {/* <ThemeBtn /> */}
       </nav>
     </div>
   );

@@ -1,11 +1,11 @@
-"use client"
-import { FaFacebook, FaLinkedin, FaTwitter, FaCartPlus } from "react-icons/fa";
+"use client";
+import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 function Footer() {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <footer className="py-2 bg-gray-900 md:px-6 mt-auto">
@@ -43,9 +43,7 @@ function Footer() {
           </a>
         </div>
         <div className="text-gray-300 flex flex-col gap-1">
-          <p className="text-white text-xl font-medium">
-            {t("subscribeNews")}
-          </p>
+          <p className="text-white text-xl font-medium">{t("subscribeNews")}</p>
           <div className="flex space-x-2 pt-2">
             <input
               className="font-medium px-4 py-1 rounded-lg text-black"
@@ -57,9 +55,7 @@ function Footer() {
         </div>
       </div>
       <div className="pt-2 flex items-center justify-between border-t">
-        <p className="text-xs text-gray-300 ">
-          {t("rights")}
-        </p>
+        <p className="text-xs text-gray-300 ">{t("rights")}</p>
         <nav className="flex items-center gap-x-4">
           <Link href="/" className="nav-link">
             {t("products")}

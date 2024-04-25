@@ -1,24 +1,30 @@
-import React from "react";
+import { ChangeEvent, Dispatch } from "react";
 
-function ProductSearch({ setSearchTerm,placeholder }) {
+interface ProductSearchProps {
+  setSearchTerm: Dispatch<string>;
+}
+
+function ProductSearch({ setSearchTerm }: ProductSearchProps) {
   // Debounce
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return function (...args) {
+  const debounce = (func: (...args: any[]) => void, delay: number) => {
+    let timeoutId: NodeJS.Timeout;
+  
+    return (...args: any[]) => {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
+  
       timeoutId = setTimeout(() => {
-        func.apply(this, args);
+        func(...args);
       }, delay);
     };
   };
 
-  const debouncedSearch = debounce((value) => {
+  const debouncedSearch = debounce((value: string) => {
     setSearchTerm(value);
   }, 400);
 
-  const handleDebouncedSearch = (event) => {
+  const handleDebouncedSearch = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     debouncedSearch(value);
   };
@@ -27,7 +33,7 @@ function ProductSearch({ setSearchTerm,placeholder }) {
     <div className="mb-4 flex items-center">
       <input
         type="text"
-        placeholder={`${placeholder}...`}
+        placeholder="Search..."
         className="w-full px-4 py-2 border rounded focus:outline-none focus:border-gray-500 mr-2 dark:border-white dark:bg-transparent dark:text-white"
         onChange={handleDebouncedSearch}
       />

@@ -1,11 +1,17 @@
-function ProfileInfo({ profileInfo }) {
+import { ProfileInfoData } from "@/app/(dashboard)/profile/page";
+
+function ProfileInfo({ profileInfo }: { profileInfo: ProfileInfoData }) {
   return (
     <div className="bg-white  px-8  rounded-lg shadow-md max-w-md w-full dark:bg-slate-600">
       {profileInfo && (
         <div className="py-4">
-          <h2 className="text-2xl py-3 font-semibold dark:text-slate-50">Profile Information</h2>
+          <h2 className="text-2xl py-3 font-semibold dark:text-slate-50">
+            Profile Information
+          </h2>
           <div>
-            <span className="text-l  font-semibold dark:text-slate-50">Name:</span>{" "}
+            <span className="text-l  font-semibold dark:text-slate-50">
+              Name:
+            </span>{" "}
             <input
               type="text"
               value={profileInfo.name}
@@ -14,7 +20,9 @@ function ProfileInfo({ profileInfo }) {
             />
           </div>
           <div>
-            <span className="text-l font-semibold dark:text-slate-50">Surname:</span>{" "}
+            <span className="text-l font-semibold dark:text-slate-50">
+              Surname:
+            </span>{" "}
             <input
               type="text"
               value={profileInfo.surname}
@@ -23,7 +31,9 @@ function ProfileInfo({ profileInfo }) {
             />
           </div>
           <div>
-            <span className="text-l font-semibold dark:text-slate-50">Email:</span>{" "}
+            <span className="text-l font-semibold dark:text-slate-50">
+              Email:
+            </span>{" "}
             <input
               type="email"
               value={profileInfo.email}
@@ -32,7 +42,9 @@ function ProfileInfo({ profileInfo }) {
             />
           </div>
           <div>
-            <span className="text-l font-semibold dark:text-slate-50">Password:</span>{" "}
+            <span className="text-l font-semibold dark:text-slate-50">
+              Password:
+            </span>{" "}
             <input
               type="password"
               value={profileInfo.newPassword}

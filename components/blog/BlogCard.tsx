@@ -1,16 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { User, PostProps } from "../../app/types";
 import Link from "next/link";
 
-export default function BlogCard({ id, title, description, authorId }) {
-  const [author, setAuthor] = useState(null);
+export default function BlogCard({
+  id,
+  title,
+  description,
+  authorId,
+}: PostProps) {
+  const [author, setAuthor] = useState<User | null>(null);
 
   useEffect(() => {
     fetch("https://dummyjson.com/users?limit=30")
       .then((res) => res.json())
       .then((res) => {
-        const user = res.users.find((user) => user.id === authorId);
+        const user: User = res.users.find((user: User) => user.id === authorId);
         setAuthor(user);
       });
   }, [authorId]);
