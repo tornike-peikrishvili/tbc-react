@@ -1,5 +1,7 @@
-import { FetchedPost } from "@/app/types";
+import { FetchedPost } from "@/app/[locale]/types";
 import Link from "next/link";
+import { useScopedI18n } from "@/locales/client";
+import { setStaticParamsLocale } from "next-international/server";
 
 export async function generateStaticParams() {
   const res = await fetch("https://dummyjson.com/posts/");
@@ -16,7 +18,9 @@ async function getPost(id: string) {
   return data;
 }
 
-async function Post({ params }: { params: { id: string } }) {
+async function Post({ params }: { params: { id: string; locale: string } }) {
+  const scopedT = useScopedI18n("blog");
+  setStaticParamsLocale(params.locale);
   const { id } = params;
   const post = await getPost(id);
 
@@ -39,12 +43,12 @@ async function Post({ params }: { params: { id: string } }) {
         <div className="flex items-center">
           <span className="text-gray-600 mr-2">{post.reactions} reactions</span>
           <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
-            Like
+            {scopedT("like")}
           </button>
         </div>
         <Link className="w-full" href="/blog">
           <button className="btn w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black mt-5">
-            {"<"} Back to Blogs
+            {"<"} {scopedT("backBtn")}
           </button>
         </Link>
       </div>

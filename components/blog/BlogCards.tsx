@@ -1,5 +1,5 @@
 import BlogCard from "./BlogCard";
-import { FetchedPost } from "@/app/types";
+import { FetchedPost } from "@/app/[locale]/types";
 
 async function fetchPosts() {
   await new Promise((resolve) => setTimeout(resolve, 2000));

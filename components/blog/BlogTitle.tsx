@@ -1,13 +1,13 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useScopedI18n } from "@/locales/client";
 
 function BlogTitle() {
-  const { t } = useTranslation();
+  const scopedT = useScopedI18n("blog");
 
   return (
     <h1 className="text-3xl font-semibold mb-6 dark:text-slate-50">
-      {t("latestBlog")}
+      {scopedT("latestBlog")}
     </h1>
   );
 }

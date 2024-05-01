@@ -1,7 +1,7 @@
 import React from "react";
-import { Product } from "@/app/(dashboard)/page";
+import { Product } from "@/app/[locale]/(dashboard)/page";
 import { Dispatch } from "react";
-import { useTranslation } from "react-i18next";
+import { useScopedI18n } from "@/locales/client";
 
 interface SortProps {
   setSortCriteria: Dispatch<string>;
@@ -14,7 +14,7 @@ interface SortProps {
   setPrevSortCriteria: Dispatch<string | undefined>;
 }
 
-function ProductSort({
+async function ProductSort({
   setSortCriteria,
   sortCriteria,
   setSortedProducts,
@@ -49,8 +49,7 @@ function ProductSort({
   ) => {
     setSortCriteria(event.target.value);
   };
-
-  const { t } = useTranslation();
+  const scopedT = await useScopedI18n("sorts");
 
   return (
     <div className="bg-white shadow p-4 mb-4 rounded dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">
@@ -61,23 +60,23 @@ function ProductSort({
         value={sortCriteria}
       >
         <option className="dark:text-black" value="name">
-          {t("sortName")}
+          {scopedT("sortName")}
         </option>
         <option className="dark:text-black" value="name_desc">
-          {t("sortName2")}
+          {scopedT("sortName2")}
         </option>
         <option className="dark:text-black" value="price">
-          {t("sortByPrice1")}
+          {scopedT("sortByPrice1")}
         </option>
         <option className="dark:text-black" value="price_desc">
-          {t("sortByPrice2")}
+          {scopedT("sortByPrice2")}
         </option>
       </select>
       <button
         className="btn w-full mt-2 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
         onClick={handleSort}
       >
-        {t("sortBtn")}
+        {scopedT("sortBtn")}
       </button>
     </div>
   );
