@@ -1,8 +1,29 @@
+"use client";
+
 import Image from "next/image";
 import { FaCartPlus } from "react-icons/fa";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
-function ProductCard({ id, name, rating, price, image, category ,readMore}) {
+interface ProductCard {
+  id: number;
+  name: string;
+  rating: number;
+  price: number;
+  image: string;
+  category: string;
+}
+
+function ProductCard({
+  id,
+  name,
+  rating,
+  price,
+  image,
+  category,
+}: ProductCard) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col justify-between bg-white p-4 rounded-lg shadow-box-shdw dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">
       <div className="py-2 relative h-52 overflow-hidden rounded-md ">
@@ -21,14 +42,14 @@ function ProductCard({ id, name, rating, price, image, category ,readMore}) {
           <Link href={`/products/${id}`}>{name}</Link>
         </h3>
         <div className="h-full">
-          <p className="text-[14px] font-semibold mt-3">CATEGORY:</p>
+          <p className="text-[14px] font-semibold mt-3">{t("category")}</p>
           <p className="text-gray-700 uppercase  dark:text-white tracking-widest">
             {category}
           </p>
         </div>
         <div className="flex justify-between">
           <p className="pb-2 text-gray-900 font-bold dark:text-white">
-            Price: ${price}
+            {t("price")} : ${price}
           </p>
           <p>{rating}/5🫃</p>
         </div>
@@ -36,7 +57,7 @@ function ProductCard({ id, name, rating, price, image, category ,readMore}) {
       <div className="flex gap-2">
         <Link className="w-full" href={`/products/${id}`}>
           <button className="btn px-2 w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black">
-            {readMore} {">"}
+            {t("readMore")} {">"}
           </button>
         </Link>
         <button className="btn px-2 py-1 border-black text-black hover:text-white hover:border-black hover:bg-black  dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black">

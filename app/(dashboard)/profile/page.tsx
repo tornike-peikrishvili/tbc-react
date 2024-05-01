@@ -1,23 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import ProfileInfo from "@/components/profile/ProfileInfo";
 
+interface FormData {
+  name: string;
+  surname: string;
+  email: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export interface ProfileInfoData {
+  name: string;
+  surname: string;
+  email: string;
+  newPassword?: string;
+}
+
 function Profile() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     surname: "",
     email: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-  const [profileInfo, setProfileInfo] = useState({
+  const [profileInfo, setProfileInfo] = useState<ProfileInfoData>({
     name: "",
     surname: "",
     email: "",
   });
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -25,7 +40,7 @@ function Profile() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setProfileInfo(formData);
   };
@@ -33,10 +48,15 @@ function Profile() {
   return (
     <div className="w-full gap-4 bg-gray-100 flex justify-center items-center py-6 dark:bg-dark-page">
       <div className="bg-white  px-8 h-full rounded-lg shadow-md max-w-md w-full dark:bg-slate-600">
-        <h2 className="text-2xl font-semibold my-4 dark:text-slate-50">Set Profile Information</h2>
+        <h2 className="text-2xl font-semibold my-4 dark:text-slate-50">
+          Set Profile Information
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
-            <label htmlFor="name" className="block mb-1 font-semibold dark:text-slate-50">
+            <label
+              htmlFor="name"
+              className="block mb-1 font-semibold dark:text-slate-50"
+            >
               Name
             </label>
             <input
@@ -49,7 +69,10 @@ function Profile() {
             />
           </div>
           <div className="mb-2">
-            <label htmlFor="surname" className="block mb-1 font-semibold dark:text-slate-50">
+            <label
+              htmlFor="surname"
+              className="block mb-1 font-semibold dark:text-slate-50"
+            >
               Surname
             </label>
             <input
@@ -62,7 +85,10 @@ function Profile() {
             />
           </div>
           <div className="mb-2">
-            <label htmlFor="email" className="block mb-1 font-semibold dark:text-slate-50">
+            <label
+              htmlFor="email"
+              className="block mb-1 font-semibold dark:text-slate-50"
+            >
               Email
             </label>
             <input
@@ -75,7 +101,10 @@ function Profile() {
             />
           </div>
           <div className="mb-2">
-            <label htmlFor="newPassword" className="block mb-1 font-semibold dark:text-slate-50">
+            <label
+              htmlFor="newPassword"
+              className="block mb-1 font-semibold dark:text-slate-50"
+            >
               Set New Password
             </label>
             <input

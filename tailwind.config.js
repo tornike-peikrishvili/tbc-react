@@ -10,8 +10,9 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        "box-shdw" : "rgba(0, 0, 0, 0.08) 0px 4px 12px;",
-        "drk-shdw" : "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;",
+        "box-shdw": "rgba(0, 0, 0, 0.08) 0px 4px 12px",
+        "drk-shdw":
+          "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
       },
       backgroundColor: {
         "dark-mode": "gray",
@@ -20,7 +21,12 @@ module.exports = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          "conicgradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      keyframes: {
+        shimmer: {
+          "100%": { transform: "translateX(100%)" },
+        },
       },
     },
   },

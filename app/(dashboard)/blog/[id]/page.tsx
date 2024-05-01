@@ -1,22 +1,25 @@
+import { FetchedPost } from "@/app/types";
 import Link from "next/link";
 
 export async function generateStaticParams() {
   const res = await fetch("https://dummyjson.com/posts/");
-  const data = await res.json();
+  const data: FetchedPost = await res.json();
 
-  return data.posts.map((post) => ({
+  return data.posts.map((post: { id: number }) => ({
     id: `${post.id}`,
   }));
 }
 
-async function getPost(id) {
+async function getPost(id: string) {
   const res = await fetch(`https://dummyjson.com/posts/${id}`);
   const data = await res.json();
   return data;
 }
 
-async function Post({ params }) {
-  const post = await getPost(params.id);
+async function Post({ params }: { params: { id: string } }) {
+  const { id } = params;
+  const post = await getPost(id);
+
   return (
     <div className="max-w-4xl mx-auto h-full flex items-center px-4 py-8">
       <div className="bg-white p-8 rounded-lg shadow-lg">
@@ -24,7 +27,7 @@ async function Post({ params }) {
         <p className="text-gray-700 mb-4">{post.body}</p>
         <div className="flex items-center mb-4">
           <span className="text-gray-600 mr-2">Tags:</span>
-          {post.tags.map((tag, index) => (
+          {post.tags.map((tag: string, index: number) => (
             <span
               key={index}
               className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md mr-2"
