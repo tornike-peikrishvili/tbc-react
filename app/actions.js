@@ -2,7 +2,6 @@
 
 // import { cookies } from "next/headers";
 // import { AUTH_COOKIE_KEY } from "@/constants";
-// import { redirect } from "next/navigation";
 
 // export async function login(username, password) {
 //   "use server";

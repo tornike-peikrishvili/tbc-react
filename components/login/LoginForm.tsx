@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import handleLogin from "@/scripts/login";
 import { useRouter } from "next/navigation";
 
 function LoginForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const router = useRouter();
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleLogin(username, password).then(() => router.push("/"));
   };
@@ -60,6 +60,13 @@ function LoginForm() {
       >
         Log In
       </button>
+      <div>
+        <p className="text-center">
+          user:kminchelle
+          <br />
+          pswrd:0lelplR
+        </p>
+      </div>
     </form>
   );
 }
