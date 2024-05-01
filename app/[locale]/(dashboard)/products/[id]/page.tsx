@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { FaCartPlus } from "react-icons/fa";
 import Link from "next/link";
+import { getI18n, getScopedI18n } from "@/locales/server";
 
 export async function generateStaticParams() {
   const res = await fetch("https://dummyjson.com/products/");
   const data = await res.json();
 
-  return data.products.map((product: { id: number; }) => ({
+  return data.products.map((product: { id: number }) => ({
     id: `${product.id}`,
   }));
 }
@@ -18,7 +19,9 @@ async function getProduct(id: string) {
 }
 
 async function Product({ params }: { params: { id: string } }) {
-  const { id } = params
+  const t = await getI18n();
+  const scopedT = await getScopedI18n("products");
+  const { id } = params;
   const product = await getProduct(id);
   return (
     <div className="container mx-auto h-full flex items-center ">
@@ -42,14 +45,16 @@ async function Product({ params }: { params: { id: string } }) {
               {product.title}
             </h2>
             <p className="text-gray-700 mb-4">{product.description}</p>
-            <p className="text-gray-900 font-bold">Price: ${product.price}</p>
+            <p className="text-gray-900 font-bold">
+              {scopedT("price")}: ${product.price}
+            </p>
             <div className="mt-4 flex flex-col items-center">
               <button className="btn w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black flex justify-center items-center gap-4">
-                Add to Cart <FaCartPlus className="" />
+                {scopedT("addToCart")} <FaCartPlus className="" />
               </button>
               <Link className="w-full" href="/">
                 <button className="btn w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black mt-5">
-                  {"<"} Back to Products
+                  {"<"} {t("blog.backBtn")}
                 </button>
               </Link>
             </div>

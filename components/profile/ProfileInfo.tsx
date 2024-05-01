@@ -1,4 +1,4 @@
-import { ProfileInfoData } from "@/app/(dashboard)/profile/page";
+import { ProfileInfoData } from "@/app/[locale]/(dashboard)/profile/page";
 
 function ProfileInfo({ profileInfo }: { profileInfo: ProfileInfoData }) {
   return (

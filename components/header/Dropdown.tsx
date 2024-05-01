@@ -1,37 +1,39 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/navigation";
 import handleLogout from "@/scripts/logout";
-import ThemeBtn from "./ThemeBtn";
-import { useTranslation } from "react-i18next";
+import { useI18n } from "@/locales/client";
 
-function Dropdown({}) {
+function Dropdown() {
+  const t = useI18n();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [theme, setTheme] = useState<string>(() => {
-    // Retrieve the theme preference from localStorage, default to 'light'
-    return localStorage.getItem("theme") || "light";
+    return localStorage.getItem("theme") || getSystemTheme();
   });
 
   const router = useRouter();
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!(event.target as HTMLElement).closest(".dropdown")) {
-        setIsOpen(false);
-      }
+    const updateTheme = () => {
+      setTheme(getSystemTheme());
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    mediaQuery.addEventListener("change", updateTheme);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      mediaQuery.removeEventListener("change", updateTheme);
     };
   }, []);
 
+  const getSystemTheme = () => {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+
   useEffect(() => {
-    // Apply the theme class when the theme changes
     document.documentElement.classList.toggle("dark", theme === "dark");
-    // Save the theme preference to localStorage
     localStorage.setItem("theme", theme);
   }, [theme]);
 
@@ -49,10 +51,8 @@ function Dropdown({}) {
     setIsOpen(false);
   }
 
-  const { t } = useTranslation();
-
   return (
-    <div className="relative inline-block text-left dropdown mt-2">
+    <div className="relative inline-block text-left dropdown mt-2 sm:flex lg:flex">
       <div>
         <button
           type="button"
@@ -65,19 +65,25 @@ function Dropdown({}) {
 
       {isOpen && (
         <div
-          className="bg-[#232B36]  dark:text-black origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dropdown-menu"
+          className="bg-[#232B36]  dark:text-black origin-top-right absolute right-0 mt-10 w-56 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dropdown-menu"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="options-menu"
         >
           <div className="py-1" role="none">
-            <ThemeBtn toggleTheme={toggleTheme} />
+            <button
+              onClick={toggleTheme}
+              className="block px-4 py-2 text-sm text-left w-full text-white hover:bg-gray-100 hover:text-gray-900 dark:bg-white dark:text-black"
+              role="menuitem"
+            >
+              {t("theme.darkMode")}
+            </button>
             <button
               onClick={handleClick}
               className="block px-4 py-2 text-left w-full text-sm text-white hover:bg-gray-100 hover:text-gray-900 dark:bg-white dark:text-black"
               role="menuitem"
             >
-              {t("logOut")}
+              {t("navBar.logOut")}
             </button>
           </div>
         </div>

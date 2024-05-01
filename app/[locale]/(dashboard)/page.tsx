@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import ProductCard from "@/components/products/ProductsCard";
 import ProductSort from "@/components/products/ProductSort";
 import ProductSearch from "@/components/products/ProductSearch";
-import { useTranslation } from "react-i18next";
+import { useScopedI18n } from "@/locales/client";
 
 export interface Product {
   id: number;
@@ -25,6 +25,8 @@ async function fetchProducts() {
 }
 
 function ProductsPage() {
+  const t = useScopedI18n("products");
+
   const [sortCriteria, setSortCriteria] = useState<string>("name");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
@@ -32,8 +34,6 @@ function ProductsPage() {
     string | undefined
   >();
   const [originalProducts, setOriginalProducts] = useState<Product[]>([]);
-
-  const { t } = useTranslation();
 
   const fetchData = async () => {
     const products = await fetchProducts();

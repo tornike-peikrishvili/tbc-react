@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { I18nProviderClient } from "@/locales/client";
+import { ReactElement } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,14 +11,18 @@ export const metadata = {
 };
 
 export default function DashboardLayout({
+  params: { locale },
   children,
 }: {
-  children: React.ReactNode;
+  params: { locale: string };
+  children: ReactElement;
 }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="h-screen grid items-center">{children}</main>
+        <main className="h-screen grid items-center">
+          <I18nProviderClient locale={locale}>{children}</I18nProviderClient>
+        </main>
       </body>
     </html>
   );
