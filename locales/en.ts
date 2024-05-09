@@ -60,6 +60,11 @@ export default {
     placeholder: "Search...",
   },
 
+  login: {
+    logIn: "Login",
+    logInBtn: "Log In",
+  },
+
   theme: {
     darkMode: "Dark Mode",
     lightMode: "Light Mode",

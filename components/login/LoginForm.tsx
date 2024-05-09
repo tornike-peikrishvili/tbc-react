@@ -3,8 +3,12 @@
 import { FormEvent, useState } from "react";
 import handleLogin from "@/scripts/login";
 import { useRouter } from "next/navigation";
+import { useCurrentLocale, useScopedI18n } from "@/locales/client";
 
 function LoginForm() {
+  const nextLocale = useCurrentLocale();
+  console.log(nextLocale);
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -13,6 +17,8 @@ function LoginForm() {
     e.preventDefault();
     handleLogin(username, password).then(() => router.push("/"));
   };
+
+  const scopedT = useScopedI18n("login");
 
   return (
     <form onSubmit={handleSubmit}>
@@ -58,7 +64,7 @@ function LoginForm() {
         type="submit"
         className="btn w-full py-2 px-4 border-black text-black hover:text-white hover:border-black hover:bg-black"
       >
-        Log In
+        {scopedT("logIn")}
       </button>
       <div>
         <p className="text-center">

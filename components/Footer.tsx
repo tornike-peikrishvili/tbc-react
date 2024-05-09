@@ -9,8 +9,8 @@ function Footer() {
   const scopedT = useScopedI18n("footer");
 
   return (
-    <footer className="py-2 bg-gray-900 md:px-6 mt-auto">
-      <div className="w-4/5 pb-4 m-auto flex justify-between">
+    <footer className="w-full py-2 bg-gray-900 md:px-6 mt-auto">
+      <div className="w-4/5 pb-4 m-auto flex justify-between flex-col lg:flex-row">
         <div className="text-gray-300 flex flex-col gap-1">
           <p className="text-white text-xl font-medium">
             {t("contacts.contactTitle")}

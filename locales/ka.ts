@@ -60,6 +60,11 @@ export default {
     placeholder: "ძებნა...",
   },
 
+  login: {
+    logIn: "შესვლა",
+    logInBtn: "შესვლა",
+  },
+
   theme: { darkMode: "მუქი ფონი", lightMode: "ღია ფონი" },
   lang: { en: "ინგლისური", ka: "ქართული" },
 } as const;

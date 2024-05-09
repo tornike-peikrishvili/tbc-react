@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/navigation";
 import handleLogout from "@/scripts/logout";
@@ -8,7 +10,10 @@ function Dropdown() {
   const t = useI18n();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [theme, setTheme] = useState<string>(() => {
-    return localStorage.getItem("theme") || getSystemTheme();
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") || getSystemTheme();
+    }
+    return "light";
   });
 
   const router = useRouter();
@@ -33,8 +38,10 @@ function Dropdown() {
   };
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
+    if (typeof window !== "undefined") {
+      document.documentElement.classList.toggle("dark", theme === "dark");
+      localStorage.setItem("theme", theme);
+    }
   }, [theme]);
 
   const toggleDropdown = () => {
