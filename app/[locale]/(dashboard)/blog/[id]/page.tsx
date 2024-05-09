@@ -1,10 +1,10 @@
-import { FetchedPost } from "@/app/[locale]/types";
 import Link from "next/link";
 import { getScopedI18n } from "@/locales/server";
+import { setStaticParamsLocale } from "next-international/server";
 
 export async function generateStaticParams() {
   const res = await fetch("https://dummyjson.com/posts/");
-  const data: FetchedPost = await res.json();
+  const data = await res.json();
 
   return data.posts.map((post: { id: number }) => ({
     id: `${post.id}`,
@@ -17,10 +17,15 @@ async function getPost(id: string) {
   return data;
 }
 
-async function Post({ params }: { params: { id: string } }) {
-  const scopedT = await getScopedI18n("blog");
-  const { id } = params;
+async function Post({
+  params: { id, locale },
+}: {
+  params: { id: string; locale: string };
+}) {
   const post = await getPost(id);
+  setStaticParamsLocale(locale);
+
+  const scopedT = await getScopedI18n("blog");
 
   return (
     <div className="max-w-4xl mx-auto h-full flex items-center px-4 py-8">

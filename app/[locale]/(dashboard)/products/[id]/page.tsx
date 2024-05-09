@@ -2,6 +2,7 @@ import Image from "next/image";
 import { FaCartPlus } from "react-icons/fa";
 import Link from "next/link";
 import { getI18n, getScopedI18n } from "@/locales/server";
+import { setStaticParamsLocale } from "next-international/server";
 
 export async function generateStaticParams() {
   const res = await fetch("https://dummyjson.com/products/");
@@ -18,11 +19,17 @@ async function getProduct(id: string) {
   return data;
 }
 
-async function Product({ params }: { params: { id: string } }) {
+async function Product({
+  params: { id, locale },
+}: {
+  params: { id: string; locale: string };
+}) {
+  const product = await getProduct(id);
+  setStaticParamsLocale(locale);
+
   const t = await getI18n();
   const scopedT = await getScopedI18n("products");
-  const { id } = params;
-  const product = await getProduct(id);
+
   return (
     <div className="container mx-auto h-full flex items-center ">
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
