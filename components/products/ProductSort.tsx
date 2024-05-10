@@ -14,7 +14,7 @@ interface SortProps {
   setPrevSortCriteria: Dispatch<string | undefined>;
 }
 
-async function ProductSort({
+function ProductSort({
   setSortCriteria,
   sortCriteria,
   setSortedProducts,
@@ -49,7 +49,7 @@ async function ProductSort({
   ) => {
     setSortCriteria(event.target.value);
   };
-  const scopedT = await useScopedI18n("sorts");
+  const scopedT = useScopedI18n("sorts");
 
   return (
     <div className="bg-white shadow p-4 mb-4 rounded dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">

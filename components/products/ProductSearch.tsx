@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch } from "react";
-import { useTranslation } from "react-i18next";
+import { useScopedI18n } from "@/locales/client";
 
 interface ProductSearchProps {
   setSearchTerm: Dispatch<string>;
@@ -30,13 +30,13 @@ function ProductSearch({ setSearchTerm }: ProductSearchProps) {
     debouncedSearch(value);
   };
 
-  const { t } = useTranslation();
+  const scopedT = useScopedI18n("products");
 
   return (
     <div className="mb-4 flex items-center">
       <input
         type="text"
-        placeholder={t("placeholder")}
+        placeholder={scopedT("search")}
         className="w-full px-4 py-2 border rounded focus:outline-none focus:border-gray-500 mr-2 dark:border-white dark:bg-transparent dark:text-white"
         onChange={handleDebouncedSearch}
       />

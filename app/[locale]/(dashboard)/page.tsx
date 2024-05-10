@@ -5,6 +5,7 @@ import ProductCard from "@/components/products/ProductsCard";
 import ProductSort from "@/components/products/ProductSort";
 import ProductSearch from "@/components/products/ProductSearch";
 import { useScopedI18n } from "@/locales/client";
+import { fetchProducts } from "@/utils/FetchProducts";
 
 export interface Product {
   id: number;
@@ -13,15 +14,6 @@ export interface Product {
   category: string;
   price: number;
   thumbnail: string;
-}
-
-async function fetchProducts() {
-  const response = await fetch("https://dummyjson.com/products", {
-    cache: "force-cache",
-  });
-  const products = await response.json();
-
-  return products;
 }
 
 function ProductsPage() {
