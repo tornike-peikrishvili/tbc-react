@@ -11,7 +11,7 @@ function Dropdown() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [theme, setTheme] = useState<string>(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || getSystemTheme();
+      return localStorage.getItem("theme") || "dark";
     }
     return "light";
   });

@@ -3,12 +3,9 @@
 import { FormEvent, useState } from "react";
 import handleLogin from "@/scripts/login";
 import { useRouter } from "next/navigation";
-import { useCurrentLocale, useScopedI18n } from "@/locales/client";
+import { useScopedI18n } from "@/locales/client";
 
 function LoginForm() {
-  const nextLocale = useCurrentLocale();
-  console.log(nextLocale);
-
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
