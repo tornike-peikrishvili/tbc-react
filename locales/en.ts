@@ -7,6 +7,7 @@ export default {
     profile: "Profile",
     logOut: "Log Out",
     products: "Products",
+    users: "Users",
   },
 
   products: {
@@ -69,5 +70,5 @@ export default {
     darkMode: "Dark Mode",
     lightMode: "Light Mode",
   },
-  lang: { en: "English", ka: "Georgian" },
+  lang: { en: "En", ka: "Ka" },
 } as const;

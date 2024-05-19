@@ -35,7 +35,6 @@ export async function updateUser(
   age: string
 ) {
   "use server";
-  console.log("api id:" + id);
   return await fetch(
     `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/edit-user/${id}`,
     {
