@@ -30,3 +30,11 @@ export interface PaginatedResponse extends PostData {
 export interface FetchedPost {
   posts: PaginatedResponse[];
 }
+
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+}

@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { I18nProviderClient } from "@/locales/client";
 import { ReactElement } from "react";
+import { CartProvider } from "@/utils/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,10 @@ export default function DashboardLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="h-screen grid items-center">
-          <I18nProviderClient locale={locale}>{children}</I18nProviderClient>
+          <I18nProviderClient locale={locale}>
+            {" "}
+            <CartProvider>{children}</CartProvider>
+          </I18nProviderClient>
         </main>
       </body>
     </html>

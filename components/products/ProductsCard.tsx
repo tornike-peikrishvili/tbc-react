@@ -1,11 +1,11 @@
-"use client";
-
+import React from "react";
 import Image from "next/image";
-import { FaCartPlus } from "react-icons/fa";
 import Link from "next/link";
+import { FaCartPlus } from "react-icons/fa";
 import { useScopedI18n } from "@/locales/client";
+import { useCart } from "@/utils/CartContext";
 
-interface ProductCard {
+interface ProductCardProps {
   id: number;
   name: string;
   rating: number;
@@ -21,12 +21,31 @@ function ProductCard({
   price,
   image,
   category,
-}: ProductCard) {
+}: ProductCardProps) {
   const scopedT = useScopedI18n("products");
+
+  const { state, dispatch } = useCart();
+
+  const addToCart = () => {
+    const existingProduct = state.products.find((p) => p.id === id);
+
+    if (existingProduct) {
+      dispatch({
+        type: "UPDATE_QUANTITY",
+        productId: id,
+        quantity: existingProduct.quantity + 1,
+      });
+    } else {
+      dispatch({
+        type: "ADD_TO_CART",
+        product: { id, name, quantity: 1 },
+      });
+    }
+  };
 
   return (
     <div className="flex flex-col justify-between bg-white p-4 rounded-lg shadow-box-shdw dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">
-      <div className="py-2 relative h-52 overflow-hidden rounded-md ">
+      <div className="py-2 relative h-52 overflow-hidden rounded-md">
         <Link href={`/products/${id}`}>
           <Image
             src={image}
@@ -38,14 +57,14 @@ function ProductCard({
         </Link>
       </div>
       <div className="py-1 flex flex-col justify-between">
-        <h3 className="text-lg font-semibold py-3 h-[49px] overflow-hidden ">
+        <h3 className="text-lg font-semibold py-3 h-[49px] overflow-hidden">
           <Link href={`/products/${id}`}>{name}</Link>
         </h3>
         <div className="h-full">
           <p className="text-[14px] font-semibold mt-3">
             {scopedT("category")}
           </p>
-          <p className="text-gray-700 uppercase  dark:text-white tracking-widest">
+          <p className="text-gray-700 uppercase dark:text-white tracking-widest">
             {category}
           </p>
         </div>
@@ -57,12 +76,15 @@ function ProductCard({
         </div>
       </div>
       <div className="flex gap-2">
-        <Link className="w-full" href={`/products/${id}`}>
+        <Link href={`/products/${id}`}>
           <button className="btn px-2 w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black">
             {scopedT("readMore")} {">"}
           </button>
         </Link>
-        <button className="btn px-2 py-1 border-black text-black hover:text-white hover:border-black hover:bg-black  dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black">
+        <button
+          className="btn px-2 py-1 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
+          onClick={addToCart}
+        >
           <FaCartPlus />
         </button>
       </div>

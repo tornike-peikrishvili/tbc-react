@@ -7,6 +7,7 @@ export default {
     profile: "პროფილი",
     logOut: "გასვლა",
     products: "პროდუქტები",
+    users: "მომხმარებლები",
   },
 
   products: {
@@ -66,5 +67,5 @@ export default {
   },
 
   theme: { darkMode: "მუქი ფონი", lightMode: "ღია ფონი" },
-  lang: { en: "ინგლისური", ka: "ქართული" },
+  lang: { en: "ინგ", ka: "ქართ" },
 } as const;
