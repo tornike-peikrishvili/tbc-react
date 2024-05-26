@@ -1,6 +1,6 @@
+import { getCartQuantitySum } from "@/api";
 import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
-import { getCartQuantitySum } from "@/app/api/cart/quantity-sum/route";
 
 async function CartCount() {
   const QuantitySum = await getCartQuantitySum("4");
