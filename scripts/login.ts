@@ -10,7 +10,6 @@ export default async function handleLogin(username: string, password: string) {
       }),
     }
   );
-  console.log(username, password);
   if (!response.ok) {
     throw new Error("Failed to login");
   }

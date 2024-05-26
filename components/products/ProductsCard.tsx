@@ -1,54 +1,36 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaCartPlus } from "react-icons/fa";
-import { useScopedI18n } from "@/locales/client";
-import { useCart } from "@/utils/CartContext";
+import { getScopedI18n } from "@/locales/server";
+import AddToCartBtn from "./AddToCartBtn";
 
 interface ProductCardProps {
   id: number;
   name: string;
-  rating: number;
+  // rating: number;
   price: number;
-  image: string;
-  category: string;
+  description: string;
+  // image: string;
+  // category: string;
 }
 
-function ProductCard({
+async function ProductCard({
   id,
   name,
-  rating,
+  // rating,
+  description,
   price,
-  image,
-  category,
+  // image,
+  // category,
 }: ProductCardProps) {
-  const scopedT = useScopedI18n("products");
-
-  const { state, dispatch } = useCart();
-
-  const addToCart = () => {
-    const existingProduct = state.products.find((p) => p.id === id);
-
-    if (existingProduct) {
-      dispatch({
-        type: "UPDATE_QUANTITY",
-        productId: id,
-        quantity: existingProduct.quantity + 1,
-      });
-    } else {
-      dispatch({
-        type: "ADD_TO_CART",
-        product: { id, name, quantity: 1 },
-      });
-    }
-  };
+  const scopedT = await getScopedI18n("products");
 
   return (
     <div className="flex flex-col justify-between bg-white p-4 rounded-lg shadow-box-shdw dark:bg-[#232B36] dark:text-white dark:shadow-drk-shdw">
       <div className="py-2 relative h-52 overflow-hidden rounded-md">
         <Link href={`/products/${id}`}>
           <Image
-            src={image}
+            src="https://dummyimage.com/600x400/000/fff"
             alt="Product"
             className="object-cover rounded-md max-h-[208px] hover:scale-110 transition-transform duration-200 ease-in overflow-hidden"
             fill
@@ -65,14 +47,14 @@ function ProductCard({
             {scopedT("category")}
           </p>
           <p className="text-gray-700 uppercase dark:text-white tracking-widest">
-            {category}
+            {description}
           </p>
         </div>
         <div className="flex justify-between">
           <p className="pb-2 text-gray-900 font-bold dark:text-white">
             {scopedT("price")} : ${price}
           </p>
-          <p>{rating}/5🫃</p>
+          {/* <p>{rating}/5🫃</p> */}
         </div>
       </div>
       <div className="flex gap-2">
@@ -81,12 +63,7 @@ function ProductCard({
             {scopedT("readMore")} {">"}
           </button>
         </Link>
-        <button
-          className="btn px-2 py-1 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
-          onClick={addToCart}
-        >
-          <FaCartPlus />
-        </button>
+        <AddToCartBtn productId={id} />
       </div>
     </div>
   );
