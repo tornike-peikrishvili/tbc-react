@@ -6,10 +6,7 @@ import { getScopedI18n } from "@/locales/server";
 async function Contact() {
   const scopedT = await getScopedI18n("contacts");
   return (
-    <div className="container mx-auto px-4 py-8 dark:text-white">
-      <h1 className="text-3xl font-bold mb-4 text-center dark:text-slate-50">
-        {scopedT("contactTitle")}
-      </h1>
+    <div className="container mx-auto px-4 pb-5 dark:text-white">
       <div className="flex justify-center md:flex-row mt-12">
         <div className="w-1/3 flex flex-col justify-center first-letter:gap-5">
           <div className="flex flex-col gap-5">
@@ -70,7 +67,7 @@ async function Contact() {
               className="btn w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
               type="submit"
             >
-              ${scopedT("submit")}
+              {scopedT("submit")}
             </button>
           </form>
         </div>

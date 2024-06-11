@@ -1,25 +1,26 @@
 import Image from "next/image";
-import Logo from "@/public/logo-black.png";
+import Logo from "@/public/logo.png";
 import Link from "next/link";
+import ScrollHeader from "@/components/header/ScrollHeader";
 import { getSession } from "@auth0/nextjs-auth0";
 
 async function Header() {
   const session = await getSession();
   const user = session?.user;
   return (
-    <header className="fixed w-full p-5 transition-all duration-200 bg-white z-50 border-black border-b-[1px]">
+    <ScrollHeader>
       <div className="flex justify-between items-center py-5">
         <nav className="space-x-8 pl-16 ">
-          <Link href="/products" className="nav-link-white text-black">
+          <Link href="/products" className="nav-link">
             EVENTS
           </Link>
-          <Link href="/" className="nav-link-white text-black">
+          <Link href="/" className="nav-link">
             ABOUT
           </Link>
-          <Link href="/blog" className="nav-link-white text-black">
+          <Link href="/blog" className="nav-link">
             BLOG
           </Link>
-          <Link href="/contact" className="nav-link-white text-black">
+          <Link href="/contact" className="nav-link">
             CONTACT
           </Link>
         </nav>
@@ -34,7 +35,7 @@ async function Header() {
           {user ? (
             <a
               href={"/api/auth/logout"}
-              className="bg-transparent border-2 border-black px-6 py-2 rounded hover:duration-100 hover:bg-black hover:text-white"
+              className="bg-transparent text-white border-2 border-white px-6 py-2 rounded hover:duration-100 hover:bg-white hover:text-black"
             >
               Log Out
             </a>
@@ -42,7 +43,7 @@ async function Header() {
             <>
               <Link
                 href="/api/auth/login"
-                className="bg-transparent border-2 border-black px-6 py-2 rounded hover:duration-100 hover:bg-black hover:text-white"
+                className="bg-transparent text-white border-2 border-white px-6 py-2 rounded hover:duration-100 hover:bg-white hover:text-black"
               >
                 Sign In
               </Link>
@@ -57,7 +58,7 @@ async function Header() {
           )}
         </div>
       </div>
-    </header>
+    </ScrollHeader>
   );
 }
 

@@ -1,10 +1,10 @@
 "use server";
 
 export interface User {
-  id: number;
+  user_id: string;
   name: string;
   email: string;
-  age: string;
+  role: string;
 }
 
 export async function getUsers() {
@@ -20,13 +20,6 @@ export async function createUser(name: string, email: string, age: string) {
   return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/create-user`, {
     method: "POST",
     body: JSON.stringify({ name, email, age }),
-  });
-}
-
-export async function deleteUser(id: number) {
-  "use server";
-  await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/delete-user/${id}`, {
-    method: "DELETE",
   });
 }
 

@@ -1,13 +1,13 @@
 "use client";
 
-import { deleteUserAction } from "@/actions";
+import { deleteUser } from "@/actions";
 import { useRouter } from "next/navigation";
 import { AiOutlineUserDelete } from "react-icons/ai";
 
-const DeleteUser = ({ id }: { id: number }) => {
+const DeleteUser = ({ id }: { id: string }) => {
   const router = useRouter();
   function handClick() {
-    deleteUserAction(id);
+    deleteUser(id);
     router.refresh();
   }
   return (
