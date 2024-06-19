@@ -8,10 +8,11 @@ export interface PostProps {
 }
 
 export interface User {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
 }
+
 export interface PostData {
   id: number;
   title: string;
@@ -30,14 +31,6 @@ export interface PaginatedResponse extends PostData {
 export interface FetchedPost {
   posts: PaginatedResponse[];
 }
-
-// export interface Product {
-//   id: number;
-//   title: string;
-//   description: string;
-//   price: number;
-//   images: string[];
-// }
 
 export interface Product {
   id: number;

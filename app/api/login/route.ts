@@ -1,27 +1,28 @@
-import { AUTH_COOKIE_KEY } from "@/constants";
-import { cookies } from "next/headers";
-import { NextRequest } from "next/server";
+import { getSession } from "@auth0/nextjs-auth0";
+import { sql } from "@vercel/postgres";
+import { redirect } from "next/navigation";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
-  const { username, password } = await request.json();
+export const GET = async (_: NextRequest) => {
+  const data = await getSession();
 
-  const res = await fetch("https://dummyjson.com/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      username,
-      password,
-    }),
-  });
+  let id, email, image, name;
 
-  const data = await res.json();
-
-  if (res.ok) {
-    const cookieStore = cookies();
-    cookieStore.set(AUTH_COOKIE_KEY, JSON.stringify(data.token));
-  } else {
-    throw new Error(data.message);
+  if (data) {
+    id = data.user.sub;
+    email = data.user.email;
+    image = data.user.picture;
+    name = data.user.nickname;
   }
 
-  return Response.json({ username, password });
-}
+  try {
+    const res = await sql`SELECT * FROM users WHERE user_id = ${String(id)}`;
+    if (res.rowCount === 0) {
+      await sql`INSERT INTO users (user_id, name, email, image) VALUES (${String(id)}, ${String(name)}, ${String(email)}, ${String(image)})`;
+    }
+  } catch (err) {
+    return NextResponse.json({ err }, { status: 500 });
+  }
+
+  return redirect("/");
+};

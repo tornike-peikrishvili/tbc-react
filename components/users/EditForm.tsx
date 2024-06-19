@@ -1,6 +1,5 @@
-import { updateUserAction } from "@/actions";
+import { updateUser } from "@/actions";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { User } from "@/api";
 
 function EditForm({
@@ -11,25 +10,11 @@ function EditForm({
   user: User;
 }) {
   const router = useRouter();
-  const [userData, setUserData] = useState({
-    name: user.name ? user.name : "",
-    email: user.email ? user.email : "",
-    age: user.age ? user.age : "",
-  });
-
-  const { name, email, age } = userData;
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserData((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
-  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formDataToSend = new FormData(event.currentTarget);
-    await updateUserAction(formDataToSend);
+    await updateUser(user.user_id, formDataToSend);
     setOpenModal(false);
     router.refresh();
   };
@@ -40,34 +25,20 @@ function EditForm({
         onSubmit={handleSubmit}
         className="bg-white rounded-xl shadow-md p-8 w-1/3"
       >
-        <input type="hidden" name="id" value={user.id} />
+        <input type="hidden" name="id" value={user.user_id} />
         <input
           type="text"
           name="name"
-          value={name}
-          onChange={handleChange}
           placeholder="Name"
           className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:border-blue-500"
-          required
         />
         <input
           type="email"
           name="email"
-          value={email}
-          onChange={handleChange}
           placeholder="Email"
           className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:border-blue-500"
-          required
         />
-        <input
-          type="text"
-          name="age"
-          value={age}
-          onChange={handleChange}
-          placeholder="Age"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:border-blue-500"
-          required
-        />
+
         <div className="flex justify-between">
           <button
             type="button"

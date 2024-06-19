@@ -1,6 +1,5 @@
-import { createUserAction } from "@/actions";
+import { createUser } from "@/actions";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 export default function UserForm({
   setOpenModal,
@@ -8,25 +7,11 @@ export default function UserForm({
   setOpenModal: (openModal: boolean) => void;
 }) {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    age: "",
-  });
-
-  const { name, email, age } = formData;
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
-  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formDataToSend = new FormData(event.currentTarget);
-    await createUserAction(formDataToSend);
+    await createUser(formDataToSend);
     setOpenModal(false);
     router.refresh();
   };
@@ -41,25 +26,25 @@ export default function UserForm({
         <input
           type="text"
           name="name"
-          value={name}
-          onChange={handleChange}
           placeholder="Name"
           className="border border-gray-300 rounded-md p-2"
         />
         <input
-          type="text"
+          type="email"
           name="email"
-          value={email}
-          onChange={handleChange}
           placeholder="Email"
           className="border border-gray-300 rounded-md p-2"
         />
         <input
-          type="number"
-          name="age"
-          value={age}
-          onChange={handleChange}
-          placeholder="Age"
+          type="password"
+          name="password"
+          placeholder="Password"
+          className="border border-gray-300 rounded-md p-2"
+        />
+        <input
+          type="text"
+          name="role"
+          placeholder="Role"
           className="border border-gray-300 rounded-md p-2"
         />
         <div className="flex justify-between">

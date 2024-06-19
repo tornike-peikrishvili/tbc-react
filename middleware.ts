@@ -1,25 +1,34 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { AUTH_COOKIE_KEY } from "@/constants";
+import { NextRequest, NextResponse } from "next/server";
 import { createI18nMiddleware } from "next-international/middleware";
-
-export default function authMiddleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const auth = request.cookies.get(AUTH_COOKIE_KEY);
-  if (!auth?.value && !pathname.startsWith("/login")) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-  if (auth?.value && pathname.startsWith("/login")) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-  return I18nMiddleware(request);
-}
+import { getSession } from "@auth0/nextjs-auth0/edge";
 
 const I18nMiddleware = createI18nMiddleware({
   locales: ["en", "ka"],
   defaultLocale: "en",
   urlMappingStrategy: "rewrite",
 });
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!user && pathname === "/profile") {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  if (!user && pathname === "/admin") {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  if (user) {
+    if (!user.role.includes("Admin") && pathname === "/admin") {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
+  return I18nMiddleware(request);
+}
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|images|favicon.ico).*)"],

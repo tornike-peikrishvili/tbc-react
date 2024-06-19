@@ -19,6 +19,9 @@ function NavLinks() {
         <Link href="/" className="nav-link">
           {scopedT("home")}
         </Link>
+        <Link href="/products" className="nav-link">
+          {scopedT("products")}
+        </Link>
         <Link href="/" className="nav-link">
           {scopedT("about")}
         </Link>
