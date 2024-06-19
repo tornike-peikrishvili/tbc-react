@@ -8,16 +8,16 @@ export async function POST(request: NextRequest) {
   try {
     const cartItems = await sql`
       SELECT 
-      products.name,
-      products.price,
-      products.description,
+      events.title,
+      events.price,
+      events.description,
       cart.quantity,
-      cart.product_id,
+      cart.event_id,
       cart.id
       FROM cart 
       JOIN 
-      products ON cart.product_id = products.id 
-      WHERE cart.user_id = ${Number(userId)}
+      events ON cart.event_id = events.id 
+      WHERE cart.user_id = ${userId}
     `.catch((error) => console.log(error));
     return NextResponse.json(cartItems, { status: 200 });
   } catch (error) {

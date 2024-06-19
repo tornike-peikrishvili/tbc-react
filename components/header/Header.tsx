@@ -2,14 +2,17 @@ import Image from "next/image";
 import Logo from "@/public/logo-black.png";
 import Link from "next/link";
 import { getSession } from "@auth0/nextjs-auth0";
+import DropdownMenu from "@/components/header/Dropdown";
+import MobileNavMenu from "@/components/header/BurgerMenu";
 
 async function Header() {
   const session = await getSession();
   const user = session?.user;
   return (
     <header className="fixed w-full p-5 transition-all duration-200 bg-white z-50 border-black border-b-[1px]">
-      <div className="flex justify-between items-center py-5">
-        <nav className="space-x-8 pl-16 ">
+      <div className="flex justify-between items-center py-2">
+        <MobileNavMenu textColor="black" bgColor="white" />
+        <nav className="space-x-8 pl-16 sm:hidden lg:flex">
           <Link href="/products" className="nav-link-white text-black">
             EVENTS
           </Link>
@@ -32,12 +35,16 @@ async function Header() {
 
         <div className="space-x-5 pr-16">
           {user ? (
-            <a
+            <div className="flex gap-5">
+              <DropdownMenu></DropdownMenu>
+
+              {/* <a
               href={"/api/auth/logout"}
-              className="bg-transparent border-2 border-black px-6 py-2 rounded hover:duration-100 hover:bg-black hover:text-white"
+              className="bg-transparent text-white border-2 border-white px-6 py-2 rounded hover:duration-100 hover:bg-white hover:text-black"
             >
               Log Out
-            </a>
+            </a> */}
+            </div>
           ) : (
             <>
               <Link

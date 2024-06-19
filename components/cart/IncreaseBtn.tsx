@@ -1,14 +1,14 @@
 "use client";
-import { increaseQuantityAction } from "@/actions";
+import { increaseQuantityAction } from "@/actions/actions";
 
 interface AddToCartBtnProps {
-  productId: number;
+  eventId: number;
 }
 
-function IncreaseBtn({ productId }: AddToCartBtnProps) {
+function IncreaseBtn({ eventId }: AddToCartBtnProps) {
   return (
-    <button onClick={() => increaseQuantityAction(4, productId)}>
-      <div className="w-4 h-4">+</div>
+    <button onClick={() => increaseQuantityAction(eventId)}>
+      <div className="h-4 w-4">+</div>
       <span className="sr-only">Increase Quantity</span>
     </button>
   );

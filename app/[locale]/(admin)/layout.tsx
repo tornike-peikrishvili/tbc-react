@@ -13,12 +13,12 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="h-screen flex flex-col">
-      <header className="w-full h-[100px] bg-white border-black border-b-2 flex items-center justify-center">
+      <header className="w-full h-[100px] bg-white border-black border-b-2 flex items-center justify-center py-2">
         <Link href="/">
           <Image src={Logo} width={80} alt="Logo" />
         </Link>
       </header>
-      <main className=" dark:bg-[#1B2430]">{children}</main>
+      <main className=" dark:bg-[#1B2430] scroll-smooth">{children}</main>
     </div>
   );
 }

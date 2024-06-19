@@ -1,13 +1,15 @@
 import { User, getUsers } from "@/api";
-import UserCreateButton from "@/components/users/UsersAddButton";
-import DeleteUser from "@/components/users/DeleteUser";
-import EditButton from "@/components/users/EditButton";
+import UserCreateButton from "@/components/admin/users/UsersAddButton";
+import DeleteUser from "@/components/admin/users/DeleteUser";
+import EditButton from "@/components/admin/users/EditButton";
+import PendingEventList from "@/components/admin/events/PendingEventsList";
+import EventList from "@/components/admin/events/EventList";
 
 async function UsersPage() {
   let users = await getUsers();
 
   return (
-    <div className="container  flex flex-col mx-auto px-4 py-8 pt-[100px]">
+    <div className="container  flex flex-col mx-auto px-4 py-2">
       <div className="w-full flex relative">
         <p className="text-3xl text-black font-semibold m-auto">User List</p>
         <UserCreateButton />
@@ -42,6 +44,8 @@ async function UsersPage() {
           </div>
         </div>
       </div>
+      <PendingEventList />
+      <EventList />
     </div>
   );
 }

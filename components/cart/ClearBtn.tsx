@@ -1,10 +1,10 @@
 "use client";
-import { clearCartAction } from "@/actions";
+import { clearCartAction } from "@/actions/actions";
 
 function ClearBtn() {
   return (
-    <button onClick={() => clearCartAction(4)}>
-      <p className="text-2xl font-bold mb-4">Clear Cart</p>
+    <button onClick={() => clearCartAction()}>
+      <p className="mb-4 text-2xl font-bold">Clear Cart</p>
     </button>
   );
 }

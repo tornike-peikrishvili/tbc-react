@@ -63,12 +63,13 @@ async function Contact() {
               rows={4}
               placeholder={`${scopedT("message")}`}
             ></textarea>
-            <button
+            <a
+              href="mailto:no-one@snai1mai1.com?subject=look at this website&body=Hi,I found this website and thought you might like it http://www.geocities.com/wowhtml/"
               className="btn w-full py-1 border-black text-black hover:text-white hover:border-black hover:bg-black dark:text-white dark:border-white hover:dark:bg-[#fafafa] hover:dark:text-black"
               type="submit"
             >
               {scopedT("submit")}
-            </button>
+            </a>
           </form>
         </div>
       </div>
