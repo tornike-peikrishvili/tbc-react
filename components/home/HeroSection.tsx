@@ -29,8 +29,8 @@ function Hero() {
           className="mt-auto mb-[20%] md:mb-[5%] lg:mb-[2%]"
         />
       </div>
-      <div className="border-solid w-0 h-0  border-t-[90px] border-l-[1000px] border-t-transparent border-l-white absolute bottom-0 left-0"></div>
-      <div className="border-solid w-0 h-0  border-t-[90px] border-r-[1000px] border-t-transparent border-r-white absolute bottom-0 right-0"></div>
+      <div className="border-solid w-0 h-0  border-t-[90px] lg:border-l-[1000px] border-t-transparent border-l-white absolute bottom-0 left-0 sm:border-l-[100px]"></div>
+      <div className="border-solid w-0 h-0  border-t-[90px] lg:border-r-[1000px] border-t-transparent border-r-white absolute bottom-0 right-0 sm:border-r-[100px]"></div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { addToCartAction } from "@/actions";
+import { addToCartAction } from "@/actions/actions";
 import { FaCartPlus } from "react-icons/fa";
 
 interface AddToCartBtnProps {

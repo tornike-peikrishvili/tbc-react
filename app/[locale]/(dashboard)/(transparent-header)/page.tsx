@@ -3,7 +3,7 @@ import UpcomingEvents from "@/components/home/UpcomingEvents";
 
 export default function Home() {
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="min-h-screen bg-black text-white">
       <Hero></Hero>
       <UpcomingEvents></UpcomingEvents>
     </div>

@@ -1,16 +1,20 @@
 import Image from "next/image";
 import Logo from "@/public/logo.png";
 import Link from "next/link";
+import DropdownMenu from "@/components/header/Dropdown";
 import ScrollHeader from "@/components/header/ScrollHeader";
 import { getSession } from "@auth0/nextjs-auth0";
+import MobileNavMenu from "@/components/header/BurgerMenu";
 
 async function Header() {
   const session = await getSession();
   const user = session?.user;
   return (
     <ScrollHeader>
-      <div className="flex justify-between items-center py-5">
-        <nav className="space-x-8 pl-16 ">
+      <div className="flex justify-between items-center py-2">
+        <MobileNavMenu textColor="white" bgColor="black" />
+
+        <nav className="space-x-8 pl-16 sm:hidden lg:flex">
           <Link href="/products" className="nav-link">
             EVENTS
           </Link>
@@ -33,12 +37,16 @@ async function Header() {
 
         <div className="space-x-5 pr-16">
           {user ? (
-            <a
-              href={"/api/auth/logout"}
-              className="bg-transparent text-white border-2 border-white px-6 py-2 rounded hover:duration-100 hover:bg-white hover:text-black"
-            >
-              Log Out
-            </a>
+            <div className="flex gap-5">
+              <DropdownMenu></DropdownMenu>
+
+              {/* <a
+                href={"/api/auth/logout"}
+                className="bg-transparent text-white border-2 border-white px-6 py-2 rounded hover:duration-100 hover:bg-white hover:text-black"
+              >
+                Log Out
+              </a> */}
+            </div>
           ) : (
             <>
               <Link

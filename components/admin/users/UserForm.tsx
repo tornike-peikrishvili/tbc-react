@@ -1,62 +1,68 @@
-import { updateUser } from "@/actions";
+import { createUser } from "@/actions/user/create-user";
 import { useRouter } from "next/navigation";
-import { User } from "@/api";
 
-function EditForm({
+export default function UserForm({
   setOpenModal,
-  user,
 }: {
   setOpenModal: (openModal: boolean) => void;
-  user: User;
 }) {
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formDataToSend = new FormData(event.currentTarget);
-    await updateUser(user.user_id, formDataToSend);
+    await createUser(formDataToSend);
     setOpenModal(false);
     router.refresh();
   };
 
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-800 bg-opacity-75 z-[999]">
+    <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center z-[100]">
+      <div className="bg-gray-800 bg-opacity-75 absolute inset-0"></div>
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-xl shadow-md p-8 w-1/3"
+        className="z-[101] bg-white rounded-xl p-8 flex flex-col gap-4"
       >
-        <input type="hidden" name="id" value={user.user_id} />
         <input
           type="text"
           name="name"
           placeholder="Name"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:border-blue-500"
+          className="border border-gray-300 rounded-md p-2"
         />
         <input
           type="email"
           name="email"
           placeholder="Email"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:border-blue-500"
+          className="border border-gray-300 rounded-md p-2"
         />
-
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          className="border border-gray-300 rounded-md p-2"
+        />
+        <input
+          type="text"
+          name="role"
+          placeholder="Role"
+          className="border border-gray-300 rounded-md p-2"
+        />
         <div className="flex justify-between">
           <button
             type="button"
             onClick={() => setOpenModal(false)}
             className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
           >
-            Close
+            Cancel
           </button>
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Edit
+            Create User
           </button>
         </div>
       </form>
     </div>
   );
 }
-
-export default EditForm;

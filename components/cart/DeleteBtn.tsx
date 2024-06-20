@@ -1,16 +1,16 @@
 "use client";
 
-import { removeFromCartAction } from "@/actions";
+import { removeFromCartAction } from "@/actions/actions";
 
 interface AddToCartBtnProps {
-  productId: number;
+  eventId: number;
 }
 
-function DeleteBtn({ productId }: AddToCartBtnProps) {
+function DeleteBtn({ eventId }: AddToCartBtnProps) {
   return (
     <button
       onClick={() => {
-        removeFromCartAction(4, productId);
+        removeFromCartAction(eventId);
       }}
     >
       DELETE

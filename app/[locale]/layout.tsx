@@ -3,6 +3,7 @@ import "./globals.css";
 import { I18nProviderClient } from "@/locales/client";
 import { ReactElement } from "react";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +23,11 @@ export default function DashboardLayout({
     <html lang="en">
       <UserProvider>
         <body className={inter.className}>
-          <main className="h-screen grid items-center">
-            <I18nProviderClient locale={locale}>{children}</I18nProviderClient>
+          <main className="h-screen grid items-center ">
+            <I18nProviderClient locale={locale}>
+              {children}
+              <Toaster position="top-right" />
+            </I18nProviderClient>
           </main>
         </body>
       </UserProvider>

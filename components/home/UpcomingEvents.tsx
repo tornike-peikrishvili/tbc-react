@@ -1,11 +1,12 @@
-function UpcomingEvents() {
+import Carousel, { EventProps } from "../carousel/ThreeSlideCarousel";
+import { getApproveEvents } from "@/actions/events/get-approved-events";
+
+async function UpcomingEvents() {
+  const { events } = await getApproveEvents();
+
   return (
-    <div className="py-10 bg-white flex">
-      <div className="m-auto flex gap-5">
-        <div className="w-[300px] h-[200px] bg-[#D9D9D9]"></div>
-        <div className="w-[300px] h-[200px] bg-[#D9D9D9]"></div>
-        <div className="w-[300px] h-[200px] bg-[#D9D9D9]"></div>
-      </div>
+    <div className="bg-white">
+      <Carousel events={events as EventProps[]} />
     </div>
   );
 }

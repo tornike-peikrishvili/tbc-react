@@ -28,7 +28,13 @@ module.exports = {
           "100%": { transform: "translateX(100%)" },
         },
       },
+      screens: {
+        xs: { min: "320px", max: "399px" },
+        sm: "375px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1370px",
+      },
     },
   },
-  plugins: [],
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteUser } from "@/actions";
+import { deleteUser } from "@/actions/user/delete-user";
 import { useRouter } from "next/navigation";
 import { AiOutlineUserDelete } from "react-icons/ai";
 

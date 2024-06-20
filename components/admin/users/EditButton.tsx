@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import EditForm from "@/components/users/EditForm";
+import EditForm from "@/components/admin/users/EditForm";
 import { User } from "@/api";
 import { FaEdit } from "react-icons/fa";
 

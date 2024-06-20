@@ -14,7 +14,9 @@ export default function NonTrasnparentLayout({
   return (
     <div className="h-screen flex flex-col">
       <Header />
-      <main className=" dark:bg-[#1B2430] pt-[90px]">{children}</main>
+      <main className=" dark:bg-[#1B2430] pt-[90px] scroll-smooth">
+        {children}
+      </main>
       <Footer />
     </div>
   );
