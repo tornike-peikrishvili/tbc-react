@@ -2,7 +2,6 @@
 "use client";
 import { useState } from "react";
 import { clearCartAction } from "@/actions/actions";
-import { useRouter } from "next/navigation";
 
 interface ClearBtnProps {
   className?: string;
@@ -11,7 +10,6 @@ interface ClearBtnProps {
 
 function ClearBtn({ className, children }: ClearBtnProps) {
   const [isClearing, setIsClearing] = useState(false);
-  const router = useRouter();
 
   const handleClearCart = async () => {
     setIsClearing(true);
