@@ -29,7 +29,7 @@ function FullscreenCarousel({ events }: { events: EventProps[] }) {
       align: "start",
       loop: true,
     },
-    [],
+    [Autoplay()],
   );
 
   const scrollPrev = useCallback(() => {
