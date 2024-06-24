@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
+import { put } from "@vercel/blob";
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,9 +24,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const imageFiles = formData.getAll("image") as File[];
+    const imageUrls = await Promise.all(
+      imageFiles.map(async (file) => {
+        const blob = await put(file.name, file, {
+          access: "public",
+        });
+        return blob.url;
+      }),
+    );
+
     await sql`
-      INSERT INTO events (title, description, starting, organizer, category, price, amount, location, approved, created_by)
-      VALUES (${title}, ${description}, ${starting}, ${userName}, ${categories},  ${Number(price)}, ${Number(amount)}, ${location}, false, ${userId})
+      INSERT INTO events (title, description, starting, organizer, category, price, amount, location, approved, created_by, images)
+       VALUES (${title}, ${description}, ${starting}, ${userName}, ${categories}, ${Number(price)}, ${Number(amount)}, ${location}, false, ${userId}, ${JSON.stringify(imageUrls)})
     `;
 
     return NextResponse.json(

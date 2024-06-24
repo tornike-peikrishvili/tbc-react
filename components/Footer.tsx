@@ -9,54 +9,54 @@ function Footer() {
   const scopedT = useScopedI18n("footer");
 
   return (
-    <footer className="w-full pt-8 pb-3 text-black md:px-6 mt-auto border-t-[1px] border-gray-600">
-      <div className="max-w-screen-xl px-4 mx-auto flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:justify-between ">
+    <footer className="mt-auto w-full border-t-[1px] border-gray-600 pb-3 pt-8 text-black md:px-6">
+      <div className="max-w-screen mx-auto flex flex-col space-y-8 px-4 lg:flex-row lg:justify-between lg:space-y-0 ">
         <div className="flex flex-col gap-1 text-black">
           <p className="text-xl font-medium">{t("contacts.contactTitle")}</p>
-          <div className="flex items-center gap-5 mt-2 ">
+          <div className="mt-2 flex items-center gap-5 ">
             <a href="/">
-              <FaTwitter className="w-8 h-8" />
+              <FaTwitter className="h-8 w-8" />
             </a>
             <a href="/">
-              <FaLinkedin className="w-8 h-8" />
+              <FaLinkedin className="h-8 w-8" />
             </a>
             <a href="/">
-              <FaFacebook className="w-8 h-8" />
+              <FaFacebook className="h-8 w-8" />
             </a>
             <a href="/">
-              <MdEmail className="w-10 h-10" />
+              <MdEmail className="h-10 w-10" />
             </a>
           </div>
         </div>
 
-        <div className="flex flex-col  gap-1 text-black lg:w-1/3 lg:text-center">
+        <div className="flex flex-col gap-1 text-black lg:w-1/3 lg:text-center">
           <p className="text-xl font-medium ">{scopedT("legal")}</p>
-          <a href="/" className="text-sm hover:underline underline-offset-8">
+          <a href="/" className="text-sm underline-offset-8 hover:underline">
             {scopedT("terms")}
           </a>
-          <a href="/" className="text-sm hover:underline underline-offset-8 ">
+          <a href="/" className="text-sm underline-offset-8 hover:underline ">
             {scopedT("Privacy")}
           </a>
         </div>
 
         <div className="flex flex-col gap-1 text-black lg:w-1/3 ">
           <p className="text-xl font-medium">{scopedT("subscribeNews")}</p>
-          <div className="flex flex-col mt-2 space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+          <div className="mt-2 flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
             <input
-              className="px-4 py-2 rounded-lg text-black border-2 border-black focus:outline-none"
+              className="rounded-lg border-2 border-black px-4 py-2 text-black focus:outline-none"
               placeholder={scopedT("footerMail")}
               type="email"
             />
-            <button className="px-4 py-2 font-medium rounded-lg text-black border-2 border-black hover:bg-black hover:text-white duration-200">
-              {scopedT("subscribe")}
+            <button className="rounded-lg border-2 border-black px-4 py-2 font-medium text-black duration-200 hover:bg-black hover:text-white">
+              {"+"}
             </button>
           </div>
         </div>
       </div>
 
-      <div className="pt-3 mt-8 border-t-[1px] border-gray-300 flex flex-col items-center justify-between sm:flex-row">
+      <div className="mt-8 flex flex-col items-center justify-between border-t-[1px] border-gray-300 pt-3 sm:flex-row">
         <p className="text-xs text-black">{scopedT("rights")}</p>
-        <nav className="flex items-center gap-x-4 mt-2 sm:mt-0">
+        <nav className="mt-2 flex items-center gap-x-4 sm:mt-0">
           <Link href="/events" className="nav-link text-black">
             {t("navBar.products")}
           </Link>

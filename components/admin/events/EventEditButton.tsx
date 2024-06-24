@@ -22,7 +22,17 @@ export default function EventEditButton({
       </button>
       <AnimatePresence>
         {openModal && (
-          <EventEditForm eventData={eventData} setOpenModal={setOpenModal} />
+          <EventEditForm
+            eventData={{
+              ...eventData,
+              images: Array.isArray(eventData.images)
+                ? eventData.images.map((image) =>
+                    typeof image === "string" ? image : image.url,
+                  )
+                : [eventData.images],
+            }}
+            setOpenModal={setOpenModal}
+          />
         )}
       </AnimatePresence>
     </div>

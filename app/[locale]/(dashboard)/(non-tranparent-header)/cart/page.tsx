@@ -1,9 +1,11 @@
+import Image from "next/image";
 import { getCartItems } from "@/api";
 import { getSession } from "@auth0/nextjs-auth0";
-import DecreaseBtn from "@/components/cart/DecreaseBtn";
 import DeleteBtn from "@/components/cart/DeleteBtn";
-import IncreaseBtn from "@/components/cart/IncreaseBtn";
 import ClearBtn from "@/components/cart/ClearBtn";
+import CheckoutBtn from "@/components/cart/CheckoutBtn";
+import { FaTrash, FaTimes } from "react-icons/fa";
+import QuantityControls from "@/components/cart/QuantityControls";
 
 export interface CartItem {
   id: number;
@@ -26,55 +28,81 @@ async function Cart() {
   );
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6 lg:py-12">
-      <div className="grid h-full gap-8 md:grid-cols-[1fr_300px] lg:gap-12">
+    <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
+      <div className="grid gap-12 md:grid-cols-[1fr_350px]">
         <div>
-          <div className="flex justify-between text-center">
-            <h1 className="mb-4 text-2xl font-bold">Your Cart</h1>
-            <div>
-              <ClearBtn />
-            </div>
+          <div className="mb-8 flex items-center justify-between">
+            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">
+              Your Cart
+            </h1>
+            <ClearBtn className="flex items-center rounded-full bg-red-100 px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-200 dark:bg-red-900 dark:text-red-100 dark:hover:bg-red-800">
+              <FaTimes className="mr-2" />
+              Clear Cart
+            </ClearBtn>
           </div>
-          <div className="overflow-hidden rounded-lg border">
-            <div className="bg-gray-100 px-4 py-3 font-medium dark:bg-gray-800">
+          <div className="overflow-hidden rounded-2xl bg-white shadow-lg dark:bg-gray-800">
+            <div className="bg-gray-50 px-6 py-4 text-lg font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-200">
               Items in Cart
             </div>
-
-            {cartItems.map((item: CartItem) => (
-              <div key={item.id} className="divide-y dark:divide-gray-800">
-                <div className="grid grid-cols-[80px_1fr_80px] items-center gap-4 p-4">
-                  <img
-                    alt="Product Image"
-                    className="rounded-md"
-                    height="80"
-                    src="https://via.placeholder.com/250x250"
-                    width="80"
-                  />
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              {cartItems.map((item: CartItem) => (
+                <div
+                  key={item.id}
+                  className="grid grid-cols-[100px_1fr_auto] items-center gap-6 p-6"
+                >
+                  <div className="relative h-24 w-24 overflow-hidden rounded-lg">
+                    <Image
+                      src="https://via.placeholder.com/250x250"
+                      alt="Product Image"
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
                   <div>
-                    <h3 className="font-medium">{item.title}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                       {item.description}
                     </p>
+                    <div className="mt-4 flex items-center space-x-2">
+                      <QuantityControls
+                        eventId={item.event_id}
+                        initialQuantity={item.quantity}
+                      />
+                      <DeleteBtn
+                        eventId={item.event_id}
+                        className="ml-4 flex items-center rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-600 transition-colors hover:bg-red-200 dark:bg-red-900 dark:text-red-100 dark:hover:bg-red-800"
+                      >
+                        <FaTrash className="mr-1" />
+                        Remove
+                      </DeleteBtn>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <DecreaseBtn eventId={item.event_id} />
-                    <span>{item.quantity}</span>
-                    <IncreaseBtn eventId={item.event_id} />
-                    <DeleteBtn eventId={item.event_id} />
+                  <div className="text-right">
+                    <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                      ${item.price.toFixed(2)}
+                    </span>
                   </div>
-                  <div className="font-medium">${item.price}</div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-        <div className="min-h-f sticky top-8 rounded-lg bg-gray-100 p-6 dark:bg-gray-800">
-          <h2 className="mb-4 text-xl font-bold">Order Summary</h2>
-          <div className="flex justify-between text-lg font-medium">
-            <span>Total</span>
-            <span>${totalPrice.toFixed(2)}</span>
+        <div className="sticky top-8 h-fit rounded-2xl bg-white p-8 shadow-lg dark:bg-gray-800">
+          <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
+            Order Summary
+          </h2>
+          <div className="mb-6 flex justify-between text-lg font-semibold">
+            <span className="text-gray-600 dark:text-gray-300">Total</span>
+            <span className="text-gray-900 dark:text-white">
+              ${totalPrice.toFixed(2)}
+            </span>
           </div>
-          <button className="mt-6 w-full">Proceed to Checkout</button>
+          <CheckoutBtn
+            cartItems={cartItems}
+            className="w-full rounded-full bg-indigo-600 px-6 py-3 text-lg font-semibold text-white transition-colors hover:bg-indigo-700"
+          />
         </div>
       </div>
     </div>

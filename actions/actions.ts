@@ -9,8 +9,13 @@ import {
   createEvent,
   deleteEvent,
   editEvent,
+  createBlog,
+  deleteBlog,
+  editBlog,
 } from "../api";
 import { revalidatePath } from "next/cache";
+import { getSession } from "@auth0/nextjs-auth0";
+import { sql } from "@vercel/postgres";
 
 // Create Event
 
@@ -39,6 +44,7 @@ export async function editEventAction(formData: FormData) {
   await editEvent(formData);
   revalidatePath("/product");
   revalidatePath("/admin");
+  revalidatePath("/products");
 }
 
 // Add To Cart
@@ -72,14 +78,50 @@ export async function removeFromCartAction(eventId: number) {
 // Clear Cart
 
 export async function clearCartAction() {
-  await clearCart();
-  revalidatePath("/cart");
+  try {
+    await clearCart();
+    revalidatePath("/cart");
+    return { success: true };
+  } catch (error) {
+    console.error("Error clearing cart:", error);
+    return { success: false, error: error };
+  }
 }
 
-//////////////////////////////////////////////////////
+// Create Blog
+export async function createBlogAction(formData: FormData) {
+  const session = await getSession();
+  const user = session?.user;
+  const userRole = user?.role;
+  const userId = user?.sub;
+  const userName = user?.name;
 
-import { getSession } from "@auth0/nextjs-auth0";
-import { sql } from "@vercel/postgres";
+  formData.append("userId", userId);
+  formData.append("userName", userName);
+  formData.append("userRole", JSON.stringify(userRole));
+
+  await createBlog(formData, userRole, userId, userName);
+  revalidatePath("/admin");
+  revalidatePath("/blog");
+}
+
+// Delete Blog
+export async function deleteBlogAction(blogId: number) {
+  await deleteBlog(blogId);
+  revalidatePath("/blogs");
+  revalidatePath("/my-blogs");
+  revalidatePath("/admin");
+}
+
+// Edit Blog
+export async function editBlogAction(formData: FormData) {
+  await editBlog(formData);
+  revalidatePath("/blogs");
+  revalidatePath("/my-blogs");
+  revalidatePath("/admin");
+}
+
+// Save User Details
 
 export async function saveUserDetails(formData: FormData) {
   const session = await getSession();

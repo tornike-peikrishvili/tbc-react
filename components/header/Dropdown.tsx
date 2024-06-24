@@ -64,10 +64,24 @@ function DropdownMenu() {
             <div className="py-1">
               <Link
                 onClick={handleItemClick}
+                href={"/orders"}
+                className="block w-full px-4 py-2 text-center text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              >
+                My Tickets
+              </Link>
+              <Link
+                onClick={handleItemClick}
                 href={"/my-events"}
                 className="block w-full px-4 py-2 text-center text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               >
                 My Events
+              </Link>
+              <Link
+                onClick={handleItemClick}
+                href={"/my-blogs"}
+                className="block w-full px-4 py-2 text-center text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              >
+                My Blogs
               </Link>
               <Link
                 onClick={handleItemClick}
@@ -76,18 +90,6 @@ function DropdownMenu() {
               >
                 Cart
               </Link>
-              <button
-                onClick={handleItemClick}
-                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              >
-                Change Language
-              </button>
-              <button
-                onClick={handleItemClick}
-                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              >
-                Change Theme
-              </button>
               {isAdmin && (
                 <Link
                   href="/admin"

@@ -1,6 +1,5 @@
 "use server";
 
-// import { revalidatePath } from "next/cache";
 import { AuthToken } from "../auth0/auth0-get-token";
 import { getSession } from "@auth0/nextjs-auth0";
 
@@ -8,17 +7,20 @@ export async function assignRoleToUser(formData: FormData) {
   const token = await AuthToken();
   const session = await getSession();
   const user = session?.user;
+  const userId = user?.sub;
 
   const roleId = formData.get("role") as string;
-  let roleToSet;
+  let roles;
   if (roleId === "Organizer") {
-    roleToSet = "rol_OcRZlkc7Y6kPF8v9";
+    roles = "rol_OcRZlkc7Y6kPF8v9";
   } else if (roleId === "Member") {
-    roleToSet = "rol_dHvkFCr7UgAp7HH5";
+    roles = "rol_dHvkFCr7UgAp7HH5";
+  } else {
+    return { success: false, message: "Invalid role provided" };
   }
   try {
     const response = await fetch(
-      `${process.env.AUTH0_ISSUER_BASE_URL}/api/v2/roles/${roleToSet}/users`,
+      `${process.env.AUTH0_ISSUER_BASE_URL}/api/v2/users/${userId}/roles`,
       {
         method: "POST",
         headers: {
@@ -26,9 +28,9 @@ export async function assignRoleToUser(formData: FormData) {
           Authorization: `Bearer ${token.access_token}`,
         },
         body: JSON.stringify({
-          users: [user?.user_id],
+          roles: [roles],
         }),
-      }
+      },
     );
 
     if (!response.ok) {

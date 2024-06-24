@@ -1,11 +1,43 @@
 "use server";
 
+import { getSession } from "@auth0/nextjs-auth0";
+import { redirect } from "next/navigation";
+import { CartItem } from "./app/[locale]/(dashboard)/(non-tranparent-header)/cart/page";
+
 export interface User {
   user_id: string;
   name: string;
   email: string;
   image: string;
   role: string[];
+}
+
+// Get Users
+export async function getUsers() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/get-users`,
+    { cache: "no-store" },
+  );
+  const { users } = await response.json();
+
+  return users.rows;
+}
+
+// Get User Info
+
+export async function getUserInfo() {
+  const session = await getSession();
+  const user = session?.user;
+  const userId = user?.sub;
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/get-user-info/`,
+    {
+      cache: "no-store",
+      headers: { Authorization: userId },
+    },
+  );
+  const userInfo = await response.json();
+  return userInfo;
 }
 
 // Create Event
@@ -183,64 +215,172 @@ export async function clearCart() {
   return data;
 }
 
-//////////////////////////////////
+// Stripe Checkout
 
-export async function getUsers() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/get-users`,
-    { cache: "no-store" },
-  );
-  const { users } = await response.json();
-
-  return users.rows;
+export async function checkout(cartItems: CartItem[]) {
+  const session = await getSession();
+  const user = session?.user;
+  const userId = user?.sub;
+  await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/stripe/checkout`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ products: cartItems, userId }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      console.log(response);
+      if (response.url) {
+        redirect(response.url);
+      }
+    });
 }
 
-export async function createUser(name: string, email: string, age: string) {
-  ``;
-  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/create-user`, {
+// Get Orders
+
+export const getOrders = async () => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/stripe/get-orders`,
+    {
+      cache: "no-store",
+    },
+  );
+  const orders = await res.json();
+  return orders;
+};
+
+// Get Event
+
+export async function getEvent(id: string) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/events/get-event/${id}`,
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const data = await response.json();
+    const event = data.events?.rows ? data.events.rows[0] : null;
+    return event;
+  } catch (error) {
+    console.error("Error fetching event:", error);
+    throw error;
+  }
+}
+
+// Create Blog
+export async function createBlog(
+  formData: FormData,
+  userRole: string[],
+  userId: string,
+  userName: string,
+) {
+  formData.append("userId", userId);
+  formData.append("userName", userName);
+  formData.append("userRole", JSON.stringify(userRole));
+
+  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/blog/add`, {
     method: "POST",
-    body: JSON.stringify({ name, email, age }),
+    body: formData,
+    cache: "no-store",
   });
 }
 
-export async function updateUser(
-  id: string,
-  name: string,
-  email: string,
-  age: string,
-) {
+// Delete Blog
+export async function deleteBlog(blogId: number) {
+  const session = await getSession();
+  const user = session?.user;
+  const userId = user?.sub;
+  const userRole = user?.role;
   return await fetch(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/edit-user/${id}`,
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/blog/delete/${blogId}`,
     {
-      method: "PUT",
-      body: JSON.stringify({ id, name, email, age }),
+      method: "DELETE",
+      body: JSON.stringify({ userId, userRole }),
     },
   );
 }
 
-export async function getProducts() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/products/get-products`,
-    { cache: "no-store" },
+// Edit Blog
+export async function editBlog(formData: FormData) {
+  const session = await getSession();
+  const user = session?.user;
+  const userId = user?.sub;
+  const userRole = user?.role;
+  const userName = user?.name;
+  const blogId = formData.get("blogId") as string;
+
+  formData.append("userId", userId);
+  formData.append("userName", userName);
+  formData.append("userRole", JSON.stringify(userRole));
+
+  return await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/blog/edit/${blogId}`,
+    {
+      method: "PUT",
+      body: formData,
+    },
   );
-  const products = await response.json();
-
-  return products.rows;
 }
 
-export interface CartItem {
-  id: number;
-  userId: number;
-  productId: number;
-  quantity: number;
+// Get All Blogs
+export async function getAllBlogs() {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/blog/get-all-blogs`,
+      {
+        method: "GET",
+      },
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch blogs");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    throw error;
+  }
 }
 
-import { getSession } from "@auth0/nextjs-auth0";
-import { sql } from "@vercel/postgres";
+// Get My Blogs
 
-export async function getCartQuantitySum(user_id: string) {
-  const { rows } =
-    await sql`SELECT SUM(quantity) AS quantity_sum FROM cart WHERE user_id = ${user_id}`;
+export async function getMyBlogs() {
+  const session = await getSession();
+  const user = session?.user;
+  const userId = user?.sub;
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/blog/my-blog`,
+    {
+      method: "GET",
+      headers: { Authorization: userId },
+    },
+  );
+  const { blogs } = await response.json();
 
-  return rows[0].quantity_sum;
+  return blogs.rows;
+}
+
+// Get Single Blog
+
+export async function getBlog(id: string) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/blog/get-blog/${id}`,
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const data = await response.json();
+    const blog = data.blogs?.rows ? data.blogs.rows[0] : null;
+    return blog;
+  } catch (error) {
+    console.error("Error fetching blog:", error);
+    throw error;
+  }
 }

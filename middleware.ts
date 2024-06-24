@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
     } else {
       if (pathname !== "/profile-completion") {
         return NextResponse.redirect(
-          new URL("/profile-completion", request.url)
+          new URL("/profile-completion", request.url),
         );
       }
     }
