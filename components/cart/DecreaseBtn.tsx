@@ -1,17 +1,20 @@
 "use client";
 import { decreaseQuantityAction } from "@/actions/actions";
+import { FaMinus } from "react-icons/fa";
 
-interface AddToCartBtnProps {
+interface DecreaseBtnProps {
   eventId: number;
+  className?: string;
 }
 
-function DecreaseBtn({ eventId }: AddToCartBtnProps) {
+export default function DecreaseBtn({ eventId, className }: DecreaseBtnProps) {
   return (
-    <button onClick={() => decreaseQuantityAction(eventId)}>
-      <div className="h-4 w-4">-</div>
-      <span className="sr-only">Increase Quantity</span>
+    <button
+      onClick={() => decreaseQuantityAction(eventId)}
+      className={className}
+    >
+      <FaMinus className="h-4 w-4" />
+      <span className="sr-only">Decrease Quantity</span>
     </button>
   );
 }
-
-export default DecreaseBtn;

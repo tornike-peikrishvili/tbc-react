@@ -1,128 +1,284 @@
 "use client";
 
-import { useState } from "react";
-// import CalendarFilter from "./CalendarFilter";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { RiArrowDownWideLine, RiArrowUpWideLine } from "react-icons/ri";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function Filter() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [filters, setFilters] = useState({
+    search: "",
+    category: "All Categories",
+    location: "All Locations",
+    minPrice: "",
+    maxPrice: "",
+    date: "",
+    rating: "All Ratings",
+    eventType: "All Types",
+  });
+  const [filtersApplied, setFiltersApplied] = useState(false);
+
+  useEffect(() => {
+    // Fetch categories
+    fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/events/filter-categories`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Fetched categories:", data.categories);
+        if (Array.isArray(data.categories) && data.categories.length > 0) {
+          setCategories(["All Categories", ...data.categories]);
+        } else {
+          console.error("No categories found or categories is not an array");
+          setCategories(["All Categories"]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+        setCategories(["All Categories"]);
+      });
+
+    // Initialize filters from URL params
+    setFilters({
+      search: searchParams.get("search") || "",
+      category: searchParams.get("category") || "All Categories",
+      location: searchParams.get("location") || "All Locations",
+      minPrice: searchParams.get("minPrice") || "",
+      maxPrice: searchParams.get("maxPrice") || "",
+      date: searchParams.get("date") || "",
+      rating: searchParams.get("rating") || "All Ratings",
+      eventType: searchParams.get("eventType") || "All Types",
+    });
+  }, [searchParams]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
+  const handleFilterChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = event.target;
+    setFilters((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const applyFilters = () => {
+    if (filtersApplied) {
+      setFilters({
+        search: "",
+        category: "All Categories",
+        location: "All Locations",
+        minPrice: "",
+        maxPrice: "",
+        date: "",
+        rating: "All Ratings",
+        eventType: "All Types",
+      });
+      router.push(`/products`);
+      setFiltersApplied(false);
+    } else {
+      const queryParams = new URLSearchParams();
+      Object.entries(filters).forEach(([key, value]) => {
+        if (
+          value &&
+          value !== "All Categories" &&
+          value !== "All Locations" &&
+          value !== "All Ratings" &&
+          value !== "All Types"
+        ) {
+          queryParams.append(key, value);
+        }
+      });
+      router.push(`/products?${queryParams.toString()}`);
+      setFiltersApplied(true);
+    }
+  };
+
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md transition-shadow hover:shadow-lg">
-      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">Filters</h1>
-      <div className="mb-6">
-        <label className="sr-only" htmlFor="search-events">
-          Search events
-        </label>
-        <div className="relative rounded-md shadow-sm">
+    <div className="mx-auto max-w-full rounded-lg bg-white px-6 pt-6 shadow-lg transition-shadow hover:shadow-xl">
+      <h1 className="text-3xl font-extrabold text-gray-900">Filters</h1>
+      <div className="grid grid-cols-1 items-center gap-6 p-1 md:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <label
+            htmlFor="search"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Search
+          </label>
           <input
             type="text"
-            name="search-events"
-            id="search-events"
+            name="search"
+            id="search"
+            value={filters.search}
+            onChange={handleFilterChange}
+            className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
             placeholder="Search events..."
-            className="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 custom-input"
           />
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            {/* <svg
-              className="h-5 w-5 text-gray-400"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M8 7V3m8 0v4m-4 4a4 4 0 100-8 4 4 0 000 8zm-6 8a6 6 0 1112 0H6z"
-              />
-            </svg> */}
+        </div>
+        <div>
+          <label
+            htmlFor="category"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Category
+          </label>
+          <select
+            id="category"
+            name="category"
+            value={filters.category}
+            onChange={handleFilterChange}
+            className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+          >
+            {categories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label
+            htmlFor="location"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Location
+          </label>
+          <select
+            id="location"
+            name="location"
+            value={filters.location}
+            onChange={handleFilterChange}
+            className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+          >
+            <option>All Locations</option>
+            <option>Tbilisi</option>
+            <option>Batumi</option>
+            <option>Rustavi</option>
+            <option>Kutaisi</option>
+          </select>
+        </div>
+        <div>
+          <label
+            htmlFor="price-range"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Price Range
+          </label>
+          <div className="flex items-center">
+            <input
+              type="number"
+              id="minPrice"
+              name="minPrice"
+              value={filters.minPrice}
+              onChange={handleFilterChange}
+              className="mr-2 block w-1/2 rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              placeholder="Min"
+            />
+            <span className="text-gray-700">to</span>
+            <input
+              type="number"
+              id="maxPrice"
+              name="maxPrice"
+              value={filters.maxPrice}
+              onChange={handleFilterChange}
+              className="ml-2 block w-1/2 rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              placeholder="Max"
+            />
           </div>
         </div>
       </div>
-      <div className="mb-6">
-        <label
-          htmlFor="category"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Category
-        </label>
-        <select
-          id="category"
-          name="category"
-          className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 custom-select"
-        >
-          <option>All Categories</option>
-          <option>Music</option>
-          <option>Art</option>
-          <option>Sports</option>
-          <option>Theatre</option>
-        </select>
-      </div>
-      <div className="mb-6">
-        <label
-          htmlFor="location"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Location
-        </label>
-        <select
-          id="location"
-          name="location"
-          className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 custom-select"
-        >
-          <option>All Locations</option>
-          <option>New York, NY</option>
-          <option>Los Angeles, CA</option>
-          <option>Chicago, IL</option>
-          <option>San Francisco, CA</option>
-        </select>
-      </div>
-      <div className="mb-6">
-        <label
-          htmlFor="price-range"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Price Range
-        </label>
-        <input
-          type="range"
-          id="price-range"
-          name="price-range"
-          className="mt-1 block w-full"
-          min="0"
-          max="100"
-          step="1"
-        />
-      </div>
-      <div className="mb-6">
-        <label
-          htmlFor="organizer"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Organizer
-        </label>
-        <select
-          id="organizer"
-          name="organizer"
-          className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 custom-select"
-        >
-          <option>All Organizers</option>
-          <option>Music Live</option>
-          <option>Art World</option>
-          <option>Sports Enthusiasts</option>
-          <option>Theatre Group</option>
-        </select>
-      </div>
-      {/* <CalendarFilter /> */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mt-6 grid grid-cols-1 gap-6 p-1 md:grid-cols-2 lg:grid-cols-4"
+          >
+            <div>
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Date
+              </label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                value={filters.date}
+                onChange={handleFilterChange}
+                className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="rating"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Rating
+              </label>
+              <select
+                id="rating"
+                name="rating"
+                value={filters.rating}
+                onChange={handleFilterChange}
+                className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              >
+                <option>All Ratings</option>
+                <option>1 Star</option>
+                <option>2 Stars</option>
+                <option>3 Stars</option>
+                <option>4 Stars</option>
+                <option>5 Stars</option>
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="eventType"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Event Type
+              </label>
+              <select
+                id="eventType"
+                name="eventType"
+                value={filters.eventType}
+                onChange={handleFilterChange}
+                className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              >
+                <option>All Types</option>
+                <option>In-person</option>
+                <option>Online</option>
+                <option>Hybrid</option>
+              </select>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <button
         onClick={toggleExpand}
-        className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 hover:bg-indigo-700"
+        className="m-auto flex w-full items-center py-5 text-center text-4xl text-black"
       >
-        {isExpanded ? "Show Less" : "Show More"}
+        {isExpanded ? (
+          <RiArrowUpWideLine className="m-auto" />
+        ) : (
+          <RiArrowDownWideLine className="m-auto" />
+        )}
+      </button>
+      <button
+        onClick={applyFilters}
+        className="mb-5 w-full rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
+      >
+        {filtersApplied ? "Reset Filters" : "Apply Filters"}
       </button>
     </div>
   );

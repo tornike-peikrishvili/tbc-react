@@ -24,7 +24,7 @@ export async function updateUser(userId: string, formData: FormData) {
           email: email,
           name: name,
         }),
-      }
+      },
     );
 
     revalidatePath("/admin");

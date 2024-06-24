@@ -11,11 +11,11 @@ function NavLinks() {
   const scopedT = useScopedI18n("navBar");
 
   return (
-    <div className="w-full flex justify-between">
-      <Link href="/" className="text-gray-100 text-[35px] m-auto lg:m-0">
+    <div className="flex w-full justify-between">
+      <Link href="/" className="m-auto text-[35px] text-gray-100 lg:m-0">
         Logo
       </Link>
-      <nav className="hidden lg:flex items-center space-x-10 ">
+      <nav className="hidden items-center space-x-10 lg:flex ">
         <Link href="/" className="nav-link">
           {scopedT("home")}
         </Link>

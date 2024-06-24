@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
+import Image from "next/image";
 
 export interface EventProps {
   id: number;
@@ -14,7 +15,7 @@ export interface EventProps {
   amount: number;
   organizer: string;
   location: string;
-  images: string[];
+  images: { url: string }[] | string;
   starting: string;
   approved: boolean;
   created_by: string;
@@ -40,13 +41,13 @@ function Carousel({ events }: { events: EventProps[] }) {
   }, [emblaApi]);
 
   return (
-    <div className="embla max-w-[350px] bg-white  lg:max-w-[80%]">
-      <div className="flex w-full justify-between px-3">
+    <div className="embla max-w-[21rem] bg-white py-10 md:max-w-[45rem] lg:max-w-[80rem]">
+      <div className="flex w-full justify-between px-3 lg:px-5">
         <div className="flex rounded-lg border-2 bg-gray-200 font-bold text-black">
-          <h1 className="px-2 py-1">Upcoming Events</h1>
+          <h1 className="px-2 py-1 text-sm lg:font-[34px] ">Upcoming Events</h1>
         </div>
-        <div className="flex items-center gap-5 text-black">
-          <span className="grid h-8 w-8 items-center rounded-full border-2 bg-gray-200 font-bold hover:bg-gray-300">
+        <div className="flex items-center gap-2 text-black lg:gap-5">
+          <span className=" hidden h-8 w-8 items-center rounded-full border-2 bg-gray-200 font-bold hover:bg-gray-300 md:grid lg:grid">
             <button
               className="embla__prev text-center  text-black "
               onClick={scrollPrev}
@@ -54,7 +55,7 @@ function Carousel({ events }: { events: EventProps[] }) {
               {"<"}
             </button>
           </span>
-          <span className="grid h-8 w-8 items-center rounded-full border-2 bg-gray-200 font-bold hover:bg-gray-300">
+          <span className="hidden h-8 w-8 items-center rounded-full border-2 bg-gray-200 font-bold hover:bg-gray-300 md:grid lg:grid">
             <button className="embla__next  text-black " onClick={scrollNext}>
               {">"}
             </button>
@@ -67,21 +68,47 @@ function Carousel({ events }: { events: EventProps[] }) {
           </Link>
         </div>
       </div>
-      <div className="embla__viewport " ref={emblaRef}>
+      <div
+        className="embla__viewport px-3 py-5 pt-1 md:px-4 lg:px-5 "
+        ref={emblaRef}
+      >
         <div className="embla__container ">
           {events.map((event) => (
             <div className="embla__slide " key={event.id}>
-              <div className="h-72 overflow-hidden rounded-lg bg-white shadow-lg">
-                <img
-                  src="https://via.placeholder.com/400"
-                  alt={event.title}
-                  className="h-32 w-full object-cover"
-                />
-                <div className="m-auto flex h-40 flex-col justify-between py-2">
-                  <h3 className="cursor-pointer text-xl font-semibold text-gray-800 hover:font-bold hover:text-black hover:duration-200">
+              <div className="h-[20rem] overflow-hidden rounded-lg bg-white shadow-lg">
+                <div className="w-full">
+                  {event.images &&
+                  event.images.length > 0 &&
+                  typeof event.images[0] === "string" ? (
+                    <Image
+                      className="max-h-32 object-cover"
+                      src={event.images[0]}
+                      alt={event.title}
+                      width={32}
+                      height={32}
+                      layout="responsive"
+                      objectFit="cover"
+                    />
+                  ) : (
+                    typeof event.images[0] === "object" &&
+                    event.images[0].url && (
+                      <Image
+                        className="max-h-32 object-cover"
+                        src={event.images[0].url}
+                        alt={event.title}
+                        width={32}
+                        height={32}
+                        layout="responsive"
+                        objectFit="cover"
+                      />
+                    )
+                  )}
+                </div>
+                <div className="m-auto flex h-[12rem] flex-col justify-between py-2">
+                  <h3 className="cursor-pointer px-3 text-xl font-semibold text-gray-800 hover:font-bold hover:text-black hover:duration-200">
                     {event.title}
                   </h3>
-                  <p className="mt-2 h-10 overflow-clip text-sm text-gray-600">
+                  <p className="mt-2 h-10 overflow-clip px-3 text-sm text-gray-600">
                     {event.description}
                   </p>
                   <div>
@@ -97,7 +124,7 @@ function Carousel({ events }: { events: EventProps[] }) {
                       </p>
                     </div>
                     <div className="grid w-full grid-cols-3 items-center text-center">
-                      <p className="col-span-1 text-sm text-gray-600">
+                      <p className="col-span-1 text-xs text-gray-600">
                         {event.location}
                       </p>
                       <p className="col-span-1 text-sm text-gray-600">

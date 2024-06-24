@@ -1,17 +1,20 @@
 "use client";
 import { increaseQuantityAction } from "@/actions/actions";
+import { FaPlus } from "react-icons/fa";
 
-interface AddToCartBtnProps {
+interface IncreaseBtnProps {
   eventId: number;
+  className?: string;
 }
 
-function IncreaseBtn({ eventId }: AddToCartBtnProps) {
+export default function IncreaseBtn({ eventId, className }: IncreaseBtnProps) {
   return (
-    <button onClick={() => increaseQuantityAction(eventId)}>
-      <div className="h-4 w-4">+</div>
+    <button
+      onClick={() => increaseQuantityAction(eventId)}
+      className={className}
+    >
+      <FaPlus className="h-4 w-4" />
       <span className="sr-only">Increase Quantity</span>
     </button>
   );
 }
-
-export default IncreaseBtn;

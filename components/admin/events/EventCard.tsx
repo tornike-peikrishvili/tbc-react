@@ -6,10 +6,10 @@ import {
   FaCalendarAlt,
   FaDollarSign,
   FaUser,
-  FaCartPlus,
 } from "react-icons/fa";
-import { EventProps } from "@/components/carousel/ThreeSlideCarousel";
 import AddToCartBtn from "@/components/admin/events/AddToCartBtn";
+import Link from "next/link";
+import Image from "next/image";
 
 export interface EventCardProps {
   id: number;
@@ -21,7 +21,7 @@ export interface EventCardProps {
   price: number;
   organizer: string;
   amount: string;
-  eventData: EventProps;
+  image: { url: string }[] | string;
 }
 
 function EventCard({
@@ -34,7 +34,7 @@ function EventCard({
   price,
   amount,
   organizer,
-  eventData,
+  image,
 }: EventCardProps) {
   const [timeLeft, setTimeLeft] = useState<string>("");
   const [isEventStarted, setIsEventStarted] = useState<boolean>(false);
@@ -73,72 +73,73 @@ function EventCard({
     return () => clearInterval(timer);
   }, [starting]);
 
-  return (
-    <div className="relative mx-auto flex w-full transform cursor-pointer flex-col justify-between overflow-hidden rounded-xl bg-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
-      <div className="relative">
-        <img
-          className="h-48 w-full object-cover"
-          src="https://via.placeholder.com/400"
-          alt={title}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-75"></div>
-        <div className="absolute bottom-0 left-0 flex gap-2 p-4">
-          {category.map((cat, index) => {
-            return (
-              <span
-                key={index}
-                className="inline-block rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white"
-              >
-                {cat}
-              </span>
-            );
-          })}
-        </div>
-      </div>
-      <div className="flex h-full flex-col justify-between p-6">
-        <h3 className="text-xl font-bold text-gray-900">{title}</h3>
-        <p className="mt-2 h-16 overflow-hidden text-sm text-gray-600">
-          {description}
-        </p>
-        <div className="mt-4 flex items-center text-sm text-gray-500">
-          <FaMapMarkerAlt className="mr-2" />
-          <span>{location}</span>
-        </div>
-        <div className="mt-2 flex items-center text-sm text-gray-500">
-          <FaCalendarAlt className="mr-2" />
-          <span>{new Date(starting).toLocaleString()}</span>
-        </div>
-        <div className="mt-2 flex items-center text-sm text-gray-500">
-          <FaDollarSign className="mr-2" />
-          <span>GEL: {price}</span>
-        </div>
-        <div className="mt-2 flex items-center text-sm text-gray-500">
-          <FaUser className="mr-2" />
-          <span>Ticket Quantity: {amount}</span>
-        </div>
-        <div className="mt-2 flex items-center text-sm text-gray-500">
-          <FaUser className="mr-2" />
-          <span>Organized by: {organizer}</span>
-        </div>
+  const imageUrl =
+    image && image.length > 0
+      ? typeof image[0] === "string"
+        ? image[0]
+        : image[0].url
+      : "https://via.placeholder.com/400";
 
-        <div className="mt-4 flex items-center justify-between">
-          <span className="text-md font-bold text-red-500">{timeLeft}</span>
-          {/* <button
-            onClick={handleAddToCart}
-            disabled={isEventStarted}
-            className={`flex items-center rounded-md px-4 py-2 ${
-              isEventStarted
-                ? "cursor-not-allowed bg-gray-400"
-                : "bg-indigo-600 text-white"
-            }`}
-          >
-            <FaCartPlus className="mr-2" />
-            {isEventStarted ? "Event Started" : "Buy Ticket"}
-          </button> */}
-          <AddToCartBtn eventId={id} isEventStarted={isEventStarted} />
+  return (
+    <Link href={`/products/${id}`}>
+      <div className="relative mx-auto flex h-full w-full transform cursor-pointer flex-col justify-between overflow-hidden rounded-xl bg-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
+        <div className="relative h-48 w-full">
+          {imageUrl && (
+            <Image
+              className="object-cover"
+              src={imageUrl}
+              alt={title}
+              layout="fill"
+              objectFit="cover"
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-75"></div>
+          <div className="absolute bottom-0 left-0 flex gap-2 p-4">
+            {category.map((cat, index) => {
+              return (
+                <span
+                  key={index}
+                  className="inline-block rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white"
+                >
+                  {cat}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+        <div className="flex h-full flex-col justify-between p-6">
+          <h3 className="text-xl font-bold text-gray-900">{title}</h3>
+          <p className="mt-2 h-16 overflow-hidden text-sm text-gray-600">
+            {description}
+          </p>
+          <div className="mt-4 flex items-center text-sm text-gray-500">
+            <FaMapMarkerAlt className="mr-2" />
+            <span>{location}</span>
+          </div>
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+            <FaCalendarAlt className="mr-2" />
+            <span>{new Date(starting).toLocaleString()}</span>
+          </div>
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+            <FaDollarSign className="mr-2" />
+            <span>GEL: {price}</span>
+          </div>
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+            <FaUser className="mr-2" />
+            <span>Ticket Quantity: {amount}</span>
+          </div>
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+            <FaUser className="mr-2" />
+            <span>Organized by: {organizer}</span>
+          </div>
+
+          <div className="mt-4 flex items-center justify-between">
+            <span className="text-md font-bold text-red-500">{timeLeft}</span>
+            <AddToCartBtn eventId={id} isEventStarted={isEventStarted} />
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

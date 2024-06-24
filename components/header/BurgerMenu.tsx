@@ -40,10 +40,10 @@ function MobileNavMenu({
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-0 left-0 w-full h-full bg-${bgColor} z-50 flex flex-col justify-center items-center p-4`}
+            className={`fixed left-0 top-0 h-full w-full bg-${bgColor} z-50 flex flex-col items-center justify-center p-4`}
           >
             <button
-              className={`absolute top-4 right-4 p-2 text-${textColor}`}
+              className={`absolute right-4 top-4 p-2 text-${textColor}`}
               onClick={toggleMenu}
             >
               <BiX size={32} />
@@ -54,7 +54,7 @@ function MobileNavMenu({
                   key={item.href}
                   href={item.href}
                   onClick={toggleMenu}
-                  className={`text-xl font-semibold text-center text-${textColor} hover:text-gray-700 transition-colors duration-200`}
+                  className={`text-center text-xl font-semibold text-${textColor} transition-colors duration-200 hover:text-gray-700`}
                 >
                   {item.label}
                 </Link>
