@@ -8,6 +8,7 @@ async function OrdersPage() {
   const userId = user?.sub;
   const userEmail = user?.email;
   const orders = await getOrders();
+  console.log(user);
 
   const userOrders = orders.filter(
     (order: any) => order.metadata.id === userId,

@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { saveUserDetails } from "@/actions/actions";
 import { assignRoleToUser } from "@/actions/user/update-user-role";
 
 export default function DetailsForm() {
-  const router = useRouter();
   const [role, setRole] = useState("Member");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -14,10 +12,14 @@ export default function DetailsForm() {
 
     const formDataToSend = new FormData(event.currentTarget);
     formDataToSend.append("role", role);
-    await assignRoleToUser(formDataToSend);
-    await saveUserDetails(formDataToSend);
 
-    router.push("/");
+    const result = await assignRoleToUser(formDataToSend);
+    if (result.success) {
+      await saveUserDetails(formDataToSend);
+      window.location.reload();
+    } else {
+      console.error("Failed to assign role:", result.message);
+    }
   };
 
   return (
