@@ -1,7 +1,7 @@
 "use server";
 
 import { AuthToken } from "../auth0/auth0-get-token";
-import { getSession } from "@auth0/nextjs-auth0";
+import { getSession, updateSession } from "@auth0/nextjs-auth0";
 
 export async function assignRoleToUser(formData: FormData) {
   const token = await AuthToken();
@@ -18,6 +18,7 @@ export async function assignRoleToUser(formData: FormData) {
   } else {
     return { success: false, message: "Invalid role provided" };
   }
+
   try {
     const response = await fetch(
       `${process.env.AUTH0_ISSUER_BASE_URL}/api/v2/users/${userId}/roles`,
@@ -37,6 +38,17 @@ export async function assignRoleToUser(formData: FormData) {
       const errorDetails = await response.json();
       console.error("Error:", errorDetails);
       throw new Error(`Failed to assign role: ${errorDetails.message}`);
+    }
+
+    // Update the session with the new role
+    if (session) {
+      await updateSession({
+        ...session,
+        user: {
+          ...session.user,
+          role: roleId,
+        },
+      });
     }
 
     return { success: true, message: "User role assigned successfully" };
