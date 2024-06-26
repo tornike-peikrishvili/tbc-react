@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useScopedI18n } from "@/locales/client";
 
 export default function FilterSidebar() {
   const router = useRouter();
@@ -70,14 +71,14 @@ export default function FilterSidebar() {
     });
     router.push("/blog");
   };
-
+  const t = useScopedI18n("events");
   return (
     <form
       onSubmit={handleSubmit}
       className="dark:bg-secondary rounded-lg bg-white p-6 shadow-md "
     >
       <h2 className="mb-4 text-2xl font-bold text-gray-800 dark:text-white">
-        Filters
+        {t("filter")}
       </h2>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -96,7 +97,7 @@ export default function FilterSidebar() {
             disabled={isLoading}
             className="rounded bg-indigo-600 px-4 py-2 font-bold text-white hover:bg-indigo-800 hover:duration-200"
           >
-            {isLoading ? "..." : "Search"}
+            {isLoading ? "..." : `${t("search")}`}
           </button>
         </div>
         <div>
@@ -116,7 +117,7 @@ export default function FilterSidebar() {
         </div>
         <div>
           <h3 className="mb-2 text-lg font-semibold text-gray-700 dark:text-white">
-            Categories
+            {t("category")}
           </h3>
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
@@ -136,7 +137,7 @@ export default function FilterSidebar() {
         </div>
         <div>
           <h3 className="mb-2 text-lg font-semibold text-gray-700 dark:text-white">
-            Tags
+            {t("tags")}
           </h3>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
@@ -160,14 +161,14 @@ export default function FilterSidebar() {
             disabled={isLoading}
             className="rounded bg-indigo-600 px-4 py-2 font-bold text-white hover:bg-indigo-800 hover:duration-200"
           >
-            Apply Filters
+            {t("filterBtn")}
           </button>
           <button
             type="button"
             onClick={handleReset}
             className="dark:bg-tertiary rounded bg-gray-300 px-4 py-2 font-bold text-gray-700 hover:bg-gray-400 hover:duration-200 dark:text-white"
           >
-            Reset Filters
+            {t("reset")}
           </button>
         </div>
       </div>

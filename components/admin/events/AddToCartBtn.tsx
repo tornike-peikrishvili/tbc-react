@@ -3,6 +3,7 @@
 import { FaCartPlus } from "react-icons/fa";
 import { addToCartAction } from "@/actions/actions";
 import { toast } from "sonner";
+import { useScopedI18n } from "@/locales/client";
 
 interface AddToCartBtnProps {
   eventId: number;
@@ -37,6 +38,7 @@ function AddToCartBtn({
       });
     }
   };
+  const t = useScopedI18n("events");
 
   return (
     <button
@@ -49,7 +51,7 @@ function AddToCartBtn({
       }`}
     >
       <FaCartPlus className="mr-2" />
-      {isEventStarted ? "Event Started" : "Buy Ticket"}
+      {isEventStarted ? `${t("eventStarted")}` : `${t("bookNow")}`}
     </button>
   );
 }

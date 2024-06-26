@@ -69,10 +69,10 @@ function Footer() {
           {scopedT("rights")}
         </p>
         <nav className="mt-2 flex items-center gap-x-4 sm:mt-0">
-          <Link href="/events" className="nav-link text-black dark:text-white">
-            {t("navBar.events")}
+          <Link href="/home" className="nav-link text-black dark:text-white">
+            {t("navBar.home")}
           </Link>
-          <Link href="/" className="nav-link text-black dark:text-white">
+          <Link href="/events" className="nav-link text-black dark:text-white">
             {t("navBar.events")}
           </Link>
           <Link href="/blog" className="nav-link text-black dark:text-white">

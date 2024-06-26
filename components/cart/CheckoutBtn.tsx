@@ -1,5 +1,6 @@
 "use client";
-import { checkout } from "@/api";
+
+import { checkout } from "@/actions/actions";
 import { CartItem } from "@/app/[locale]/(dashboard)/(non-tranparent-header)/cart/page";
 
 interface CheckoutBtnProps {

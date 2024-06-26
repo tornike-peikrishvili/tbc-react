@@ -1,8 +1,6 @@
 "use server";
 
 import { getSession } from "@auth0/nextjs-auth0";
-import { redirect } from "next/navigation";
-import { CartItem } from "./app/[locale]/(dashboard)/(non-tranparent-header)/cart/page";
 
 export interface User {
   user_id: string;
@@ -214,30 +212,6 @@ export async function clearCart() {
   );
   const data = await response.json();
   return data;
-}
-
-// Stripe Checkout
-
-export async function checkout(cartItems: CartItem[]) {
-  const session = await getSession();
-  const user = session?.user;
-  const userId = user?.sub;
-  await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/stripe/checkout`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ products: cartItems, userId }),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((response) => {
-      console.log(response);
-      if (response.url) {
-        redirect(response.url);
-      }
-    });
 }
 
 // Get Orders

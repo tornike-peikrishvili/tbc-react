@@ -16,6 +16,8 @@ import {
 import { revalidatePath } from "next/cache";
 import { getSession } from "@auth0/nextjs-auth0";
 import { sql } from "@vercel/postgres";
+import { redirect } from "next/navigation";
+import { CartItem } from "@/app/[locale]/(dashboard)/(non-tranparent-header)/cart/page";
 
 // Create Event
 
@@ -86,6 +88,30 @@ export async function clearCartAction() {
     console.error("Error clearing cart:", error);
     return { success: false, error: error };
   }
+}
+
+// Stripe Checkout
+
+export async function checkout(cartItems: CartItem[]) {
+  const session = await getSession();
+  const user = session?.user;
+  const userId = user?.sub;
+  await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/stripe/checkout`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ products: cartItems, userId }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      console.log(response);
+      if (response.url) {
+        redirect(response.url);
+      }
+    });
 }
 
 // Create Blog

@@ -1,3 +1,4 @@
+import { getScopedI18n } from "@/locales/server";
 import {
   FaMusic,
   FaPaintBrush,
@@ -20,15 +21,16 @@ const categories = [
   { name: "Outdoors", icon: <FaTree size={40} /> },
 ];
 
-function EventCategories() {
+async function EventCategories() {
+  const t = await getScopedI18n("hero");
   return (
     <div className="dark:bg-primary bg-gray-100 py-12">
       <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
         <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
-          Event Categories
+          {t("categories")}
         </h2>
         <p className="mt-4 text-lg text-gray-600 dark:text-gray-500">
-          Browse events by category to find the perfect fit for you.
+          {t("catSub")}
         </p>
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {categories.map((category) => (

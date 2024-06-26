@@ -3,16 +3,19 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { BiMenuAltRight, BiX } from "react-icons/bi";
+import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 function MobileNavMenu({
   textColor,
   bgColor,
+  theme,
 }: {
   textColor: string;
   bgColor: string;
+  theme: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const menuItems = [
@@ -48,7 +51,8 @@ function MobileNavMenu({
             >
               <BiX size={32} />
             </button>
-            <div className="flex flex-col space-y-6">
+            <LanguageSwitcher />
+            <div className="mt-3 flex flex-col space-y-6">
               {menuItems.map((item) => (
                 <Link
                   key={item.href}
@@ -60,6 +64,7 @@ function MobileNavMenu({
                 </Link>
               ))}
             </div>
+            <ThemeSwitcher curTheme={theme} />
           </motion.div>
         )}
       </AnimatePresence>

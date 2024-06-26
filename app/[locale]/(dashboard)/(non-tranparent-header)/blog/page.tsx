@@ -4,6 +4,7 @@ import FilterSidebar from "@/components/blogs/FilterSidebar";
 import { getSession } from "@auth0/nextjs-auth0";
 import { Suspense } from "react";
 import Loading from "@/components/Loading";
+import { getScopedI18n } from "@/locales/server";
 
 async function getFilteredBlogs(searchParams: URLSearchParams) {
   const res = await fetch(
@@ -26,13 +27,14 @@ export default async function Blogs({
   const user = session?.user;
   const userId = user?.sub;
 
+  const t = await getScopedI18n("blog");
   return (
     <div className="dark:bg-primary w-full bg-gray-100 py-12">
       <div className="flex flex-col gap-8 px-4 sm:px-6 md:flex-row lg:px-8">
         <div className="w-full md:w-3/4">
           <div className="item-center mb-8 flex w-full justify-between text-center">
             <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white">
-              Blogs
+              {t("latestBlog")}
             </h1>
             <BlogCreateButton userId={userId} />
           </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { RiArrowDownWideLine, RiArrowUpWideLine } from "react-icons/ri";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useScopedI18n } from "@/locales/client";
 
 function Filter() {
   const router = useRouter();
@@ -21,6 +22,7 @@ function Filter() {
     eventType: "All Types",
   });
   const [filtersApplied, setFiltersApplied] = useState(false);
+  const scopedT = useScopedI18n("events");
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/events/filter-categories`)
@@ -102,7 +104,7 @@ function Filter() {
   return (
     <div className="dark:bg-secondary dark:hover:shadow-3xl dark:shadow-3xl mx-auto  max-w-full rounded-lg bg-white px-6 pt-6 shadow-lg transition-shadow hover:shadow-xl">
       <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">
-        Filters
+        {scopedT("filter")}
       </h1>
       <div className="dark:bg-secondary grid grid-cols-1 items-center gap-6 p-1 md:grid-cols-2 lg:grid-cols-3">
         <div>
@@ -110,7 +112,7 @@ function Filter() {
             htmlFor="search"
             className="block text-sm font-medium text-gray-700 dark:text-white"
           >
-            Search
+            {scopedT("search")}
           </label>
           <input
             type="text"
@@ -119,7 +121,7 @@ function Filter() {
             value={filters.search}
             onChange={handleFilterChange}
             className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 "
-            placeholder="Search events..."
+            placeholder={scopedT("searchPh")}
           />
         </div>
         <div>
@@ -127,7 +129,7 @@ function Filter() {
             htmlFor="category"
             className="block text-sm font-medium text-gray-700 dark:text-white"
           >
-            Category
+            {scopedT("category")}
           </label>
           <select
             id="category"
@@ -149,7 +151,7 @@ function Filter() {
             htmlFor="price-range"
             className="block text-sm font-medium text-gray-700 dark:text-white"
           >
-            Price Range
+            {scopedT("price")}
           </label>
           <div className="flex items-center">
             <input
@@ -188,7 +190,7 @@ function Filter() {
                 htmlFor="location"
                 className="block text-sm font-medium text-gray-700 dark:text-white"
               >
-                Location
+                {scopedT("location")}
               </label>
               <select
                 id="location"
@@ -209,7 +211,7 @@ function Filter() {
                 htmlFor="date"
                 className="block text-sm font-medium text-gray-700 dark:text-white"
               >
-                Date
+                {scopedT("date")}
               </label>
               <input
                 type="date"
@@ -237,7 +239,7 @@ function Filter() {
         onClick={applyFilters}
         className="mb-5 w-full rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
       >
-        {filtersApplied ? "Reset Filters" : "Apply Filters"}
+        {filtersApplied ? `${scopedT("reset")}` : `${scopedT("filterBtn")}`}
       </button>
     </div>
   );

@@ -4,6 +4,7 @@ import EventCreateButton from "@/components/admin/events/EventCreateButton";
 import Filter from "@/components/admin/events/Filter";
 import Loading from "@/components/Loading";
 import { getSession } from "@auth0/nextjs-auth0";
+import { getScopedI18n } from "@/locales/server";
 
 async function getFilteredEvents(searchParams: URLSearchParams) {
   const res = await fetch(
@@ -25,7 +26,7 @@ export default async function Events({
   const session = await getSession();
   const user = session?.user;
   const userRoles = user?.role || [];
-
+  const t = await getScopedI18n("events");
   return (
     <div className="dark:bg-primary min-w-screen min-h-screen bg-gray-50 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -35,7 +36,7 @@ export default async function Events({
 
         <div className="mb-8 flex items-center justify-between">
           <h1 className="text-4xl font-extrabold text-black dark:text-white">
-            Discover Amazing Events
+            {t("ourEvents")}
           </h1>
           {(userRoles.includes("Admin") || userRoles.includes("Organizer")) && (
             <EventCreateButton />
@@ -56,9 +57,10 @@ export default async function Events({
 
 async function EventList({ searchParams }: { searchParams: URLSearchParams }) {
   const { events } = await getFilteredEvents(searchParams);
+  const t = await getScopedI18n("events");
 
   if (events.length === 0) {
-    return <div>No events found matching the current filters.</div>;
+    return <div>{t("noMatchingEvents")}</div>;
   }
 
   return (
