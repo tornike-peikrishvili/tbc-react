@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
-import QRScanner from "@/components/orders/QrScanner";
 
-function QRCodeComponent({ order, orderId }: { order: any; orderId: any }) {
+function QRCodeComponent({ order }: { order: any; orderId: any }) {
   const [showQR, setShowQR] = useState(false);
 
   const toggleQR = () => setShowQR(!showQR);
@@ -58,8 +57,6 @@ function QRCodeComponent({ order, orderId }: { order: any; orderId: any }) {
           </button>
         </motion.div>
       )}
-
-      <QRScanner orderId={orderId} />
     </div>
   );
 }
