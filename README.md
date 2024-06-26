@@ -16,6 +16,20 @@ This project leverages the following technologies:
 
 Follow these instructions to get a copy of the project up and running on your local machine.
 
+Clone the repository:
+
+bash
+Copy code
+git clone https://github.com/your-username/event-website.git
+cd event-website
+Install dependencies:
+
+bash
+Copy code
+npm install
+# or
+yarn install
+
 ### Prerequisites
 
 - Node.js (v14 or higher)
