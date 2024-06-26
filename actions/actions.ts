@@ -177,3 +177,16 @@ export async function saveUserDetails(formData: FormData) {
       profile_complete = EXCLUDED.profile_complete
   `;
 }
+
+// refund
+
+export async function createRefund(charge: string) {
+  revalidatePath("/admin");
+  await fetch(process.env.NEXT_PUBLIC_VERCEL_URL + "/api/stripe/refund", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ charge }),
+  });
+}

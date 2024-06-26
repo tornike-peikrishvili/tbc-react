@@ -15,21 +15,21 @@ async function Header() {
   const user = session?.user;
   const theme = await retrieveTheme();
   return (
-    <header className="dark:bg-secondary fixed z-50 w-full border-b-[1px] border-black bg-white p-5 transition-all duration-200">
+    <header className="fixed z-50 w-full border-b-[1px] border-black bg-white p-5 transition-all duration-200 dark:bg-secondary">
       <div className="flex items-center justify-between py-2">
         <MobileNavMenu textColor="black" bgColor="white" theme={theme} />
         <nav className="space-x-8 pl-16 sm:hidden lg:flex">
+          <Link
+            href="/"
+            className="nav-link-white text-black dark:text-white dark:hover:text-gray-400"
+          >
+            HOME
+          </Link>
           <Link
             href="/products"
             className="nav-link-white text-black dark:text-white dark:hover:text-gray-400"
           >
             EVENTS
-          </Link>
-          <Link
-            href="/"
-            className="nav-link-white text-black dark:text-white dark:hover:text-gray-400"
-          >
-            ABOUT
           </Link>
           <Link
             href="/blog"
