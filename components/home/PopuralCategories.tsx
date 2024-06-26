@@ -22,22 +22,24 @@ const categories = [
 
 function EventCategories() {
   return (
-    <div className="bg-gray-100 py-12">
+    <div className="dark:bg-primary bg-gray-100 py-12">
       <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-gray-900">
+        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
           Event Categories
         </h2>
-        <p className="mt-4 text-lg text-gray-600">
+        <p className="mt-4 text-lg text-gray-600 dark:text-gray-500">
           Browse events by category to find the perfect fit for you.
         </p>
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {categories.map((category) => (
             <div
               key={category.name}
-              className="flex transform cursor-pointer flex-col items-center rounded-lg bg-white p-6 shadow-md transition-transform duration-200 hover:scale-105 hover:shadow-lg"
+              className="dark:bg-secondary flex transform cursor-pointer flex-col items-center rounded-lg bg-white p-6 shadow-md transition-transform duration-200 hover:scale-105 hover:shadow-lg"
             >
-              <div className="text-gray-600">{category.icon}</div>
-              <div className="mt-4 text-xl font-medium text-gray-900">
+              <div className="text-gray-600 dark:text-white">
+                {category.icon}
+              </div>
+              <div className="mt-4 text-xl font-medium text-gray-900 dark:text-white">
                 {category.name}
               </div>
             </div>

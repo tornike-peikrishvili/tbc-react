@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_KEY);
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 export const revalidate = 0;
 

@@ -8,10 +8,12 @@ import MobileNavMenu from "@/components/header/BurgerMenu";
 import ThemeSwitcher from "./ThemeSwitcher";
 import LanguageSwitcher from "./LanguageSwitcher";
 import TicketIcon from "./CartIcon";
+import { retrieveTheme } from "@/utils/RetrieveTheme";
 
 async function Header() {
   const session = await getSession();
   const user = session?.user;
+  const theme = await retrieveTheme();
   return (
     <ScrollHeader>
       <div className="flex items-center justify-between py-2">
@@ -42,20 +44,12 @@ async function Header() {
           {user ? (
             <div className="flex gap-5">
               <LanguageSwitcher></LanguageSwitcher>
-              <ThemeSwitcher></ThemeSwitcher>
+              <ThemeSwitcher curTheme={theme}></ThemeSwitcher>
               <TicketIcon></TicketIcon>
-
               <DropdownMenu></DropdownMenu>
-
-              {/* <a
-                href={"/api/auth/logout"}
-                className="bg-transparent text-white border-2 border-white px-6 py-2 rounded hover:duration-100 hover:bg-white hover:text-black"
-              >
-                Log Out
-              </a> */}
             </div>
           ) : (
-            <>
+            <div className="flex gap-5">
               <Link
                 href="/api/auth/login"
                 className="rounded border-2 border-white bg-transparent px-6 py-2 text-white hover:bg-white hover:text-black hover:duration-100"
@@ -69,7 +63,7 @@ async function Header() {
               >
                 Sign Up
               </Link>
-            </>
+            </div>
           )}
         </div>
       </div>

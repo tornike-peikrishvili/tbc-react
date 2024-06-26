@@ -4,8 +4,12 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import BlogForm from "./BlogAddForm";
 
-export default function BlogCreateButton() {
+export default function BlogCreateButton({ userId }: { userId: string }) {
   const [openModal, setOpenModal] = useState(false);
+
+  if (!userId) {
+    return null;
+  }
 
   return (
     <div>

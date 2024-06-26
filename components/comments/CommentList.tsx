@@ -17,7 +17,7 @@ export default function CommentList({
   userId: string;
 }) {
   return (
-    <div>
+    <div className="mt-5">
       {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} userId={userId} />
       ))}

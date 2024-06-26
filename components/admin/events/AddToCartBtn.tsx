@@ -2,16 +2,42 @@
 
 import { FaCartPlus } from "react-icons/fa";
 import { addToCartAction } from "@/actions/actions";
+import { toast } from "sonner";
 
 interface AddToCartBtnProps {
   eventId: number;
   isEventStarted: boolean;
+  eventTitle: string;
 }
 
-function AddToCartBtn({ eventId, isEventStarted }: AddToCartBtnProps) {
-  const handleAddToCart = async () => {
-    await addToCartAction(eventId);
+function AddToCartBtn({
+  eventId,
+  isEventStarted,
+  eventTitle,
+}: AddToCartBtnProps) {
+  const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const toastId = toast.loading("Adding to cart...", {
+      description: `Adding ${eventTitle} to your cart`,
+    });
+
+    try {
+      await addToCartAction(eventId);
+      toast.success(`${eventTitle} added to cart`, {
+        id: toastId,
+        description: "The ticket has been added to your cart successfully.",
+      });
+    } catch (error) {
+      toast.error("Failed to add to cart", {
+        id: toastId,
+        description:
+          "There was an error adding the ticket to your cart. Please try again.",
+      });
+    }
   };
+
   return (
     <button
       onClick={handleAddToCart}

@@ -11,7 +11,7 @@ export default function EventCreateButton() {
     <div>
       <button
         onClick={() => setOpenModal(true)}
-        className="bg-indigo-600 hover:bg-indigo-800 hover:duration-200 text-white font-bold py-3 px-4 rounded"
+        className="rounded bg-indigo-600 px-4 py-3 font-bold text-white hover:bg-indigo-800 hover:duration-200"
       >
         Create Event
       </button>

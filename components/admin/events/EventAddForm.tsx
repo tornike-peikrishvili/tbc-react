@@ -108,7 +108,7 @@ export default function EventForm({
         animate={{ y: 0 }}
         exit={{ y: "-100vh" }}
         onSubmit={handleSubmit}
-        className="z-[101] flex flex-col gap-4 rounded-xl bg-white p-8"
+        className="dark:bg-primary z-[101] flex flex-col gap-4 rounded-xl bg-white p-8"
       >
         <input
           type="text"
@@ -134,7 +134,7 @@ export default function EventForm({
             <button
               type="button"
               onClick={handleCategoryAdd}
-              className="ml-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+              className="ml-2 rounded bg-indigo-600 px-4 py-2 font-bold text-white hover:bg-indigo-800"
             >
               +
             </button>
@@ -199,7 +199,7 @@ export default function EventForm({
           </button>
           <button
             type="submit"
-            className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+            className="hover:bg-indigo-80 rounded bg-indigo-600 px-4 py-2 font-bold text-white"
           >
             Create Event
           </button>

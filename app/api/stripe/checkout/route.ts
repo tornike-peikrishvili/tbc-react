@@ -1,6 +1,6 @@
 import { CartItem } from "@/app/[locale]/(dashboard)/(non-tranparent-header)/cart/page";
 import { NextRequest, NextResponse } from "next/server";
-const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_KEY);
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const getActiveProducts = async () => {
   const checkProducts = await stripe.products.list();
@@ -68,7 +68,7 @@ export const POST = async (request: NextRequest) => {
         productName: data.map((item) => item.title).join(", "),
       },
     },
-    success_url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/my-orders`,
+    success_url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/orders`,
     cancel_url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/cart`,
   });
 

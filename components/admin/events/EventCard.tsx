@@ -82,14 +82,14 @@ function EventCard({
 
   return (
     <Link href={`/products/${id}`}>
-      <div className="relative mx-auto flex h-full w-full transform cursor-pointer flex-col justify-between overflow-hidden rounded-xl bg-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
+      <div className="dark:bg-secondary relative mx-auto flex h-full w-full transform cursor-pointer flex-col justify-between overflow-hidden rounded-xl bg-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
         <div className="relative h-48 w-full">
           {imageUrl && (
             <Image
               className="object-cover"
               src={imageUrl}
               alt={title}
-              layout="fill"
+              fill
               objectFit="cover"
             />
           )}
@@ -108,34 +108,40 @@ function EventCard({
           </div>
         </div>
         <div className="flex h-full flex-col justify-between p-6">
-          <h3 className="text-xl font-bold text-gray-900">{title}</h3>
-          <p className="mt-2 h-16 overflow-hidden text-sm text-gray-600">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+            {title}
+          </h3>
+          <p className="mt-2 h-16 overflow-hidden text-sm text-gray-600 dark:text-white">
             {description}
           </p>
-          <div className="mt-4 flex items-center text-sm text-gray-500">
+          <div className="mt-4 flex items-center text-sm text-gray-500 dark:text-white">
             <FaMapMarkerAlt className="mr-2" />
             <span>{location}</span>
           </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
+          <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-white">
             <FaCalendarAlt className="mr-2" />
             <span>{new Date(starting).toLocaleString()}</span>
           </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
+          <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-white">
             <FaDollarSign className="mr-2" />
             <span>GEL: {price}</span>
           </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
+          <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-white">
             <FaUser className="mr-2" />
             <span>Ticket Quantity: {amount}</span>
           </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
+          <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-white">
             <FaUser className="mr-2" />
             <span>Organized by: {organizer}</span>
           </div>
 
           <div className="mt-4 flex items-center justify-between">
             <span className="text-md font-bold text-red-500">{timeLeft}</span>
-            <AddToCartBtn eventId={id} isEventStarted={isEventStarted} />
+            <AddToCartBtn
+              eventId={id}
+              eventTitle={title}
+              isEventStarted={isEventStarted}
+            />
           </div>
         </div>
       </div>

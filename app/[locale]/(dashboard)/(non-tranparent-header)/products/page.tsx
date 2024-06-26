@@ -3,6 +3,7 @@ import EventCard from "@/components/admin/events/EventCard";
 import EventCreateButton from "@/components/admin/events/EventCreateButton";
 import Filter from "@/components/admin/events/Filter";
 import Loading from "@/components/Loading";
+import { getSession } from "@auth0/nextjs-auth0";
 
 async function getFilteredEvents(searchParams: URLSearchParams) {
   const res = await fetch(
@@ -21,18 +22,24 @@ export default async function Events({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const session = await getSession();
+  const user = session?.user;
+  const userRoles = user?.role || [];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 py-12">
+    <div className="dark:bg-primary min-w-screen min-h-screen bg-gray-50 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 rounded-xl bg-white p-6 shadow-lg">
+        <div className="dark:bg-secondary mb-12 rounded-xl bg-white p-6 shadow-lg">
           <Filter />
         </div>
 
         <div className="mb-8 flex items-center justify-between">
-          <h1 className="text-4xl font-extrabold text-black">
+          <h1 className="text-4xl font-extrabold text-black dark:text-white">
             Discover Amazing Events
           </h1>
-          <EventCreateButton />
+          {(userRoles.includes("Admin") || userRoles.includes("Organizer")) && (
+            <EventCreateButton />
+          )}
         </div>
 
         <Suspense fallback={<Loading />}>

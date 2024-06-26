@@ -14,38 +14,40 @@ async function Event({ params: { id } }: { params: { id: string } }) {
   const event = await getEvent(id);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="container mx-auto px-4 sm:px-1 lg:px-8">
-        <div className="mx-auto max-w-6xl overflow-hidden rounded-lg bg-white shadow-md">
+    <div className="dark:bg-primary  min-h-screen bg-gray-50 py-12">
+      <div className="dark:bg-primary container mx-auto px-4 sm:px-1 lg:px-8">
+        <div className="dark:bg-secondary mx-auto max-w-6xl overflow-hidden rounded-lg bg-white shadow-md">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <div className="p-8">
               <ImageSlider images={event.images} />
             </div>
             <div className="p-8">
-              <h2 className="mb-4 text-3xl font-bold text-gray-900">
+              <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
                 {event.title}
               </h2>
               <div className="mb-6 space-y-3">
-                <p className="flex items-center text-gray-600">
-                  <FaCalendarAlt className="mr-2 text-gray-400" />
+                <p className="flex items-center text-gray-600 dark:text-white">
+                  <FaCalendarAlt className="mr-2 text-gray-400 dark:text-white" />
                   <span className="font-medium">Starting:</span>
                   <span className="ml-2">
                     {new Date(event.starting).toLocaleString()}
                   </span>
                 </p>
-                <p className="flex items-center text-gray-600">
-                  <FaMapMarkerAlt className="mr-2 text-gray-400" />
+                <p className="flex items-center text-gray-600 dark:text-white">
+                  <FaMapMarkerAlt className="mr-2 text-gray-400 dark:text-white" />
                   <span className="font-medium">Location:</span>
                   <span className="ml-2">{event.location}</span>
                 </p>
-                <p className="flex items-center text-gray-600">
-                  <FaUserAlt className="mr-2 text-gray-400" />
+                <p className="flex items-center text-gray-600 dark:text-white">
+                  <FaUserAlt className="mr-2 text-gray-400 dark:text-white" />
                   <span className="font-medium">Organizer:</span>
                   <span className="ml-2">{event.organizer}</span>
                 </p>
               </div>
-              <p className="mb-6 text-gray-700">{event.description}</p>
-              <div className="mb-6 rounded-lg bg-gray-50 p-4">
+              <p className="mb-6 text-gray-700 dark:text-white">
+                {event.description}
+              </p>
+              <div className="mb-6 rounded-lg bg-gray-50  p-4">
                 <p className="mb-2 text-2xl font-bold text-gray-900">
                   Price: ${event.price}
                 </p>
@@ -68,7 +70,7 @@ async function Event({ params: { id } }: { params: { id: string } }) {
                   Buy Now
                 </button>
                 <Link href="/" className="block">
-                  <button className="w-full rounded-full border border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-all duration-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2">
+                  <button className="w-full rounded-full border border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-all duration-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 dark:text-white">
                     Back to Events
                   </button>
                 </Link>

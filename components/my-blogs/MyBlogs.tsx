@@ -9,6 +9,8 @@ export interface BlogProps {
   content: string;
   description: string;
   author: string;
+  category: string;
+  tag: string;
   authorId: string;
   published_at: string;
   image: { url: string } | string[];
@@ -23,7 +25,7 @@ export default async function MyBlogs() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-4 text-2xl font-bold">Your Blogs</h1>
+      <h1 className="mb-4 text-2xl font-bold dark:text-white">Your Blogs</h1>
       <ul className="space-y-4">
         {blogs.map((blog: BlogProps) => {
           let imageUrl: string;
@@ -40,7 +42,7 @@ export default async function MyBlogs() {
           return (
             <li
               key={blog.id}
-              className="flex flex-col rounded-lg bg-gray-100 p-4 shadow-md lg:flex-row"
+              className="dark:bg-secondary flex flex-col rounded-lg bg-gray-100 p-4 shadow-md lg:flex-row"
             >
               <div className="mr-4 flex-shrink-0">
                 <Image
@@ -48,17 +50,21 @@ export default async function MyBlogs() {
                   alt={blog.title}
                   width={250}
                   height={250}
-                  className="rounded-md"
+                  className="h-[14rem] rounded-md object-cover"
                 />
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-semibold">{blog.title}</h2>
-                <p className="mt-2">{blog.description}</p>
-                <p className="mt-2">
+                <h2 className="text-xl font-semibold dark:text-white">
+                  {blog.title}
+                </h2>
+                <p className="mt-2 dark:text-white">{blog.description}</p>
+                <p className="mt-2 dark:text-white">
                   Uploaded: {new Date(blog.published_at).toLocaleString()}
                 </p>
-                <p className="mt-2">Content: {blog.content}</p>
-                <p className="mt-2">AuthorId: {blog.authorId}</p>
+                <p className="mt-2 dark:text-white">Content: {blog.content}</p>
+                <p className="mt-2 dark:text-white">
+                  AuthorId: {blog.authorId}
+                </p>
                 <div className="mt-4 flex space-x-2">
                   <DeleteBlogBtn blogId={blog.id} />
                   <BlogEditButton blogData={blog as BlogProps} />
