@@ -40,7 +40,6 @@ export async function assignRoleToUser(formData: FormData) {
       throw new Error(`Failed to assign role: ${errorDetails.message}`);
     }
 
-    // Update the session with the new role
     if (session) {
       await updateSession({
         ...session,

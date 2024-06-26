@@ -28,7 +28,7 @@ export default function ScrollHeader({ children }: ScrollHeaderProps) {
   return (
     <header
       id="main-header"
-      className="fixed w-full p-5 transition-all duration-200 bg-transparent z-50"
+      className="fixed z-50 w-full bg-transparent p-5 transition-all duration-200"
     >
       {children}
     </header>

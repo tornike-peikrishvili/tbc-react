@@ -1,13 +1,14 @@
 export default {
+  languages: {
+    en: "ინგლისური",
+    ka: "Georgian",
+  },
+
   navBar: {
     home: "მთავარი",
     contact: "კონტაქტი",
-    about: "ჩვენს შესახებ",
     blog: "ბლოგი",
-    profile: "პროფილი",
-    logOut: "გასვლა",
-    products: "პროდუქტები",
-    users: "მომხმარებლები",
+    events: "ივენთები",
   },
 
   products: {

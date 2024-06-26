@@ -41,7 +41,7 @@ function Carousel({ events }: { events: EventProps[] }) {
   }, [emblaApi]);
 
   return (
-    <div className="embla max-w-[21rem] bg-white py-10 md:max-w-[45rem] lg:max-w-[80rem]">
+    <div className="embla dark:bg-primary max-w-[21rem] bg-white py-10 md:max-w-[45rem] lg:max-w-[80rem]">
       <div className="flex w-full justify-between px-3 lg:px-5">
         <div className="flex rounded-lg border-2 bg-gray-200 font-bold text-black">
           <h1 className="px-2 py-1 text-sm lg:font-[34px] ">Upcoming Events</h1>
@@ -62,7 +62,7 @@ function Carousel({ events }: { events: EventProps[] }) {
           </span>
           <Link
             href={"/products"}
-            className="cursor-pointer border-b-2  border-black font-bold "
+            className="cursor-pointer border-b-2 border-black font-bold dark:border-white dark:text-white "
           >
             See More...
           </Link>
@@ -75,7 +75,7 @@ function Carousel({ events }: { events: EventProps[] }) {
         <div className="embla__container ">
           {events.map((event) => (
             <div className="embla__slide " key={event.id}>
-              <div className="h-[20rem] overflow-hidden rounded-lg bg-white shadow-lg">
+              <div className="dark:bg-secondary h-[20rem] overflow-hidden rounded-lg bg-white shadow-lg">
                 <div className="w-full">
                   {event.images &&
                   event.images.length > 0 &&
@@ -105,32 +105,32 @@ function Carousel({ events }: { events: EventProps[] }) {
                   )}
                 </div>
                 <div className="m-auto flex h-[12rem] flex-col justify-between py-2">
-                  <h3 className="cursor-pointer px-3 text-xl font-semibold text-gray-800 hover:font-bold hover:text-black hover:duration-200">
+                  <h3 className="cursor-pointer px-3 text-xl font-semibold text-gray-800 hover:font-bold hover:text-black hover:duration-200 dark:text-white">
                     {event.title}
                   </h3>
-                  <p className="mt-2 h-10 overflow-clip px-3 text-sm text-gray-600">
+                  <p className="mt-2 h-10 overflow-clip px-3 text-sm text-gray-600 dark:text-white">
                     {event.description}
                   </p>
                   <div>
                     <div className="grid w-full grid-cols-3 items-center text-center font-bold">
-                      <p className="col-span-1 mt-2 text-sm text-gray-600">
+                      <p className="col-span-1 mt-2 text-sm text-gray-600 dark:text-white">
                         Location:
                       </p>
-                      <p className="col-span-1 mt-2 text-sm text-gray-600">
+                      <p className="col-span-1 mt-2 text-sm text-gray-600 dark:text-white">
                         Price:
                       </p>
-                      <p className="col-span-1 mt-2 text-xs text-gray-500">
+                      <p className="col-span-1 mt-2 text-xs text-gray-500 dark:text-white">
                         Date:
                       </p>
                     </div>
                     <div className="grid w-full grid-cols-3 items-center text-center">
-                      <p className="col-span-1 text-xs text-gray-600">
+                      <p className="col-span-1 text-xs text-gray-600 dark:text-white">
                         {event.location}
                       </p>
-                      <p className="col-span-1 text-sm text-gray-600">
+                      <p className="col-span-1 text-sm text-gray-600 dark:text-white">
                         ${event.price}
                       </p>
-                      <p className="col-span-1 text-xs text-gray-500">
+                      <p className="col-span-1 text-xs text-gray-500 dark:text-white">
                         {new Date(event.starting).toLocaleDateString()}
                       </p>
                     </div>

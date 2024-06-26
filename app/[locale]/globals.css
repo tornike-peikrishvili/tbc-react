@@ -13,6 +13,15 @@
     @apply rounded-lg border-2 px-4 py-1 font-medium text-white duration-200 hover:border-gray-300 hover:text-gray-300;
   }
 
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   .embla {
     margin: auto;
     --slide-height: 10rem;

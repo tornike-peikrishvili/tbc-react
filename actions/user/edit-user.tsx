@@ -9,6 +9,10 @@ export async function updateUser(userId: string, formData: FormData) {
 
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
+  const age = formData.get("age") as string;
+  const firstname = formData.get("firstname") as string;
+  const lastname = formData.get("lastname") as string;
+  const address = formData.get("address") as string;
 
   try {
     const response = await fetch(
@@ -35,7 +39,7 @@ export async function updateUser(userId: string, formData: FormData) {
     const updatedUser = await response.json();
     console.log("Updated User:", updatedUser);
 
-    await sql`UPDATE users SET name = ${name}, email = ${email} WHERE user_id = ${userId}`;
+    await sql`UPDATE users SET name = ${name}, age = ${Number(age)}, firstname = ${firstname}, lastname = ${lastname}, address = ${address}, email = ${email} WHERE user_id = ${userId}`;
 
     return { message: "User has been updated", status: 200 };
   } catch (error) {

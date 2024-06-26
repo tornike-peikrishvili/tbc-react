@@ -43,7 +43,7 @@ function FullscreenCarousel({ events }: { events: EventProps[] }) {
   return (
     <>
       {" "}
-      <div className="embla m-auto w-[90vw] bg-white py-5">
+      <div className="embla dark:bg-primary m-auto w-[90vw] bg-white py-5">
         <div className="flex w-full justify-between px-5 py-4">
           <div className="hidden rounded-lg border-2 bg-gray-200 font-bold text-black lg:flex">
             <h1 className="px-2 py-1 text-sm lg:text-2xl">Upcoming Events</h1>
@@ -63,14 +63,14 @@ function FullscreenCarousel({ events }: { events: EventProps[] }) {
             </button>
             <Link
               href={"/products"}
-              className="cursor-pointer  border-b-2 border-black font-bold"
+              className="cursor-pointer border-b-2 border-black font-bold dark:border-white dark:text-white"
             >
               See More...
             </Link>
           </div>
         </div>
         <div className="embla__viewport overflow-hidden" ref={emblaRef}>
-          <div className="embla__container flex ">
+          <div className="embla__container flex">
             {events.map((event) => (
               <div
                 className="embla__slide flex h-full w-full flex-none flex-col lg:flex-row "
@@ -101,25 +101,25 @@ function FullscreenCarousel({ events }: { events: EventProps[] }) {
                   )}
                 </div>
                 <div className="flex w-full flex-col justify-center p-8 lg:h-full lg:w-1/2">
-                  <h3 className="mb-4 text-3xl font-semibold text-gray-800">
+                  <h3 className="mb-4 text-3xl font-semibold text-gray-800 dark:text-white">
                     {event.title}
                   </h3>
-                  <p className="mb-6 text-lg text-gray-600">
+                  <p className="mb-6 text-lg text-gray-600 dark:text-white">
                     {event.description}
                   </p>
                   <div className="grid grid-cols-2 gap-3 text-base">
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 dark:text-white">
                       <span className="font-bold">Location:</span>{" "}
                       {event.location}
                     </p>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 dark:text-white">
                       <span className="font-bold">Price:</span> ${event.price}
                     </p>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 dark:text-white">
                       <span className="font-bold">Date:</span>{" "}
                       {new Date(event.starting).toLocaleDateString()}
                     </p>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 dark:text-white">
                       <span className="font-bold">Organizer:</span>{" "}
                       {event.organizer}
                     </p>

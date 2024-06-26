@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { CommentProp } from "./CommentList";
 import Image from "next/image";
 
@@ -13,11 +13,7 @@ export default function Comment({
   const [dislikes, setDislikes] = useState(0);
   const [userReaction, setUserReaction] = useState(null);
 
-  useEffect(() => {
-    fetchReactionCounts();
-  }, [comment.id]);
-
-  const fetchReactionCounts = async () => {
+  const fetchReactionCounts = useCallback(async () => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/comments/reaction?commentId=${comment.id}`,
@@ -29,7 +25,11 @@ export default function Comment({
     } catch (error) {
       console.error("Error fetching reaction counts:", error);
     }
-  };
+  }, [comment.id]);
+
+  useEffect(() => {
+    fetchReactionCounts();
+  }, [fetchReactionCounts]);
 
   const handleReaction = async (type: string) => {
     try {
@@ -67,16 +67,18 @@ export default function Comment({
             className="rounded-full"
           />
         </div>
-        <span className="mr-2 font-bold">{comment.user_name}</span>
+        <span className="mr-2 font-bold dark:text-white">
+          {comment.user_name}
+        </span>
         <span className="text-sm text-gray-500">
           {new Date(comment.created_at).toLocaleString()}
         </span>
       </div>
-      <p className="mb-2 text-gray-700">{comment.content}</p>
+      <p className="mb-2 text-gray-700 dark:text-white">{comment.content}</p>
       <div className="flex space-x-4">
         <button
           onClick={() => handleReaction("like")}
-          className={`flex items-center space-x-1 rounded px-2 py-1 ${
+          className={`flex items-center space-x-1 rounded-full px-2 py-1 ${
             userReaction === "like"
               ? "bg-blue-100 text-blue-600"
               : "bg-gray-100 text-gray-600"
@@ -87,7 +89,7 @@ export default function Comment({
         </button>
         <button
           onClick={() => handleReaction("dislike")}
-          className={`flex items-center space-x-1 rounded px-2 py-1 ${
+          className={`flex items-center space-x-1 rounded-full px-2 py-1 ${
             userReaction === "dislike"
               ? "bg-red-100 text-red-600"
               : "bg-gray-100 text-gray-600"

@@ -12,9 +12,9 @@ export default function NonTrasnparentLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex h-screen flex-col">
       <Header />
-      <main className=" dark:bg-[#1B2430] pt-[90px] scroll-smooth">
+      <main className="dark:bg-primary scroll-smooth pt-[90px]">
         {children}
       </main>
       <Footer />

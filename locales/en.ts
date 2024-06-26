@@ -1,13 +1,13 @@
 export default {
+  languages: {
+    en: "English",
+    ka: "ქართული",
+  },
   navBar: {
     home: "Home",
     contact: "Contact",
-    about: "About",
     blog: "Blog",
-    profile: "Profile",
-    logOut: "Log Out",
-    products: "Products",
-    users: "Users",
+    events: "Events",
   },
 
   products: {

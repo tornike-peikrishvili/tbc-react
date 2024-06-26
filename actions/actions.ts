@@ -127,22 +127,26 @@ export async function saveUserDetails(formData: FormData) {
   const session = await getSession();
   const userId = session?.user?.sub;
 
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const image = formData.get("image") as string;
+  const name = formData.get("username") as string;
+  const firstname = formData.get("firstname") as string;
+  const lastname = formData.get("lastname") as string;
+  const age = formData.get("age") as string;
   const role = formData.get("role") as string;
+  const address = formData.get("address") as string;
 
   if (!userId) {
     throw new Error("User is not authenticated");
   }
 
   await sql`
-    INSERT INTO users (user_id, name, email, image, role, profile_complete)
-    VALUES (${userId}, ${name}, ${email}, ${image}, ${role}, true)
+    INSERT INTO users (user_id, name, lastname, firstname , role, address, age, profile_complete)
+    VALUES (${userId}, ${name}, ${lastname}, ${firstname}, ${role}, ${address}, ${Number(age)}, true)
     ON CONFLICT (user_id) DO UPDATE SET
       name = EXCLUDED.name,
-      email = EXCLUDED.email,
-      image = EXCLUDED.image,
+      firstname = EXCLUDED.firstname,
+      lastname = EXCLUDED.lastname,
+      age = EXCLUDED.age,
+      address = EXCLUDED.address,
       role = EXCLUDED.role,
       profile_complete = EXCLUDED.profile_complete
   `;

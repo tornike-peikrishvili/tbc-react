@@ -111,7 +111,7 @@ export default function EventEditForm({
         animate={{ y: 0 }}
         exit={{ y: "-100vh" }}
         onSubmit={handleSubmit}
-        className="z-[101] flex flex-col gap-4 rounded-xl bg-white p-8"
+        className="dark:bg-primary z-[101] flex flex-col gap-4 rounded-xl bg-white p-8"
       >
         <input
           type="text"
@@ -139,7 +139,7 @@ export default function EventEditForm({
             <button
               type="button"
               onClick={handleCategoryAdd}
-              className="ml-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+              className="ml-2 rounded bg-indigo-600 px-4 py-2 font-bold text-white hover:bg-indigo-800"
             >
               +
             </button>
@@ -217,7 +217,7 @@ export default function EventEditForm({
           accept="image/*"
           onChange={handleNewImageChange}
           multiple
-          className="rounded-md border border-gray-300 p-2"
+          className="rounded-md border border-gray-300 p-2 dark:text-white"
         />
         <div className="flex justify-between">
           <button
@@ -229,7 +229,7 @@ export default function EventEditForm({
           </button>
           <button
             type="submit"
-            className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+            className="rounded bg-indigo-600 px-4 py-2 font-bold text-white hover:bg-indigo-800"
           >
             Update Event
           </button>

@@ -3,9 +3,12 @@ import BlogEditButton from "@/components/blogs/BlogEditButton";
 import { BlogProps } from "@/components/my-blogs/MyBlogs";
 import BlogtCreateButton from "@/components/blogs/BlogAddBtn";
 import { getApprovedBlogs } from "@/actions/blogs/get-approved-blogs";
+import { getSession } from "@auth0/nextjs-auth0";
 
 export default async function BlogList() {
   const { blogs } = await getApprovedBlogs();
+  const session = await getSession();
+  const userId = session?.user.sub;
 
   return (
     <div className="container mx-auto flex flex-col px-4 py-5">
@@ -14,7 +17,7 @@ export default async function BlogList() {
           Approved blogs
         </p>
         <div className="absolute right-0">
-          <BlogtCreateButton />
+          <BlogtCreateButton userId={userId} />
         </div>
       </div>
       <div className="mt-8">

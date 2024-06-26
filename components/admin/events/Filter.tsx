@@ -23,7 +23,6 @@ function Filter() {
   const [filtersApplied, setFiltersApplied] = useState(false);
 
   useEffect(() => {
-    // Fetch categories
     fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/events/filter-categories`)
       .then((response) => {
         if (!response.ok) {
@@ -45,7 +44,6 @@ function Filter() {
         setCategories(["All Categories"]);
       });
 
-    // Initialize filters from URL params
     setFilters({
       search: searchParams.get("search") || "",
       category: searchParams.get("category") || "All Categories",
@@ -102,13 +100,15 @@ function Filter() {
   };
 
   return (
-    <div className="mx-auto max-w-full rounded-lg bg-white px-6 pt-6 shadow-lg transition-shadow hover:shadow-xl">
-      <h1 className="text-3xl font-extrabold text-gray-900">Filters</h1>
-      <div className="grid grid-cols-1 items-center gap-6 p-1 md:grid-cols-2 lg:grid-cols-4">
+    <div className="dark:bg-secondary dark:hover:shadow-3xl dark:shadow-3xl mx-auto  max-w-full rounded-lg bg-white px-6 pt-6 shadow-lg transition-shadow hover:shadow-xl">
+      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">
+        Filters
+      </h1>
+      <div className="dark:bg-secondary grid grid-cols-1 items-center gap-6 p-1 md:grid-cols-2 lg:grid-cols-3">
         <div>
           <label
             htmlFor="search"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-700 dark:text-white"
           >
             Search
           </label>
@@ -118,14 +118,14 @@ function Filter() {
             id="search"
             value={filters.search}
             onChange={handleFilterChange}
-            className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 "
             placeholder="Search events..."
           />
         </div>
         <div>
           <label
             htmlFor="category"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-700 dark:text-white"
           >
             Category
           </label>
@@ -143,31 +143,11 @@ function Filter() {
             ))}
           </select>
         </div>
-        <div>
-          <label
-            htmlFor="location"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Location
-          </label>
-          <select
-            id="location"
-            name="location"
-            value={filters.location}
-            onChange={handleFilterChange}
-            className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
-          >
-            <option>All Locations</option>
-            <option>Tbilisi</option>
-            <option>Batumi</option>
-            <option>Rustavi</option>
-            <option>Kutaisi</option>
-          </select>
-        </div>
+
         <div>
           <label
             htmlFor="price-range"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-700 dark:text-white"
           >
             Price Range
           </label>
@@ -181,7 +161,7 @@ function Filter() {
               className="mr-2 block w-1/2 rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
               placeholder="Min"
             />
-            <span className="text-gray-700">to</span>
+            <span className="text-gray-700 dark:text-white">to</span>
             <input
               type="number"
               id="maxPrice"
@@ -200,13 +180,34 @@ function Filter() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.1 }}
             className="mt-6 grid grid-cols-1 gap-6 p-1 md:grid-cols-2 lg:grid-cols-4"
           >
             <div>
               <label
+                htmlFor="location"
+                className="block text-sm font-medium text-gray-700 dark:text-white"
+              >
+                Location
+              </label>
+              <select
+                id="location"
+                name="location"
+                value={filters.location}
+                onChange={handleFilterChange}
+                className="mt-1 block w-full rounded-lg border border-gray-300 p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              >
+                <option>All Locations</option>
+                <option>Tbilisi</option>
+                <option>Batumi</option>
+                <option>Rustavi</option>
+                <option>Kutaisi</option>
+              </select>
+            </div>
+            <div>
+              <label
                 htmlFor="date"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 dark:text-white"
               >
                 Date
               </label>
@@ -219,54 +220,12 @@ function Filter() {
                 className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
               />
             </div>
-            <div>
-              <label
-                htmlFor="rating"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Rating
-              </label>
-              <select
-                id="rating"
-                name="rating"
-                value={filters.rating}
-                onChange={handleFilterChange}
-                className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
-              >
-                <option>All Ratings</option>
-                <option>1 Star</option>
-                <option>2 Stars</option>
-                <option>3 Stars</option>
-                <option>4 Stars</option>
-                <option>5 Stars</option>
-              </select>
-            </div>
-            <div>
-              <label
-                htmlFor="eventType"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Event Type
-              </label>
-              <select
-                id="eventType"
-                name="eventType"
-                value={filters.eventType}
-                onChange={handleFilterChange}
-                className="mt-1 block w-full rounded-lg border border-gray-300 p-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
-              >
-                <option>All Types</option>
-                <option>In-person</option>
-                <option>Online</option>
-                <option>Hybrid</option>
-              </select>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
       <button
         onClick={toggleExpand}
-        className="m-auto flex w-full items-center py-5 text-center text-4xl text-black"
+        className="m-auto flex w-full items-center py-5 text-center text-4xl text-black dark:text-white"
       >
         {isExpanded ? (
           <RiArrowUpWideLine className="m-auto" />

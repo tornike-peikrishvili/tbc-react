@@ -7,17 +7,17 @@ function Hero() {
     <div className="relative h-screen">
       <Image
         src={heroImage}
-        layout="fill"
+        fill
         objectFit="cover"
         alt="Hero Image"
         className="opacity-50"
       />
-      <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-4">
-        <div className="mt-auto flex gap-8 flex-col">
-          <h1 className="text-4xl md:text-6xl font-bold">
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 p-4 text-center">
+        <div className="mt-auto flex flex-col gap-8">
+          <h1 className="text-4xl font-bold md:text-6xl">
             Your Guide to What&apos;s Happening!
           </h1>
-          <p className="w-[60%] mx-auto text-[#c7c6c3] font-bold mt-4 text-lg md:text-2xl">
+          <p className="mx-auto mt-4 w-[60%] text-lg font-bold text-[#c7c6c3] md:text-2xl">
             Explore a wide range of exciting events happening in your area. Find
             the perfect event to attend and create lasting memories.
           </p>
@@ -26,11 +26,11 @@ function Hero() {
           src={ScrollGif}
           alt="Hero Image"
           width={50}
-          className="mt-auto mb-[20%] md:mb-[5%] lg:mb-[2%]"
+          className="mb-[20%] mt-auto md:mb-[5%] lg:mb-[2%]"
         />
       </div>
-      <div className="border-solid w-0 h-0  border-t-[90px] lg:border-l-[1000px] border-t-transparent border-l-white absolute bottom-0 left-0 sm:border-l-[100px]"></div>
-      <div className="border-solid w-0 h-0  border-t-[90px] lg:border-r-[1000px] border-t-transparent border-r-white absolute bottom-0 right-0 sm:border-r-[100px]"></div>
+      <div className="absolute bottom-0 left-0 h-0 w-0 border-t-[90px] border-solid border-l-white border-t-transparent sm:border-l-[100px] lg:border-l-[1000px] dark:border-l-[#1A1A2E]"></div>
+      <div className="absolute bottom-0 right-0  h-0 w-0 border-t-[90px] border-solid border-r-white border-t-transparent sm:border-r-[100px] lg:border-r-[1000px] dark:border-r-[#1A1A2E]"></div>
     </div>
   );
 }

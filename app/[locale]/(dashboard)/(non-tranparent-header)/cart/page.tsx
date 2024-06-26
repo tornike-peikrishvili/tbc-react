@@ -54,7 +54,7 @@ async function Cart() {
                     <Image
                       src="https://via.placeholder.com/250x250"
                       alt="Product Image"
-                      layout="fill"
+                      fill
                       objectFit="cover"
                     />
                   </div>

@@ -10,7 +10,7 @@ export default function CompletionLayout({
 }) {
   return (
     <div className="flex h-screen flex-col justify-center">
-      <main className="dark:bg-[#1B2430]">{children}</main>
+      <main className="dark:bg-primary">{children}</main>
     </div>
   );
 }

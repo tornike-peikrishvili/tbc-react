@@ -107,6 +107,7 @@ export async function getMyEvents() {
     {
       method: "GET",
       headers: { Authorization: userId },
+      cache: "no-store",
     },
   );
   const { events } = await response.json();
@@ -137,7 +138,7 @@ export async function addToCart(eventId: number) {
 export async function getCartItems(userId: string) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/get`,
-    { method: "POST", body: JSON.stringify({ userId }) },
+    { method: "POST", cache: "no-store", body: JSON.stringify({ userId }) },
   );
   const cartItems = await response.json();
   return cartItems.rows;
@@ -334,6 +335,7 @@ export async function getAllBlogs() {
       `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/blog/get-all-blogs`,
       {
         method: "GET",
+        cache: "no-store",
       },
     );
     if (!response.ok) {
@@ -357,6 +359,7 @@ export async function getMyBlogs() {
     `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/blog/my-blog`,
     {
       method: "GET",
+      cache: "no-store",
       headers: { Authorization: userId },
     },
   );
@@ -371,6 +374,9 @@ export async function getBlog(id: string) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/blog/get-blog/${id}`,
+      {
+        cache: "no-store",
+      },
     );
 
     if (!response.ok) {

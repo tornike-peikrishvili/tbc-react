@@ -9,6 +9,8 @@ export async function POST(request: NextRequest) {
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
     const description = formData.get("description") as string;
+    const categories = formData.get("categories") as string;
+    const tags = formData.get("tags") as string;
     const authorId = formData.get("userId") as string;
 
     let imageUrl = null;
@@ -20,8 +22,8 @@ export async function POST(request: NextRequest) {
       imageUrl = blob.url;
     }
     await sql`
-      INSERT INTO blogs (title, content, author_id, description, image)
-      VALUES (${title}, ${content}, ${authorId}, ${description}, ${imageUrl ? JSON.stringify({ url: imageUrl }) : null})
+      INSERT INTO blogs (title, content, author_id, description, image, category, tag)
+      VALUES (${title}, ${content}, ${authorId}, ${description}, ${imageUrl ? JSON.stringify({ url: imageUrl }) : null}, ${categories}, ${tags})
     `;
 
     return NextResponse.json(
