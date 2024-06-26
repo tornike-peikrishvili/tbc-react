@@ -20,11 +20,11 @@ async function Header() {
         <MobileNavMenu textColor="white" bgColor="black" theme={theme} />
 
         <nav className="space-x-8 pl-16 sm:hidden lg:flex">
+          <Link href="/" className="nav-link">
+            HOME
+          </Link>
           <Link href="/products" className="nav-link">
             EVENTS
-          </Link>
-          <Link href="/" className="nav-link">
-            ABOUT
           </Link>
           <Link href="/blog" className="nav-link">
             BLOG
