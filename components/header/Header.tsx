@@ -17,7 +17,7 @@ async function Header() {
   return (
     <header className="dark:bg-secondary fixed z-50 w-full border-b-[1px] border-black bg-white p-5 transition-all duration-200">
       <div className="flex items-center justify-between py-2">
-        <MobileNavMenu textColor="black" bgColor="white" />
+        <MobileNavMenu textColor="black" bgColor="white" theme={theme} />
         <nav className="space-x-8 pl-16 sm:hidden lg:flex">
           <Link
             href="/products"
@@ -60,8 +60,10 @@ async function Header() {
         <div className="space-x-5 md:pr-16 lg:pr-16">
           {user ? (
             <div className="flex gap-5">
-              <LanguageSwitcher></LanguageSwitcher>
-              <ThemeSwitcher curTheme={theme}></ThemeSwitcher>
+              <div className="hidden gap-5 md:flex lg:flex ">
+                <LanguageSwitcher></LanguageSwitcher>
+                <ThemeSwitcher curTheme={theme}></ThemeSwitcher>
+              </div>
               <TicketIcon></TicketIcon>
               <DropdownMenu></DropdownMenu>
             </div>

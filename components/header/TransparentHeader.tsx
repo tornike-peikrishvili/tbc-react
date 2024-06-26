@@ -17,7 +17,7 @@ async function Header() {
   return (
     <ScrollHeader>
       <div className="flex items-center justify-between py-2">
-        <MobileNavMenu textColor="white" bgColor="black" />
+        <MobileNavMenu textColor="white" bgColor="black" theme={theme} />
 
         <nav className="space-x-8 pl-16 sm:hidden lg:flex">
           <Link href="/products" className="nav-link">

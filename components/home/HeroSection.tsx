@@ -1,8 +1,10 @@
 import Image from "next/image";
 import heroImage from "@/public/hero.jpg";
 import ScrollGif from "@/public/ScrollDown.gif";
+import { getScopedI18n } from "@/locales/server";
 
-function Hero() {
+async function Hero() {
+  const t = await getScopedI18n("hero");
   return (
     <div className="relative h-screen">
       <Image
@@ -15,11 +17,10 @@ function Hero() {
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 p-4 text-center">
         <div className="mt-auto flex flex-col gap-8">
           <h1 className="text-4xl font-bold md:text-6xl">
-            Your Guide to What&apos;s Happening!
+            {t('title')}
           </h1>
           <p className="mx-auto mt-4 w-[60%] text-lg font-bold text-[#c7c6c3] md:text-2xl">
-            Explore a wide range of exciting events happening in your area. Find
-            the perfect event to attend and create lasting memories.
+          {t('subTitle')}
           </p>
         </div>
         <Image
